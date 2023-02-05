@@ -1,15 +1,20 @@
 package com.bugtracker.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column; 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -38,7 +43,13 @@ public class Company {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated_date")
 	private Date updateDate;
+	
+	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<User> user = new ArrayList<>();
 
+	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Project> project = new ArrayList<>();
+	
 	public Company() {}
 	
 	public Company(Integer companyId, String companyName, String companyDescription, Date createdDate,
@@ -90,4 +101,13 @@ public class Company {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
+	
+	public List<User> getUser() {
+		return user;
+	}
+
+	public void setUser(List<User> user) {
+		this.user = user;
+	}
+
 }

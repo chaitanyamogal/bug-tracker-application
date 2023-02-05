@@ -10,6 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
@@ -36,5 +38,13 @@ public class User {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated_date")
 	private Date updateDate;
+	
+	@ManyToOne
+	@JoinColumn(name = "project_id")
+	private Project project;
+	
+	@ManyToOne
+	@JoinColumn(name = "company_id")
+	private Company company;
 
 }
