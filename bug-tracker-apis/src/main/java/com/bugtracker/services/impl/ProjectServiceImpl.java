@@ -41,27 +41,33 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public ProjectDto updateProjecty(ProjectDto projectDto, Integer projectId) {
-		// TODO Auto-generated method stub
-		return null;
+	public ProjectDto updateProject(ProjectDto projectDto, Integer projectId) {
+		Project foundProject = this.projectRepo.findById(projectId).orElseThrow(() -> new ResourceNotFoundException("Project", "Project id", projectId));
+		Project project = this.modalMapper.map(projectDto, Project.class);
+		
+		foundProject.setName(project.getName());
+		foundProject.setDescription(project.getDescription());
+		Project updatedProject = this.projectRepo.save(foundProject);
+		return this.modalMapper.map(updatedProject, ProjectDto.class);
 	}
 
 	@Override
 	public void deleteProject(Integer projectId) {
-		// TODO Auto-generated method stub
-
+		this.projectRepo.deleteById(projectId);
 	}
 
 	@Override
 	public List<ProjectDto> getAllProjects() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Project> allProjects = this.projectRepo.findAll();
+		List<ProjectDto> allProjectsDto = allProjects.stream().map((project) -> this.modalMapper.map(project, ProjectDto.class)).collect(Collectors.toList());
+		return allProjectsDto;
 	}
 
 	@Override
-	public ProjectDto getProjectById(Integer projetId) {
-		// TODO Auto-generated method stub
-		return null;
+	public ProjectDto getProjectById(Integer projectId) {
+		Project project = this.projectRepo.findById(projectId).orElseThrow(() -> new ResourceNotFoundException("Project", "Project id", projectId));;
+		ProjectDto projectDto = this.modalMapper.map(project, ProjectDto.class);
+		return projectDto;
 	}
 
 	@Override
