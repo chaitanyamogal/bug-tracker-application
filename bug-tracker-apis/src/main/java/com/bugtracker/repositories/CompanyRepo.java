@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.bugtracker.entities.Company;
 
-public interface CompanyRepo extends JpaRepository<Company, Integer>{
+public interface CompanyRepo extends JpaRepository<Company, Integer> {
 
 }

@@ -2,7 +2,6 @@ package com.bugtracker.services;
 
 import java.util.List;
 
-import com.bugtracker.entities.Project;
 import com.bugtracker.payloads.ProjectDto;
 
 public interface ProjectService {

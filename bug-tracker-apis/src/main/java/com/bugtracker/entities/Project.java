@@ -50,6 +50,20 @@ public class Project {
 	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<User> user = new ArrayList<>();
 
+	public Project() {}
+	
+	public Project(int projectId, String name, String description, Date createdDate, Date updateDate, Company company,
+			List<User> user) {
+		super();
+		this.projectId = projectId;
+		this.name = name;
+		this.description = description;
+		this.createdDate = createdDate;
+		this.updateDate = updateDate;
+		this.company = company;
+		this.user = user;
+	}
+
 	public int getProjectId() {
 		return projectId;
 	}

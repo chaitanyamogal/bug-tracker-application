@@ -16,7 +16,7 @@ import com.bugtracker.exceptions.*;
 public class CompanyServiceImpl implements CompanyService {
 
 	@Autowired
-	private CompanyRepo companyRepo;
+	CompanyRepo companyRepo;
 
 	@Override
 	public CompanyDto createCompany(CompanyDto companyDto) {
@@ -28,11 +28,12 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public CompanyDto updateCompany(CompanyDto companyDto, Integer companyId) {
 		// Company company = this.dtoToCompany(companyDto);
-		Company company = this.companyRepo.findById(companyId).orElseThrow(() -> new ResourceNotFoundException("Company", " id ", companyId));
-		
+		Company company = this.companyRepo.findById(companyId)
+				.orElseThrow(() -> new ResourceNotFoundException("Company", " id ", companyId));
+
 		company.setCompanyName(companyDto.getCompanyName());
 		company.setCompanyDescription(companyDto.getCompanyDescription());
-		
+
 		Company updatedCompany = this.companyRepo.save(company);
 		CompanyDto updatedCompanyDto = this.companyToDto(updatedCompany);
 		return updatedCompanyDto;
@@ -40,25 +41,28 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public CompanyDto getCompanyById(Integer companyId) {
-		Company company = this.companyRepo.findById(companyId).orElseThrow(() -> new ResourceNotFoundException("Company", " id ", companyId));
-		
+		Company company = this.companyRepo.findById(companyId)
+				.orElseThrow(() -> new ResourceNotFoundException("Company", " id ", companyId));
+
 		return this.companyToDto(company);
 	}
 
 	@Override
 	public List<CompanyDto> getAllCompanies() {
 		List<Company> companies = this.companyRepo.findAll();
-		List<CompanyDto> companiesDto = companies.stream().map(company->this.companyToDto(company)).collect(Collectors.toList());
+		List<CompanyDto> companiesDto = companies.stream().map(company -> this.companyToDto(company))
+				.collect(Collectors.toList());
 		return companiesDto;
 	}
 
 	@Override
 	public void deleteCompany(Integer companyId) {
-		Company company = this.companyRepo.findById(companyId).orElseThrow(() -> new ResourceNotFoundException("Company", " id ", companyId));
+		Company company = this.companyRepo.findById(companyId)
+				.orElseThrow(() -> new ResourceNotFoundException("Company", " id ", companyId));
 		this.companyRepo.delete(company);
 	}
 
-	private Company dtoToCompany(CompanyDto companyDto) {
+	public Company dtoToCompany(CompanyDto companyDto) {
 		Company company = new Company();
 		company.setCompanyId(companyDto.getCompanyId());
 		company.setCompanyName(companyDto.getCompanyName());

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.bugtracker.entities.Company;
 import com.bugtracker.entities.Project;
 import com.bugtracker.exceptions.ResourceNotFoundException;
-import com.bugtracker.payloads.CompanyDto;
 import com.bugtracker.payloads.ProjectDto;
 import com.bugtracker.repositories.CompanyRepo;
 import com.bugtracker.repositories.ProjectRepo;
