@@ -39,17 +39,22 @@ public class UserController {
 		UserDto user = this.userService.createUser(userDto);
 		return new ResponseEntity<UserDto>(user, HttpStatus.CREATED);
 	}
+	
+	@PostMapping("/users/company/{companyId}")
+	public ResponseEntity<List<UserDto>> findUsersByCompany(@PathVariable Integer companyId){
+		List<UserDto> usersByCompany = this.userService.findUsersByCompany(companyId);
+		return new ResponseEntity<List<UserDto>>(usersByCompany, HttpStatus.OK);
+	}
 
-	@PostMapping("/company/{companyId}/users/{userId}")
-	public ResponseEntity<UserDto> updateCompany(@PathVariable Integer userId, @PathVariable Integer companyId) {
-		UserDto user = this.userService.updateCompany(userId, companyId);
+	@PostMapping("/users/{userId}/company/{companyId}")
+	public ResponseEntity<UserDto> assignCompanyToUser(@PathVariable Integer userId, @PathVariable Integer companyId) {
+		UserDto user = this.userService.assignCompanyToUser(userId, companyId);
 		return new ResponseEntity<UserDto>(user, HttpStatus.OK);
 	}
 
 	@PostMapping("/users/{userId}/project/{projectId}")
-	public ResponseEntity<UserDto> updateProject(@PathVariable Integer userId, @PathVariable Integer projectId) {
-		UserDto user = this.userService.updateProject(userId, projectId);
-
+	public ResponseEntity<UserDto> assignProjectToUser(@PathVariable Integer userId, @PathVariable Integer projectId) {
+		UserDto user = this.userService.assignProjectToUser(userId, projectId);
 		return new ResponseEntity<UserDto>(user, HttpStatus.OK);
 	}
 

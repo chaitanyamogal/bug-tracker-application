@@ -2,6 +2,7 @@ package com.bugtracker.services;
 
 import java.util.List;
 
+import com.bugtracker.entities.Company;
 import com.bugtracker.payloads.UserDto;
 
 public interface UserService {
@@ -12,12 +13,16 @@ public interface UserService {
 
 	UserDto createUser(UserDto user);
 
-	UserDto updateCompany(Integer userId, Integer companyId);
-
-	UserDto updateProject(Integer userId, Integer projectId);
-
 	UserDto updateUser(UserDto user, Integer userId);
 
 	void deleteUser(Integer userId);
+
+	List<UserDto> findUsersByCompany(Integer company);
+	
+	UserDto assignCompanyToUser(Integer userId, Integer companyId);
+
+	UserDto assignProjectToUser(Integer userId, Integer projectId);
+
+
 
 }

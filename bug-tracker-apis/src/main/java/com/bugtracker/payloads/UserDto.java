@@ -1,14 +1,18 @@
 package com.bugtracker.payloads;
 
+import java.util.List;
+
 public class UserDto {
 
+	private int userId;
+	
 	private String email;
 	
 	private String password;
 	
 	private String name;
 	
-	private ProjectDto project;
+	private List<ProjectDto> project;
 	
 	private CompanyDto company;
 
@@ -28,6 +32,14 @@ public class UserDto {
 		this.password = password;
 	}
 
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -36,11 +48,11 @@ public class UserDto {
 		this.name = name;
 	}
 
-	public ProjectDto getProject() {
+	public List<ProjectDto> getProject() {
 		return project;
 	}
 
-	public void setProject(ProjectDto project) {
+	public void setProject(List<ProjectDto> project) {
 		this.project = project;
 	}
 

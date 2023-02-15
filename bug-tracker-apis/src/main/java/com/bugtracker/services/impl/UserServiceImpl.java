@@ -1,5 +1,6 @@
 package com.bugtracker.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,8 +43,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDto getUserById(Integer userId) {
-		// TODO Auto-generated method stub
-		return null;
+		User user = this.userRepo.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User", "User id", userId));
+		
+		return this.modelMapper.map(user, UserDto.class);
 	}
 
 	@Override
@@ -52,29 +55,6 @@ public class UserServiceImpl implements UserService {
 		// ResourceNotFoundException("Company", "Company id", companyId));
 		User user = this.modelMapper.map(userDto, User.class);
 		// user.setCompany(company);
-		User savedUser = this.userRepo.save(user);
-		return this.modelMapper.map(savedUser, UserDto.class);
-	}
-
-	@Override
-	public UserDto updateCompany(Integer userId, Integer companyId) {
-		User user = this.userRepo.findById(userId)
-				.orElseThrow(() -> new ResourceNotFoundException("User", "User id", userId));
-		Company company = this.companyRepo.findById(companyId)
-				.orElseThrow(() -> new ResourceNotFoundException("Company", "Company id", companyId));
-		// User user = this.modelMapper.map(userDto, User.class);
-		user.setCompany(company);
-		User savedUser = this.userRepo.save(user);
-		return this.modelMapper.map(savedUser, UserDto.class);
-	}
-
-	public UserDto updateProject(Integer userId, Integer projectId) {
-		User user = this.userRepo.findById(userId)
-				.orElseThrow(() -> new ResourceNotFoundException("User", "User id", userId));
-		Project project = this.projectRepo.findById(projectId)
-				.orElseThrow(() -> new ResourceNotFoundException("Project", "Project id", projectId));
-
-		user.setProject(project);
 		User savedUser = this.userRepo.save(user);
 		return this.modelMapper.map(savedUser, UserDto.class);
 	}
@@ -89,6 +69,42 @@ public class UserServiceImpl implements UserService {
 	public void deleteUser(Integer userId) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	@Override
+	public List<UserDto> findUsersByCompany(Integer companyId){
+		Company company = this.companyRepo.findById(companyId)
+				.orElseThrow(() -> new ResourceNotFoundException("Company", "Company id", companyId));
+		List<User> usersOfCompany = userRepo.findByCompany(company);
+		List<UserDto> allUsers = usersOfCompany.stream().map((user) -> this.modelMapper.map(user, UserDto.class))
+				.collect(Collectors.toList());
+		return allUsers;
+	}
+	
+	@Override
+	public UserDto assignCompanyToUser(Integer userId, Integer companyId) {
+		User user = this.userRepo.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User", "User id", userId));
+		Company company = this.companyRepo.findById(companyId)
+				.orElseThrow(() -> new ResourceNotFoundException("Company", "Company id", companyId));
+		// User user = this.modelMapper.map(userDto, User.class);
+		user.setCompany(company);
+		User savedUser = this.userRepo.save(user);
+		return this.modelMapper.map(savedUser, UserDto.class);
+	}
+
+	public UserDto assignProjectToUser(Integer userId, Integer projectId) {
+		List<Project> projectsList = new ArrayList<>();
+		User user = this.userRepo.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User", "User id", userId));
+		Project project = this.projectRepo.findById(projectId)
+				.orElseThrow(() -> new ResourceNotFoundException("Project", "Project id", projectId));
+
+		projectsList = user.getProject();
+		projectsList.add(project);
+		user.setProject(projectsList);
+		User savedUser = this.userRepo.save(user);
+		return this.modelMapper.map(savedUser, UserDto.class);
 	}
 
 }

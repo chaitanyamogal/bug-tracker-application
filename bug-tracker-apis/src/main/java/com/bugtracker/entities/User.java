@@ -1,6 +1,8 @@
 package com.bugtracker.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -11,13 +13,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
 public class User {
-	
+
 	@Id
 	@Column(name = "user_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +32,7 @@ public class User {
 	private String password;
 	@Column(name = "name")
 	private String name;
-	
+
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_date")
@@ -38,16 +42,15 @@ public class User {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated_date")
 	private Date updateDate;
-	
-	@ManyToOne
-	@JoinColumn(name = "project_id")
-	private Project project;
-	
+
+	@ManyToMany
+	@JoinTable(name = "user_project", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
+	private List<Project> project = new ArrayList<>();;
+
 	@ManyToOne
 	@JoinColumn(name = "company_id")
 	private Company company;
 
-	
 	public Integer getUserId() {
 		return userId;
 	}
@@ -96,11 +99,11 @@ public class User {
 		this.updateDate = updateDate;
 	}
 
-	public Project getProject() {
+	public List<Project> getProject() {
 		return project;
 	}
 
-	public void setProject(Project project) {
+	public void setProject(List<Project> project) {
 		this.project = project;
 	}
 

@@ -23,7 +23,7 @@ public class ProjectDto {
 	
 	private CompanyDto company;
 	
-	private List<User> user = new ArrayList<>();
+	//private List<User> user = new ArrayList<>();
 	
 	ProjectDto(){
 		
@@ -77,13 +77,13 @@ public class ProjectDto {
 		this.company = company;
 	}
 
-	public List<User> getUser() {
-		return user;
-	}
-
-	public void setUser(List<User> user) {
-		this.user = user;
-	}
+//	public List<User> getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(List<User> user) {
+//		this.user = user;
+//	}
 	
 	
 }
