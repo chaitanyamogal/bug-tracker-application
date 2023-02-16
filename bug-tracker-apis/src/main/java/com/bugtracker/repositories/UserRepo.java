@@ -10,6 +10,6 @@ import com.bugtracker.entities.User;
 
 public interface UserRepo extends JpaRepository<User, Integer>{
 	List<Project> findByUserId(User userId);
-	List<User> findByProject(Integer projectId);
+	List<User> findByProject(Project projectId);
 	List<User> findByCompany(Company company);
 }

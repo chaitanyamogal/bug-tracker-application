@@ -72,6 +72,16 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	public List<UserDto> findUsersByProject(Integer projectId){
+		Project project = this.projectRepo.findById(projectId)
+				.orElseThrow(() -> new ResourceNotFoundException("Project", "Project id", projectId));
+		List<User> usersOfProject = userRepo.findByProject(project);
+		List<UserDto> allUsers = usersOfProject.stream().map((user) -> this.modelMapper.map(user, UserDto.class))
+				.collect(Collectors.toList());
+		return allUsers;
+	}
+	
+	@Override
 	public List<UserDto> findUsersByCompany(Integer companyId){
 		Company company = this.companyRepo.findById(companyId)
 				.orElseThrow(() -> new ResourceNotFoundException("Company", "Company id", companyId));

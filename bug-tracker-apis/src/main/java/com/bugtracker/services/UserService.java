@@ -17,12 +17,12 @@ public interface UserService {
 
 	void deleteUser(Integer userId);
 
+	List<UserDto> findUsersByProject(Integer projectId);
+
 	List<UserDto> findUsersByCompany(Integer company);
-	
+
 	UserDto assignCompanyToUser(Integer userId, Integer companyId);
 
 	UserDto assignProjectToUser(Integer userId, Integer projectId);
-
-
 
 }

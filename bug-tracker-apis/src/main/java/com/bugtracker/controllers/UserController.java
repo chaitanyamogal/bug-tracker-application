@@ -40,6 +40,12 @@ public class UserController {
 		return new ResponseEntity<UserDto>(user, HttpStatus.CREATED);
 	}
 	
+	@PostMapping("/users/project/{projectId}")
+	public ResponseEntity<List<UserDto>> findUsersByProject(@PathVariable Integer projectId){
+		List<UserDto> usersByProject = this.userService.findUsersByProject(projectId);
+		return new ResponseEntity<List<UserDto>>(usersByProject, HttpStatus.OK);
+	}
+	
 	@PostMapping("/users/company/{companyId}")
 	public ResponseEntity<List<UserDto>> findUsersByCompany(@PathVariable Integer companyId){
 		List<UserDto> usersByCompany = this.userService.findUsersByCompany(companyId);
