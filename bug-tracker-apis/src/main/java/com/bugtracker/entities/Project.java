@@ -19,6 +19,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
@@ -48,6 +49,9 @@ public class Project {
 	@ManyToOne
 	@JoinColumn(name = "company_id")
 	private Company company;
+	
+	@OneToMany(mappedBy = "projectId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Ticket> tickets = new ArrayList<>();
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
 			CascadeType.MERGE }, mappedBy = "project")
@@ -114,6 +118,14 @@ public class Project {
 
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+
+	public List<Ticket> getTickets() {
+		return tickets;
+	}
+
+	public void setTickets(List<Ticket> tickets) {
+		this.tickets = tickets;
 	}
 
 	public List<User> getUser() {

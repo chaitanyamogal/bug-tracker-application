@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bugtracker.entities.Project;
 import com.bugtracker.payloads.ProjectDto;
 import com.bugtracker.services.ProjectService;
 

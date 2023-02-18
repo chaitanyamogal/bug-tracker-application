@@ -7,8 +7,10 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,6 +18,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
@@ -42,6 +45,12 @@ public class User {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated_date")
 	private Date updateDate;
+	
+	@OneToMany(mappedBy = "createdByUserId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Ticket> tickets = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "updatedByUserId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Ticket> updatedTickets = new ArrayList<>();
 
 	@ManyToMany
 	@JoinTable(name = "user_project", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
@@ -97,6 +106,22 @@ public class User {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+	
+	public List<Ticket> getTickets() {
+		return tickets;
+	}
+
+	public void setTickets(List<Ticket> tickets) {
+		this.tickets = tickets;
+	}
+
+	public List<Ticket> getUpdatedTickets() {
+		return updatedTickets;
+	}
+
+	public void setUpdatedTickets(List<Ticket> updatedTickets) {
+		this.updatedTickets = updatedTickets;
 	}
 
 	public List<Project> getProject() {

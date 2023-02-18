@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.bugtracker.entities.Company;
-import com.bugtracker.entities.User;
-
-
+import com.bugtracker.entities.Ticket;
 
 public class ProjectDto {
 	
@@ -23,7 +20,7 @@ public class ProjectDto {
 	
 	private CompanyDto company;
 	
-	//private List<User> user = new ArrayList<>();
+	private List<Ticket> ticket = new ArrayList<>();
 	
 	ProjectDto(){
 		
@@ -77,6 +74,15 @@ public class ProjectDto {
 		this.company = company;
 	}
 
+	public List<Ticket> getTicket() {
+		return ticket;
+	}
+
+	public void setTicket(List<Ticket> ticket) {
+		this.ticket = ticket;
+	}
+
+	
 //	public List<User> getUser() {
 //		return user;
 //	}
