@@ -13,8 +13,8 @@ public class BugTrackerApisApplication {
 		SpringApplication.run(BugTrackerApisApplication.class, args);
 	}
 
-	@Bean
-	public ModelMapper modalMapper() {
-		return new ModelMapper();
-	}
+    @Bean
+    ModelMapper modalMapper() {
+        return new ModelMapper();
+    }
 }

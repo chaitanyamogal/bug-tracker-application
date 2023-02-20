@@ -20,7 +20,7 @@ public class ProjectDto {
 	
 	private CompanyDto company;
 	
-	private List<Ticket> ticket = new ArrayList<>();
+	private List<TicketDto> tickets;
 	
 	ProjectDto(){
 		
@@ -74,12 +74,12 @@ public class ProjectDto {
 		this.company = company;
 	}
 
-	public List<Ticket> getTicket() {
-		return ticket;
+	public List<TicketDto> getTickets() {
+		return tickets;
 	}
 
-	public void setTicket(List<Ticket> ticket) {
-		this.ticket = ticket;
+	public void setTickets(List<TicketDto> tickets) {
+		this.tickets = tickets;
 	}
 
 	

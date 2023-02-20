@@ -50,7 +50,7 @@ public class Project {
 	@JoinColumn(name = "company_id")
 	private Company company;
 	
-	@OneToMany(mappedBy = "projectId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "ticketProjectId")
 	private List<Ticket> tickets = new ArrayList<>();
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,

@@ -16,7 +16,7 @@ public class TicketDto {
 
 	private Date updateDate;
 	
-	private UserDto user;
+	//private UserDto user;
 	
 	//private ProjectDto project;
 	
@@ -68,21 +68,5 @@ public class TicketDto {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-
-	public UserDto getUser() {
-		return user;
-	}
-
-	public void setUser(UserDto user) {
-		this.user = user;
-	}
-
-//	public ProjectDto getProjectId() {
-//		return project;
-//	}
-//
-//	public void setProjectId(ProjectDto project) {
-//		this.project = project;
-//	}
 	
 }

@@ -1,5 +1,6 @@
 package com.bugtracker.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,11 +61,15 @@ public class TicketServiceImpl implements TicketService {
 
 	@Override
 	public TicketDto createTicket(TicketDto ticketDto, Integer userId, Integer projectId) {
+		List<Ticket> ticketList = new ArrayList<>();
 		User user = this.userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "User id", userId));
 		Project project = this.projectRepo.findById(projectId).orElseThrow(() -> new ResourceNotFoundException("Project", "Project id", projectId));
 		Ticket ticket = this.modelMapper.map(ticketDto, Ticket.class);
 		ticket.setCreatedByUserId(user);
 		ticket.setProjectId(project);
+		ticketList = project.getTickets();
+		ticketList.add(ticket);
+		project.setTickets(ticketList);
 		Ticket savedTicket = this.ticketRepo.save(ticket);
 		return this.modelMapper.map(savedTicket, TicketDto.class);
 	}

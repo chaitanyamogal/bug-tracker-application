@@ -43,8 +43,8 @@ public class Ticket {
 	private Date updateDate;
 	
 	@ManyToOne
-	@JoinColumn(name = "project_id")
-	private Project projectId;
+	@JoinColumn(name = "ticket_project_id")
+	private Project ticketProjectId;
 
 	@ManyToOne
 	@JoinColumn(name = "created_by_user_id")
@@ -103,11 +103,11 @@ public class Ticket {
 	}
 
 	public Project getProjectId() {
-		return projectId;
+		return ticketProjectId;
 	}
 
-	public void setProjectId(Project projectId) {
-		this.projectId = projectId;
+	public void setProjectId(Project ticketProjectId) {
+		this.ticketProjectId = ticketProjectId;
 	}
 
 	public User getCreatedByUserId() {
