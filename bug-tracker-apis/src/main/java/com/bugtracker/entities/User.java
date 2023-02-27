@@ -51,6 +51,12 @@ public class User {
 	
 	@OneToMany(mappedBy = "updatedByUserId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Ticket> updatedTickets = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "createdByUserId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Ticket> comments = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "updatedByUserId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Ticket> updatedComments = new ArrayList<>();
 
 	@ManyToMany
 	@JoinTable(name = "user_project", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
@@ -139,4 +145,22 @@ public class User {
 	public void setCompany(Company company) {
 		this.company = company;
 	}
+
+	public List<Ticket> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Ticket> comments) {
+		this.comments = comments;
+	}
+
+	public List<Ticket> getUpdatedComments() {
+		return updatedComments;
+	}
+
+	public void setUpdatedComments(List<Ticket> updatedComments) {
+		this.updatedComments = updatedComments;
+	}
+	
+	
 }

@@ -12,7 +12,6 @@ import com.bugtracker.entities.Project;
 import com.bugtracker.entities.Ticket;
 import com.bugtracker.entities.User;
 import com.bugtracker.exceptions.ResourceNotFoundException;
-import com.bugtracker.payloads.ProjectDto;
 import com.bugtracker.payloads.TicketDto;
 import com.bugtracker.repositories.ProjectRepo;
 import com.bugtracker.repositories.TicketRepo;
@@ -43,8 +42,9 @@ public class TicketServiceImpl implements TicketService {
 
 	@Override
 	public TicketDto getTicketById(Integer ticketId) {
-		// TODO Auto-generated method stub
-		return null;
+		Ticket ticket = this.ticketRepo.findById(ticketId).orElseThrow(() -> new ResourceNotFoundException("Ticket", "Ticket id", ticketId));
+		TicketDto ticketDto = this.modelMapper.map(ticket, TicketDto.class);
+		return ticketDto;
 	}
 
 	@Override
@@ -75,15 +75,21 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Override
-	public TicketDto updateTicket(TicketDto ticket) {
-		// TODO Auto-generated method stub
-		return null;
+	public TicketDto updateTicket(TicketDto ticketDto, Integer ticketId) {
+		Ticket foundTicket = this.ticketRepo.findById(ticketId).orElseThrow(() -> new ResourceNotFoundException("Ticket", "Ticket id", ticketId));
+		Ticket ticket = this.modelMapper.map(ticketDto, Ticket.class);
+		
+		foundTicket.setTicketTitle(ticket.getTicketTitle());
+		foundTicket.setTicketDescription(ticket.getTicketDescription());
+		foundTicket.setResolutionSummary(ticket.getResolutionSummary());
+		Ticket savedTicket = this.ticketRepo.save(foundTicket);
+		return this.modelMapper.map(savedTicket, TicketDto.class);
 	}
 
 	@Override
 	public void deleteTicket(Integer ticketId) {
-		// TODO Auto-generated method stub
-
+		Ticket foundTicket = this.ticketRepo.findById(ticketId).orElseThrow(() -> new ResourceNotFoundException("Ticket", "Ticket id", ticketId));
+		this.ticketRepo.delete(foundTicket);
 	}
 
 }

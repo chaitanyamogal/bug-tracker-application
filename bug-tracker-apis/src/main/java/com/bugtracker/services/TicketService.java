@@ -16,7 +16,7 @@ public interface TicketService {
 	
 	TicketDto createTicket(TicketDto ticketDto, Integer userId , Integer projectId);
 	
-	TicketDto updateTicket(TicketDto ticketDto);
+	TicketDto updateTicket(TicketDto ticketDto, Integer ticketId);
 	
 	void deleteTicket(Integer ticketId);
 	

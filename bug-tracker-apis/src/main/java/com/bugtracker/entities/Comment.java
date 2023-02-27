@@ -1,8 +1,6 @@
 package com.bugtracker.entities;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -14,26 +12,19 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
-public class Ticket {
+public class Comment {
 
 	@Id
-	@Column(name = "ticket_id")
+	@Column(name = "comment_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int ticketId;
+	private int commentId;
 
-	@Column(name = "title")
-	private String ticketTitle;
-
-	@Column(name = "description")
-	private String ticketDescription;
-	
-	@Column(name = "resolution_summary")
-	private String resolutionSummary;
+	@Column(name = "comment")
+	private String comment;
 
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
@@ -45,12 +36,9 @@ public class Ticket {
 	@Column(name = "updated_date")
 	private Date updateDate;
 	
-	@OneToMany(mappedBy = "ticketCommentId")
-	private List<Comment> comments = new ArrayList<>();
-	
 	@ManyToOne
-	@JoinColumn(name = "ticket_project_id")
-	private Project ticketProjectId;
+	@JoinColumn(name = "ticket_comment_id")
+	private Ticket ticketCommentId;
 
 	@ManyToOne
 	@JoinColumn(name = "created_by_user_id")
@@ -59,37 +47,21 @@ public class Ticket {
 	@ManyToOne
 	@JoinColumn(name = "updated_by_user_id")
 	private User updatedByUserId;
-
-	public int getTicketId() {
-		return ticketId;
+	
+	public int getCommentId() {
+		return commentId;
 	}
 
-	public void setTicketId(int ticketId) {
-		this.ticketId = ticketId;
+	public void setCommentId(int commentId) {
+		this.commentId = commentId;
 	}
 
-	public String getTicketTitle() {
-		return ticketTitle;
+	public String getComment() {
+		return comment;
 	}
 
-	public void setTicketTitle(String ticketTitle) {
-		this.ticketTitle = ticketTitle;
-	}
-
-	public String getTicketDescription() {
-		return ticketDescription;
-	}
-
-	public void setTicketDescription(String ticketDescription) {
-		this.ticketDescription = ticketDescription;
-	}
-
-	public String getResolutionSummary() {
-		return resolutionSummary;
-	}
-
-	public void setResolutionSummary(String resolutionSummary) {
-		this.resolutionSummary = resolutionSummary;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 	public Date getCreatedDate() {
@@ -108,20 +80,12 @@ public class Ticket {
 		this.updateDate = updateDate;
 	}
 
-	public List<Comment> getComments() {
-		return comments;
+	public Ticket getTicketCommentId() {
+		return ticketCommentId;
 	}
 
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
-
-	public Project getTicketProjectId() {
-		return ticketProjectId;
-	}
-
-	public void setTicketProjectId(Project ticketProjectId) {
-		this.ticketProjectId = ticketProjectId;
+	public void setTicketCommentId(Ticket ticketCommentId) {
+		this.ticketCommentId = ticketCommentId;
 	}
 
 	public User getCreatedByUserId() {
@@ -139,6 +103,5 @@ public class Ticket {
 	public void setUpdatedByUserId(User updatedByUserId) {
 		this.updatedByUserId = updatedByUserId;
 	}
-	
 
 }

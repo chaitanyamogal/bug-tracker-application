@@ -15,11 +15,6 @@ public class TicketDto {
 	private Date createdDate;
 
 	private Date updateDate;
-	
-	//private UserDto user;
-	
-	//private ProjectDto project;
-	
 
 	public int getTicketId() {
 		return ticketId;
