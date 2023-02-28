@@ -108,19 +108,11 @@ public class Ticket {
 		this.updateDate = updateDate;
 	}
 
-	public List<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
-
-	public Project getTicketProjectId() {
+	public Project getProjectId() {
 		return ticketProjectId;
 	}
 
-	public void setTicketProjectId(Project ticketProjectId) {
+	public void setProjectId(Project ticketProjectId) {
 		this.ticketProjectId = ticketProjectId;
 	}
 
@@ -139,6 +131,7 @@ public class Ticket {
 	public void setUpdatedByUserId(User updatedByUserId) {
 		this.updatedByUserId = updatedByUserId;
 	}
+	
 	
 
 }

@@ -4,8 +4,9 @@ import java.util.List;
 
 import com.bugtracker.payloads.CommentDto;
 
+
 public interface CommentService {
-	CommentDto createComment(CommentDto commentDto, Integer ticketId);
+	CommentDto createComment(CommentDto commentDto, Integer userId, Integer ticketId);
 
 	CommentDto updateComment(CommentDto commentDto, Integer commentId);
 
