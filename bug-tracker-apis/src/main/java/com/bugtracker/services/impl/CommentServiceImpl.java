@@ -1,5 +1,6 @@
 package com.bugtracker.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bugtracker.entities.Comment;
+import com.bugtracker.entities.Ticket;
 import com.bugtracker.exceptions.ResourceNotFoundException;
 import com.bugtracker.payloads.CommentDto;
 import com.bugtracker.repositories.CommentRepo;
+import com.bugtracker.repositories.TicketRepo;
 import com.bugtracker.services.CommentService;
 
 @Service
@@ -21,10 +24,19 @@ public class CommentServiceImpl implements CommentService {
 	
 	@Autowired
 	CommentRepo commentRepo;
+	
+	@Autowired
+	TicketRepo ticketRepo;
 
 	@Override
 	public CommentDto createComment(CommentDto commentDto, Integer userId, Integer ticketId) {
+		List<Comment> commentList = new ArrayList<>();
 		Comment comment = this.modelMapper.map(commentDto, Comment.class);
+		Ticket ticket = this.ticketRepo.findById(ticketId).orElseThrow(() -> new ResourceNotFoundException("Ticket", "Ticket id", ticketId));
+		comment.setTicketCommentId(ticket);
+		commentList = ticket.getComments();
+		commentList.add(comment);
+		ticket.setComments(commentList);
 		Comment savedComment = this.commentRepo.save(comment);
 		return this.modelMapper.map(savedComment, CommentDto.class);
 	}

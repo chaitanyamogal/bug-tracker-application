@@ -81,15 +81,4 @@ public class ProjectDto {
 	public void setTickets(List<TicketDto> tickets) {
 		this.tickets = tickets;
 	}
-
-	
-//	public List<User> getUser() {
-//		return user;
-//	}
-//
-//	public void setUser(List<User> user) {
-//		this.user = user;
-//	}
-	
-	
 }

@@ -116,6 +116,22 @@ public class Ticket {
 		this.ticketProjectId = ticketProjectId;
 	}
 
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public Project getTicketProjectId() {
+		return ticketProjectId;
+	}
+
+	public void setTicketProjectId(Project ticketProjectId) {
+		this.ticketProjectId = ticketProjectId;
+	}
+
 	public User getCreatedByUserId() {
 		return createdByUserId;
 	}

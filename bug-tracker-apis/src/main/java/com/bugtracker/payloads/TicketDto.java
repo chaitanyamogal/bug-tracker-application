@@ -1,6 +1,9 @@
 package com.bugtracker.payloads;
 
 import java.util.Date;
+import java.util.List;
+
+import com.bugtracker.entities.Comment;
 
 public class TicketDto {
 
@@ -11,6 +14,8 @@ public class TicketDto {
 	private String ticketDescription;
 	
 	private String resolutionSummary;
+	
+	private List<CommentDto> comments;
 	
 	private Date createdDate;
 
@@ -46,6 +51,14 @@ public class TicketDto {
 
 	public void setResolutionSummary(String resolutionSummary) {
 		this.resolutionSummary = resolutionSummary;
+	}
+
+	public List<CommentDto> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<CommentDto> comments) {
+		this.comments = comments;
 	}
 
 	public Date getCreatedDate() {
