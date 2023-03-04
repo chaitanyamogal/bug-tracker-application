@@ -5,16 +5,16 @@ import java.util.List;
 public class UserDto {
 
 	private int userId;
-	
+
 	private String email;
-	
+
 	private String password;
-	
+
 	private String name;
-	
-	private List<ProjectDto> project;
-	
+
 	private CompanyDto company;
+
+	private List<ProjectDto> project;
 
 	public String getEmail() {
 		return email;
@@ -39,7 +39,7 @@ public class UserDto {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	
+
 	public String getName() {
 		return name;
 	}

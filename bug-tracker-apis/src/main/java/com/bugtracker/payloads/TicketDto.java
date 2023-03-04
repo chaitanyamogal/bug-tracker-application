@@ -3,8 +3,6 @@ package com.bugtracker.payloads;
 import java.util.Date;
 import java.util.List;
 
-import com.bugtracker.entities.Comment;
-
 public class TicketDto {
 
 	private int ticketId;
@@ -14,6 +12,8 @@ public class TicketDto {
 	private String ticketDescription;
 	
 	private String resolutionSummary;
+	
+	// private UserDto createdByUserId;
 	
 	private List<CommentDto> comments;
 	
@@ -52,6 +52,14 @@ public class TicketDto {
 	public void setResolutionSummary(String resolutionSummary) {
 		this.resolutionSummary = resolutionSummary;
 	}
+	
+//	public UserDto getCreatedByUserId() {
+//		return createdByUserId;
+//	}
+//
+//	public void setCreatedByUserId(UserDto createdByUserId) {
+//		this.createdByUserId = createdByUserId;
+//	}
 
 	public List<CommentDto> getComments() {
 		return comments;

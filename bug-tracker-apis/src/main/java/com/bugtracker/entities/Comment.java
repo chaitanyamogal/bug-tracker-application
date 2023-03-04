@@ -5,6 +5,8 @@ import java.util.Date;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,19 +37,22 @@ public class Comment {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated_date")
 	private Date updateDate;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "ticket_comment_id")
+	// @JsonBackReference
 	private Ticket ticketCommentId;
 
 	@ManyToOne
 	@JoinColumn(name = "created_by_user_id")
+	// @JsonBackReference
 	private User createdByUserId;
 
 	@ManyToOne
 	@JoinColumn(name = "updated_by_user_id")
+	// @JsonBackReference
 	private User updatedByUserId;
-	
+
 	public int getCommentId() {
 		return commentId;
 	}

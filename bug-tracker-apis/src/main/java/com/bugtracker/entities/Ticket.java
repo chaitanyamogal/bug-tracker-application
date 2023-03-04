@@ -7,6 +7,9 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -46,18 +49,23 @@ public class Ticket {
 	private Date updateDate;
 	
 	@OneToMany(mappedBy = "ticketCommentId")
+	// @JsonManagedReference
 	private List<Comment> comments = new ArrayList<>();
 	
 	@ManyToOne
 	@JoinColumn(name = "ticket_project_id")
+	// @JsonBackReference
 	private Project ticketProjectId;
 
+	
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "created_by_user_id")
 	private User createdByUserId;
 
 	@ManyToOne
 	@JoinColumn(name = "updated_by_user_id")
+	// @JsonBackReference
 	private User updatedByUserId;
 
 	public int getTicketId() {
@@ -107,7 +115,8 @@ public class Ticket {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-
+	
+	
 	public Project getProjectId() {
 		return ticketProjectId;
 	}
@@ -128,10 +137,11 @@ public class Ticket {
 		return ticketProjectId;
 	}
 
+	
 	public void setTicketProjectId(Project ticketProjectId) {
 		this.ticketProjectId = ticketProjectId;
 	}
-
+	@JsonBackReference
 	public User getCreatedByUserId() {
 		return createdByUserId;
 	}

@@ -1,10 +1,8 @@
 package com.bugtracker.payloads;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.bugtracker.entities.Ticket;
 
 public class ProjectDto {
 	

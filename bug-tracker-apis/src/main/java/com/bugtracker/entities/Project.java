@@ -7,7 +7,8 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -29,13 +30,13 @@ public class Project {
 	@Column(name = "project_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int projectId;
-	
+
 	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "description")
 	private String description;
-	
+
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_date")
@@ -45,21 +46,23 @@ public class Project {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated_date")
 	private Date updateDate;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "company_id")
+	// @JsonBackReference
 	private Company company;
-	
+
 	@OneToMany(mappedBy = "ticketProjectId")
+	// @JsonManagedReference
 	private List<Ticket> tickets = new ArrayList<>();
-	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST,
-			CascadeType.MERGE }, mappedBy = "project")
-	@JsonIgnore
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "project")
+	// @JsonBackReference
 	private List<User> user = new ArrayList<>();
 
-	public Project() {}
-	
+	public Project() {
+	}
+
 	public Project(int projectId, String name, String description, Date createdDate, Date updateDate, Company company,
 			List<User> user) {
 		super();
@@ -135,6 +138,5 @@ public class Project {
 	public void setUser(List<User> user) {
 		this.user = user;
 	}
-
 
 }

@@ -7,8 +7,10 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column; 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -43,15 +45,18 @@ public class Company {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated_date")
 	private Date updateDate;
-	
+
 	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	// @JsonManagedReference
 	private List<User> user = new ArrayList<>();
 
 	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	// @JsonManagedReference
 	private List<Project> project = new ArrayList<>();
-	
-	public Company() {}
-	
+
+	public Company() {
+	}
+
 	public Company(Integer companyId, String companyName, String companyDescription, Date createdDate,
 			Date updateDate) {
 		super();
@@ -101,13 +106,21 @@ public class Company {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-	
+
 	public List<User> getUser() {
 		return user;
 	}
 
 	public void setUser(List<User> user) {
 		this.user = user;
+	}
+
+	public List<Project> getProject() {
+		return project;
+	}
+
+	public void setProject(List<Project> project) {
+		this.project = project;
 	}
 
 }

@@ -7,6 +7,9 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -45,26 +48,32 @@ public class User {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated_date")
 	private Date updateDate;
-	
-	@OneToMany(mappedBy = "createdByUserId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Ticket> tickets = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "updatedByUserId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Ticket> updatedTickets = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "createdByUserId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Ticket> comments = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "updatedByUserId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Ticket> updatedComments = new ArrayList<>();
 
 	@ManyToMany
 	@JoinTable(name = "user_project", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
+	// @JsonBackReference
 	private List<Project> project = new ArrayList<>();;
 
 	@ManyToOne
 	@JoinColumn(name = "company_id")
+	// @JsonBackReference
 	private Company company;
+
+	@JsonBackReference
+	@OneToMany(mappedBy = "createdByUserId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Ticket> tickets = new ArrayList<>();
+
+	@OneToMany(mappedBy = "updatedByUserId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	// @JsonManagedReference
+	private List<Ticket> updatedTickets = new ArrayList<>();
+
+	@OneToMany(mappedBy = "createdByUserId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	// @JsonManagedReference
+	private List<Ticket> comments = new ArrayList<>();
+
+	@OneToMany(mappedBy = "updatedByUserId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	//@JsonManagedReference
+	private List<Ticket> updatedComments = new ArrayList<>();
 
 	public Integer getUserId() {
 		return userId;
@@ -113,7 +122,7 @@ public class User {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-	
+
 	public List<Ticket> getTickets() {
 		return tickets;
 	}
@@ -161,6 +170,5 @@ public class User {
 	public void setUpdatedComments(List<Ticket> updatedComments) {
 		this.updatedComments = updatedComments;
 	}
-	
-	
+
 }

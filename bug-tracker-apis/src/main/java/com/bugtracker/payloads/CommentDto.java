@@ -2,6 +2,7 @@ package com.bugtracker.payloads;
 
 import java.util.Date;
 
+
 public class CommentDto {
 	
 	private int commentId;
@@ -12,6 +13,8 @@ public class CommentDto {
 
 	private Date updateDate;
 
+	//private UserDto createdByUserId;
+	
 	public int getCommentId() {
 		return commentId;
 	}
@@ -43,4 +46,14 @@ public class CommentDto {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
+
+//	public UserDto getCreatedByUserId() {
+//		return createdByUserId;
+//	}
+//
+//	public void setCreatedByUserId(UserDto createdByUserId) {
+//		this.createdByUserId = createdByUserId;
+//	}
+//	
+	
 }

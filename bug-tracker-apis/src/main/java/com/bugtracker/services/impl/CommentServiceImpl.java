@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 
 import com.bugtracker.entities.Comment;
 import com.bugtracker.entities.Ticket;
+import com.bugtracker.entities.User;
 import com.bugtracker.exceptions.ResourceNotFoundException;
 import com.bugtracker.payloads.CommentDto;
 import com.bugtracker.repositories.CommentRepo;
 import com.bugtracker.repositories.TicketRepo;
+import com.bugtracker.repositories.UserRepo;
 import com.bugtracker.services.CommentService;
 
 @Service
@@ -27,12 +29,17 @@ public class CommentServiceImpl implements CommentService {
 	
 	@Autowired
 	TicketRepo ticketRepo;
+	
+	@Autowired
+	UserRepo userRepo;
 
 	@Override
 	public CommentDto createComment(CommentDto commentDto, Integer userId, Integer ticketId) {
 		List<Comment> commentList = new ArrayList<>();
 		Comment comment = this.modelMapper.map(commentDto, Comment.class);
 		Ticket ticket = this.ticketRepo.findById(ticketId).orElseThrow(() -> new ResourceNotFoundException("Ticket", "Ticket id", ticketId));
+		User user = this.userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "User id", userId));
+		comment.setCreatedByUserId(user);
 		comment.setTicketCommentId(ticket);
 		commentList = ticket.getComments();
 		commentList.add(comment);
