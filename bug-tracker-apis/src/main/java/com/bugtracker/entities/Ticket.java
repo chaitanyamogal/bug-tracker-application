@@ -57,6 +57,13 @@ public class Ticket {
 	// @JsonBackReference
 	private Project ticketProjectId;
 
+	@ManyToOne
+	@JoinColumn(name = "ticket_type_id")
+	private TicketType ticketType;
+	
+	@ManyToOne
+	@JoinColumn(name = "ticket_status_id")
+	private TicketStatus ticketStatus;
 	
 	@JsonManagedReference
 	@ManyToOne

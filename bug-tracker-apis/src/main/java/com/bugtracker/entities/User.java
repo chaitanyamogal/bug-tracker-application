@@ -8,7 +8,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -32,12 +31,39 @@ public class User {
 	@Column(name = "user_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userId;
+	
 	@Column(name = "email")
 	private String userEmail;
+	
 	@Column(name = "password")
 	private String password;
+	
 	@Column(name = "name")
 	private String name;
+	
+	@ManyToOne
+	@JoinColumn(name = "role_id")
+	private UserRole userRole;
+	
+	@ManyToOne
+	@JoinColumn(name = "company_id")
+	private Company company;
+	
+	@ManyToMany
+	@JoinTable(name = "user_project", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
+	private List<Project> project = new ArrayList<>();;
+
+	@OneToMany(mappedBy = "createdByUserId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Ticket> tickets = new ArrayList<>();
+
+	@OneToMany(mappedBy = "updatedByUserId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Ticket> updatedTickets = new ArrayList<>();
+
+	@OneToMany(mappedBy = "createdByUserId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Ticket> comments = new ArrayList<>();
+
+	@OneToMany(mappedBy = "updatedByUserId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Ticket> updatedComments = new ArrayList<>();
 
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
@@ -48,32 +74,6 @@ public class User {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated_date")
 	private Date updateDate;
-
-	@ManyToMany
-	@JoinTable(name = "user_project", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
-	// @JsonBackReference
-	private List<Project> project = new ArrayList<>();;
-
-	@ManyToOne
-	@JoinColumn(name = "company_id")
-	// @JsonBackReference
-	private Company company;
-
-	@JsonBackReference
-	@OneToMany(mappedBy = "createdByUserId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Ticket> tickets = new ArrayList<>();
-
-	@OneToMany(mappedBy = "updatedByUserId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	// @JsonManagedReference
-	private List<Ticket> updatedTickets = new ArrayList<>();
-
-	@OneToMany(mappedBy = "createdByUserId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	// @JsonManagedReference
-	private List<Ticket> comments = new ArrayList<>();
-
-	@OneToMany(mappedBy = "updatedByUserId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	//@JsonManagedReference
-	private List<Ticket> updatedComments = new ArrayList<>();
 
 	public Integer getUserId() {
 		return userId;
@@ -107,36 +107,12 @@ public class User {
 		this.name = name;
 	}
 
-	public Date getCreatedDate() {
-		return createdDate;
+	public Company getCompany() {
+		return company;
 	}
 
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public Date getUpdateDate() {
-		return updateDate;
-	}
-
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
-
-	public List<Ticket> getTickets() {
-		return tickets;
-	}
-
-	public void setTickets(List<Ticket> tickets) {
-		this.tickets = tickets;
-	}
-
-	public List<Ticket> getUpdatedTickets() {
-		return updatedTickets;
-	}
-
-	public void setUpdatedTickets(List<Ticket> updatedTickets) {
-		this.updatedTickets = updatedTickets;
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
 	public List<Project> getProject() {
@@ -147,12 +123,21 @@ public class User {
 		this.project = project;
 	}
 
-	public Company getCompany() {
-		return company;
+	public List<Ticket> getTickets() {
+		return tickets;
+	}
+	
+	@JsonBackReference
+	public void setTickets(List<Ticket> tickets) {
+		this.tickets = tickets;
 	}
 
-	public void setCompany(Company company) {
-		this.company = company;
+	public List<Ticket> getUpdatedTickets() {
+		return updatedTickets;
+	}
+
+	public void setUpdatedTickets(List<Ticket> updatedTickets) {
+		this.updatedTickets = updatedTickets;
 	}
 
 	public List<Ticket> getComments() {
@@ -169,6 +154,22 @@ public class User {
 
 	public void setUpdatedComments(List<Ticket> updatedComments) {
 		this.updatedComments = updatedComments;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 
 }

@@ -13,7 +13,7 @@ public class CommentDto {
 
 	private Date updateDate;
 
-	//private UserDto createdByUserId;
+	private UserDto createdByUserId;
 	
 	public int getCommentId() {
 		return commentId;
@@ -47,13 +47,13 @@ public class CommentDto {
 		this.updateDate = updateDate;
 	}
 
-//	public UserDto getCreatedByUserId() {
-//		return createdByUserId;
-//	}
-//
-//	public void setCreatedByUserId(UserDto createdByUserId) {
-//		this.createdByUserId = createdByUserId;
-//	}
-//	
+	public UserDto getCreatedByUserId() {
+		return createdByUserId;
+	}
+
+	public void setCreatedByUserId(UserDto createdByUserId) {
+		this.createdByUserId = createdByUserId;
+	}
+	
 	
 }

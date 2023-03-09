@@ -13,7 +13,7 @@ public class TicketDto {
 	
 	private String resolutionSummary;
 	
-	// private UserDto createdByUserId;
+	private UserDto createdByUserId;
 	
 	private List<CommentDto> comments;
 	
@@ -53,13 +53,13 @@ public class TicketDto {
 		this.resolutionSummary = resolutionSummary;
 	}
 	
-//	public UserDto getCreatedByUserId() {
-//		return createdByUserId;
-//	}
-//
-//	public void setCreatedByUserId(UserDto createdByUserId) {
-//		this.createdByUserId = createdByUserId;
-//	}
+	public UserDto getCreatedByUserId() {
+		return createdByUserId;
+	}
+
+	public void setCreatedByUserId(UserDto createdByUserId) {
+		this.createdByUserId = createdByUserId;
+	}
 
 	public List<CommentDto> getComments() {
 		return comments;

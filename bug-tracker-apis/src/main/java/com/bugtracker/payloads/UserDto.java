@@ -2,6 +2,8 @@ package com.bugtracker.payloads;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class UserDto {
 
 	private int userId;
@@ -14,6 +16,7 @@ public class UserDto {
 
 	private CompanyDto company;
 
+	@JsonIgnore
 	private List<ProjectDto> project;
 
 	public String getEmail() {
