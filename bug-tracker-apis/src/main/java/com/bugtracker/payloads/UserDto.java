@@ -2,6 +2,7 @@ package com.bugtracker.payloads;
 
 import java.util.List;
 
+import com.bugtracker.entities.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class UserDto {
@@ -14,8 +15,10 @@ public class UserDto {
 
 	private String name;
 
+	private UserRoleDto userRole;
+	
 	private CompanyDto company;
-
+	
 	@JsonIgnore
 	private List<ProjectDto> project;
 
@@ -57,6 +60,14 @@ public class UserDto {
 
 	public void setProject(List<ProjectDto> project) {
 		this.project = project;
+	}
+
+	public UserRoleDto getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(UserRoleDto userRole) {
+		this.userRole = userRole;
 	}
 
 	public CompanyDto getCompany() {

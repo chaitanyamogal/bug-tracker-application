@@ -11,11 +11,13 @@ import org.springframework.stereotype.Service;
 import com.bugtracker.entities.Company;
 import com.bugtracker.entities.Project;
 import com.bugtracker.entities.User;
+import com.bugtracker.entities.UserRole;
 import com.bugtracker.exceptions.ResourceNotFoundException;
 import com.bugtracker.payloads.UserDto;
 import com.bugtracker.repositories.CompanyRepo;
 import com.bugtracker.repositories.ProjectRepo;
 import com.bugtracker.repositories.UserRepo;
+import com.bugtracker.repositories.UserRoleRepo;
 import com.bugtracker.services.UserService;
 
 @Service
@@ -29,6 +31,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	ProjectRepo projectRepo;
+	
+	@Autowired
+	UserRoleRepo userRoleRepo;
 
 	@Autowired
 	ModelMapper modelMapper;
@@ -50,11 +55,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDto createUser(UserDto userDto) {
+	public UserDto createUser(UserDto userDto, Integer roleId) {
 		// Company company = this.companyRepo.findById(companyId).orElseThrow(() -> new
 		// ResourceNotFoundException("Company", "Company id", companyId));
+		UserRole userRole = this.userRoleRepo.findById(roleId).orElseThrow(() -> new ResourceNotFoundException("UserRole", "User Role", roleId));;
 		User user = this.modelMapper.map(userDto, User.class);
-		// user.setCompany(company);
+		user.setUserRole(userRole);
 		User savedUser = this.userRepo.save(user);
 		return this.modelMapper.map(savedUser, UserDto.class);
 	}

@@ -1,13 +1,16 @@
 package com.bugtracker.entities;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -25,7 +28,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
-public class User {
+public class User implements UserDetails{
 
 	@Id
 	@Column(name = "user_id")
@@ -33,7 +36,7 @@ public class User {
 	private Integer userId;
 	
 	@Column(name = "email")
-	private String userEmail;
+	private String email;
 	
 	@Column(name = "password")
 	private String password;
@@ -84,13 +87,14 @@ public class User {
 	}
 
 	public String getUserEmail() {
-		return userEmail;
+		return email;
 	}
 
 	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+		this.email = userEmail;
 	}
 
+	@Override
 	public String getPassword() {
 		return password;
 	}
@@ -105,6 +109,14 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public UserRole getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
 	}
 
 	public Company getCompany() {
@@ -126,8 +138,7 @@ public class User {
 	public List<Ticket> getTickets() {
 		return tickets;
 	}
-	
-	@JsonBackReference
+
 	public void setTickets(List<Ticket> tickets) {
 		this.tickets = tickets;
 	}
@@ -170,6 +181,41 @@ public class User {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return List.of(new SimpleGrantedAuthority(userRole.getRole()));
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 }

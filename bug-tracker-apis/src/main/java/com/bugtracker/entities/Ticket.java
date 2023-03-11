@@ -49,12 +49,10 @@ public class Ticket {
 	private Date updateDate;
 	
 	@OneToMany(mappedBy = "ticketCommentId")
-	// @JsonManagedReference
 	private List<Comment> comments = new ArrayList<>();
 	
 	@ManyToOne
 	@JoinColumn(name = "ticket_project_id")
-	// @JsonBackReference
 	private Project ticketProjectId;
 
 	@ManyToOne
@@ -65,14 +63,12 @@ public class Ticket {
 	@JoinColumn(name = "ticket_status_id")
 	private TicketStatus ticketStatus;
 	
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "created_by_user_id")
 	private User createdByUserId;
 
 	@ManyToOne
 	@JoinColumn(name = "updated_by_user_id")
-	// @JsonBackReference
 	private User updatedByUserId;
 
 	public int getTicketId() {
@@ -148,7 +144,8 @@ public class Ticket {
 	public void setTicketProjectId(Project ticketProjectId) {
 		this.ticketProjectId = ticketProjectId;
 	}
-	@JsonBackReference
+	
+	
 	public User getCreatedByUserId() {
 		return createdByUserId;
 	}

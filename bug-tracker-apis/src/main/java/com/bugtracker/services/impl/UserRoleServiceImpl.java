@@ -1,6 +1,7 @@
 package com.bugtracker.services.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,10 @@ public class UserRoleServiceImpl implements UserRoleService {
 
 	@Override
 	public List<UserRoleDto> getAllRoles() {
-		// TODO Auto-generated method stub
-		return null;
+		List<UserRole> userRoles = this.userRoleRepo.findAll();
+		List<UserRoleDto> userRoleDto = userRoles.stream().map((userRole) -> this.modelMapper.map(userRole, UserRoleDto.class))
+				.collect(Collectors.toList());
+		return userRoleDto;
 	}
 
 	@Override

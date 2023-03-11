@@ -25,7 +25,7 @@ public class TicketTypeServiceImpl implements TicketTypeService {
 	@Override
 	public List<TicketTypeDto> getAllTicketType() {
 		List<TicketType> ticketTypes = this.ticketTypeRepo.findAll();
-		List<TicketTypeDto> ticketTypesDto = ticketTypes.stream().map((ticketType) -> this.modelMapper.map(ticketTypes, TicketTypeDto.class))
+		List<TicketTypeDto> ticketTypesDto = ticketTypes.stream().map((ticketType) -> this.modelMapper.map(ticketType, TicketTypeDto.class))
 				.collect(Collectors.toList());
 		return ticketTypesDto;
 	}
