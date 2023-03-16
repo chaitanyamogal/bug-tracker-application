@@ -4,15 +4,23 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class UserDto {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-	private int userId;
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class RegisterRequest {
 
 	private String email;
 
 	private String password;
 
 	private String name;
+
+	private UserRoleDto userRole;
 
 	private CompanyDto company;
 
@@ -35,20 +43,28 @@ public class UserDto {
 		this.password = password;
 	}
 
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public UserRoleDto getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(UserRoleDto userRole) {
+		this.userRole = userRole;
+	}
+
+	public CompanyDto getCompany() {
+		return company;
+	}
+
+	public void setCompany(CompanyDto company) {
+		this.company = company;
 	}
 
 	public List<ProjectDto> getProject() {
@@ -59,11 +75,4 @@ public class UserDto {
 		this.project = project;
 	}
 
-	public CompanyDto getCompany() {
-		return company;
-	}
-
-	public void setCompany(CompanyDto company) {
-		this.company = company;
-	}
 }

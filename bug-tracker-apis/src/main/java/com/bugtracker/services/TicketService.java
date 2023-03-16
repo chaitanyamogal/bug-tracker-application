@@ -14,9 +14,9 @@ public interface TicketService {
 	
 	List<TicketDto> getTicketsByProject(Integer projectId);
 	
-	TicketDto createTicket(TicketDto ticketDto, Integer userId , Integer projectId);
+	TicketDto createTicket(TicketDto ticketDto, Integer userId, Integer projectId, Integer ticketTypeId, Integer ticketStatusId);
 	
-	TicketDto updateTicket(TicketDto ticketDto, Integer ticketId);
+	TicketDto updateTicket(TicketDto ticketDto, Integer ticketId, Integer ticketTypeId, Integer ticketStatusId);
 	
 	void deleteTicket(Integer ticketId);
 	

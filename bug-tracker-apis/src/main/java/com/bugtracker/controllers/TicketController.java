@@ -37,15 +37,15 @@ public class TicketController {
 			return new ResponseEntity<TicketDto>(ticket, HttpStatus.CREATED);
 	}
 	
-	@PostMapping("/user/{userId}/project/{projectId}/ticket")
-	public ResponseEntity<TicketDto> createTicket(@RequestBody TicketDto ticketDto, @PathVariable Integer userId, @PathVariable Integer projectId){
-			TicketDto ticket = this.ticketService.createTicket(ticketDto, userId, projectId);
+	@PostMapping("/user/{userId}/project/{projectId}/ticket-type/{ticketTypeId}/ticket-status/{ticketStatusId}/ticket")
+	public ResponseEntity<TicketDto> createTicket(@RequestBody TicketDto ticketDto, @PathVariable Integer userId, @PathVariable Integer projectId,@PathVariable Integer ticketTypeId,@PathVariable Integer ticketStatusId){
+			TicketDto ticket = this.ticketService.createTicket(ticketDto, userId, projectId, ticketTypeId, ticketStatusId);
 			return new ResponseEntity<TicketDto>(ticket, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/ticket/{ticketId}")
-	public ResponseEntity<TicketDto> updateTicket(@RequestBody TicketDto ticketDto, @PathVariable Integer ticketId){
-			TicketDto ticket = this.ticketService.updateTicket(ticketDto, ticketId);
+	public ResponseEntity<TicketDto> updateTicket(@RequestBody TicketDto ticketDto, @PathVariable Integer ticketId, @PathVariable Integer ticketTypeId,@PathVariable Integer ticketStatusId){
+			TicketDto ticket = this.ticketService.updateTicket(ticketDto, ticketId, ticketTypeId, ticketStatusId);
 			return new ResponseEntity<TicketDto>(ticket, HttpStatus.CREATED);
 	}
 	

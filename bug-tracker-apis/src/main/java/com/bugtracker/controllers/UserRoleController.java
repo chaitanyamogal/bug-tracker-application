@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bugtracker.payloads.TicketTypeDto;
 import com.bugtracker.payloads.UserRoleDto;
 import com.bugtracker.services.UserRoleService;
 
@@ -22,15 +21,15 @@ public class UserRoleController {
 	@Autowired
 	UserRoleService userRoleService;
 	
-	@GetMapping("/")
-	public ResponseEntity<List<UserRoleDto>> getAllTicketType(){
-		List<UserRoleDto> userRoleDtos = this.userRoleService.getAllRoles();
-		return new ResponseEntity<List<UserRoleDto>>(userRoleDtos, HttpStatus.CREATED);
-	}
-	
 	@PostMapping("/")
 	public ResponseEntity<UserRoleDto> createUserRole(@RequestBody UserRoleDto userRole){
 		UserRoleDto userRoleDto = this.userRoleService.createUserRole(userRole);
 		return new ResponseEntity<UserRoleDto>(userRoleDto, HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/")
+	public ResponseEntity<List<UserRoleDto>> getAllRoles(){
+		List<UserRoleDto> userRoleDto = this.userRoleService.getAllRoles();
+		return new ResponseEntity<List<UserRoleDto>>(userRoleDto, HttpStatus.CREATED);
 	}
 }

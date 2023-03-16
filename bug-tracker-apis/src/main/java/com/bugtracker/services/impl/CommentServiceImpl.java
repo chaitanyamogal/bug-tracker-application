@@ -37,8 +37,8 @@ public class CommentServiceImpl implements CommentService {
 	public CommentDto createComment(CommentDto commentDto, Integer userId, Integer ticketId) {
 		List<Comment> commentList = new ArrayList<>();
 		Comment comment = this.modelMapper.map(commentDto, Comment.class);
-		Ticket ticket = this.ticketRepo.findById(ticketId).orElseThrow(() -> new ResourceNotFoundException("Ticket", "Ticket id", ticketId));
-		User user = this.userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "User id", userId));
+		Ticket ticket = this.ticketRepo.findById(ticketId).orElseThrow(() -> new ResourceNotFoundException("Ticket not found"));
+		User user = this.userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
 		comment.setCreatedByUserId(user);
 		comment.setTicketCommentId(ticket);
 		commentList = ticket.getComments();
@@ -50,7 +50,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public CommentDto updateComment(CommentDto commentDto, Integer commentId) {
-		Comment foundComment = this.commentRepo.findById(commentId).orElseThrow(() -> new ResourceNotFoundException("Comment", "Comment id", commentId));
+		Comment foundComment = this.commentRepo.findById(commentId).orElseThrow(() -> new ResourceNotFoundException("Comment not found"));
 		Comment comment = this.modelMapper.map(commentDto, Comment.class);
 		foundComment.setComment(comment.getComment());
 		Comment savedComment = this.commentRepo.save(foundComment);
@@ -59,7 +59,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public CommentDto getCommentById(Integer commentId) {
-		Comment comment = this.commentRepo.findById(commentId).orElseThrow(() -> new ResourceNotFoundException("Comment", "Comment id", commentId));
+		Comment comment = this.commentRepo.findById(commentId).orElseThrow(() -> new ResourceNotFoundException("Comment not found"));
 		CommentDto commentDto = this.modelMapper.map(comment, CommentDto.class);
 		return commentDto;
 	}
@@ -73,7 +73,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public void deleteComment(Integer commentId) {
-		Comment comment = this.commentRepo.findById(commentId).orElseThrow(() -> new ResourceNotFoundException("Comment", "Comment id", commentId));
+		Comment comment = this.commentRepo.findById(commentId).orElseThrow(() -> new ResourceNotFoundException("Comment not found"));
 		this.commentRepo.delete(comment);
 	}
 

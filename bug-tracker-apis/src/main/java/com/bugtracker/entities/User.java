@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -26,32 +25,38 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-public class User implements UserDetails{
+public class User implements UserDetails {
 
 	@Id
 	@Column(name = "user_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userId;
-	
+
 	@Column(name = "email")
 	private String email;
-	
+
 	@Column(name = "password")
 	private String password;
-	
+
 	@Column(name = "name")
 	private String name;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "role_id")
 	private UserRole userRole;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "company_id")
 	private Company company;
-	
+
 	@ManyToMany
 	@JoinTable(name = "user_project", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
 	private List<Project> project = new ArrayList<>();;
@@ -94,7 +99,6 @@ public class User implements UserDetails{
 		this.email = userEmail;
 	}
 
-	@Override
 	public String getPassword() {
 		return password;
 	}

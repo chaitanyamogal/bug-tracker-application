@@ -3,19 +3,18 @@ package com.bugtracker.payloads;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bugtracker.entities.Ticket;
-
-import jakarta.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class TicketTypeDto {
 
 	private Integer ticketTypeId;
-	
+
 	private String type;
-	
+
 	private String description;
-	
-	private List<Ticket> tickets = new ArrayList<>();
+
+	@JsonIgnore
+	private List<TicketDto> tickets = new ArrayList<>();
 
 	public Integer getTicketTypeId() {
 		return ticketTypeId;
@@ -41,11 +40,12 @@ public class TicketTypeDto {
 		this.description = description;
 	}
 
-	public List<Ticket> getTickets() {
+	public List<TicketDto> getTickets() {
 		return tickets;
 	}
 
-	public void setTickets(List<Ticket> tickets) {
+	public void setTickets(List<TicketDto> tickets) {
 		this.tickets = tickets;
 	}
+
 }

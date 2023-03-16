@@ -7,7 +7,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bugtracker.entities.TicketType;
 import com.bugtracker.entities.UserRole;
+import com.bugtracker.payloads.TicketTypeDto;
 import com.bugtracker.payloads.UserRoleDto;
 import com.bugtracker.repositories.UserRoleRepo;
 import com.bugtracker.services.UserRoleService;
@@ -31,9 +33,9 @@ public class UserRoleServiceImpl implements UserRoleService {
 	@Override
 	public List<UserRoleDto> getAllRoles() {
 		List<UserRole> userRoles = this.userRoleRepo.findAll();
-		List<UserRoleDto> userRoleDto = userRoles.stream().map((userRole) -> this.modelMapper.map(userRole, UserRoleDto.class))
+		List<UserRoleDto> userRoleDtos = userRoles.stream().map((userRole) -> this.modelMapper.map(userRole, UserRoleDto.class))
 				.collect(Collectors.toList());
-		return userRoleDto;
+		return userRoleDtos;
 	}
 
 	@Override

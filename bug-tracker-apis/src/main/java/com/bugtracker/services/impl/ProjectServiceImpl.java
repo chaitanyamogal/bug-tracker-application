@@ -29,7 +29,7 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	@Override
 	public ProjectDto createProject(ProjectDto projectDto, Integer companyId) {
-		Company company  = this.companyRepo.findById(companyId).orElseThrow(() -> new ResourceNotFoundException("Company", "Company id", companyId));
+		Company company  = this.companyRepo.findById(companyId).orElseThrow(() -> new ResourceNotFoundException("Company not found"));
 		
 		Project project = this.modelMapper.map(projectDto, Project.class);
 		project.setCompany(company);
@@ -40,7 +40,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public ProjectDto updateProject(ProjectDto projectDto, Integer projectId) {
-		Project foundProject = this.projectRepo.findById(projectId).orElseThrow(() -> new ResourceNotFoundException("Project", "Project id", projectId));
+		Project foundProject = this.projectRepo.findById(projectId).orElseThrow(() -> new ResourceNotFoundException("Project not found"));
 		Project project = this.modelMapper.map(projectDto, Project.class);
 		
 		foundProject.setName(project.getName());
@@ -63,17 +63,17 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public ProjectDto getProjectById(Integer projectId) {
-		Project project = this.projectRepo.findById(projectId).orElseThrow(() -> new ResourceNotFoundException("Project", "Project id", projectId));;
+		Project project = this.projectRepo.findById(projectId).orElseThrow(() -> new ResourceNotFoundException("Project not found"));;
 		ProjectDto projectDto = this.modelMapper.map(project, ProjectDto.class);
 		return projectDto;
 	}
 
 	@Override
 	public List<ProjectDto> getProjectsByCompany(Integer companyId) {
-		Company company = this.companyRepo.findById(companyId).orElseThrow(() -> new ResourceNotFoundException("Company", "company id", companyId));
+		Company company = this.companyRepo.findById(companyId).orElseThrow(() -> new ResourceNotFoundException("Company not found"));
 		List<Project> projects = this.projectRepo.findByCompany(company);
 		
-		List<ProjectDto> projectDtos = projects.stream().map((project) -> this.modelMapper.map(projects, ProjectDto.class)).collect(Collectors.toList());
+		List<ProjectDto> projectDtos = projects.stream().map((project) -> this.modelMapper.map(project, ProjectDto.class)).collect(Collectors.toList());
 		return projectDtos;
 	}
 

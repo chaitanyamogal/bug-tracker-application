@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDto getUserById(Integer userId) {
 		User user = this.userRepo.findById(userId)
-				.orElseThrow(() -> new ResourceNotFoundException("User", "User id", userId));
+				.orElseThrow(() -> new ResourceNotFoundException("User not found"));
 		
 		return this.modelMapper.map(user, UserDto.class);
 	}
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
 	public UserDto createUser(UserDto userDto, Integer roleId) {
 		// Company company = this.companyRepo.findById(companyId).orElseThrow(() -> new
 		// ResourceNotFoundException("Company", "Company id", companyId));
-		UserRole userRole = this.userRoleRepo.findById(roleId).orElseThrow(() -> new ResourceNotFoundException("UserRole", "User Role", roleId));;
+		UserRole userRole = this.userRoleRepo.findById(roleId).orElseThrow(() -> new ResourceNotFoundException("UserRole not found"));;
 		User user = this.modelMapper.map(userDto, User.class);
 		user.setUserRole(userRole);
 		User savedUser = this.userRepo.save(user);
@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<UserDto> findUsersByProject(Integer projectId){
 		Project project = this.projectRepo.findById(projectId)
-				.orElseThrow(() -> new ResourceNotFoundException("Project", "Project id", projectId));
+				.orElseThrow(() -> new ResourceNotFoundException("Project not found"));
 		List<User> usersOfProject = userRepo.findByProject(project);
 		List<UserDto> allUsers = usersOfProject.stream().map((user) -> this.modelMapper.map(user, UserDto.class))
 				.collect(Collectors.toList());
@@ -90,7 +90,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<UserDto> findUsersByCompany(Integer companyId){
 		Company company = this.companyRepo.findById(companyId)
-				.orElseThrow(() -> new ResourceNotFoundException("Company", "Company id", companyId));
+				.orElseThrow(() -> new ResourceNotFoundException("Company not found"));
 		List<User> usersOfCompany = userRepo.findByCompany(company);
 		List<UserDto> allUsers = usersOfCompany.stream().map((user) -> this.modelMapper.map(user, UserDto.class))
 				.collect(Collectors.toList());
@@ -100,9 +100,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDto assignCompanyToUser(Integer userId, Integer companyId) {
 		User user = this.userRepo.findById(userId)
-				.orElseThrow(() -> new ResourceNotFoundException("User", "User id", userId));
+				.orElseThrow(() -> new ResourceNotFoundException("User not found"));
 		Company company = this.companyRepo.findById(companyId)
-				.orElseThrow(() -> new ResourceNotFoundException("Company", "Company id", companyId));
+				.orElseThrow(() -> new ResourceNotFoundException("Company not found"));
 		// User user = this.modelMapper.map(userDto, User.class);
 		user.setCompany(company);
 		User savedUser = this.userRepo.save(user);
@@ -112,9 +112,9 @@ public class UserServiceImpl implements UserService {
 	public UserDto assignProjectToUser(Integer userId, Integer projectId) {
 		List<Project> projectsList = new ArrayList<>();
 		User user = this.userRepo.findById(userId)
-				.orElseThrow(() -> new ResourceNotFoundException("User", "User id", userId));
+				.orElseThrow(() -> new ResourceNotFoundException("User not found"));
 		Project project = this.projectRepo.findById(projectId)
-				.orElseThrow(() -> new ResourceNotFoundException("Project", "Project id", projectId));
+				.orElseThrow(() -> new ResourceNotFoundException("Project not found"));
 
 		projectsList = user.getProject();
 		projectsList.add(project);

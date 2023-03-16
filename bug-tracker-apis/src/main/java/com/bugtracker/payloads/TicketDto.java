@@ -10,13 +10,17 @@ public class TicketDto {
 	private String ticketTitle;
 
 	private String ticketDescription;
-	
+
 	private String resolutionSummary;
-	
+
 	private UserDto createdByUserId;
-	
+
 	private List<CommentDto> comments;
-	
+
+	private TicketTypeDto ticketType;
+
+	private TicketStatusDto ticketStatus;
+
 	private Date createdDate;
 
 	private Date updateDate;
@@ -52,7 +56,7 @@ public class TicketDto {
 	public void setResolutionSummary(String resolutionSummary) {
 		this.resolutionSummary = resolutionSummary;
 	}
-	
+
 	public UserDto getCreatedByUserId() {
 		return createdByUserId;
 	}
@@ -67,6 +71,22 @@ public class TicketDto {
 
 	public void setComments(List<CommentDto> comments) {
 		this.comments = comments;
+	}
+
+	public TicketTypeDto getTicketType() {
+		return ticketType;
+	}
+
+	public void setTicketType(TicketTypeDto ticketType) {
+		this.ticketType = ticketType;
+	}
+
+	public TicketStatusDto getTicketStatus() {
+		return ticketStatus;
+	}
+
+	public void setTicketStatus(TicketStatusDto ticketStatus) {
+		this.ticketStatus = ticketStatus;
 	}
 
 	public Date getCreatedDate() {
@@ -84,5 +104,5 @@ public class TicketDto {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-	
+
 }
