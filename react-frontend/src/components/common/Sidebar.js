@@ -3,8 +3,10 @@ import userContext from "../../context/userContext";
 import { getToken } from "../../auth";
 import { Axios } from "../../services/helper/config";
 const Sidebar = (props) => {
+  const selectProjectContext = useContext(userContext);
+
   const [user, setUser] = useState(props.user.data.userId);
-  const [projects, setProjects] = useState({});
+  const [projects, setProjects] = useState([]);
   const token = getToken();
   useEffect(() => {
     console.log(token);
@@ -14,8 +16,15 @@ const Sidebar = (props) => {
       headers: { Authorization: `Bearer ${token}` }
     }).then((data) => {
       console.log(data.data);
+      setProjects(data.data);
+      selectProjectContext.setSelectedProject(data.data[0].projectId);
     });
   }, []);
+
+  function handleProjectChange(event) {
+    console.log("Hittttttt");
+    selectProjectContext.setSelectedProject(event.target.value);
+  }
 
   return (
     <div className="wrapper d-flex col-3" style={{ width: "20%" }}>
@@ -36,11 +45,14 @@ const Sidebar = (props) => {
             <a href="#">Tickets</a>
           </li>
           <li>
-            <select class="form-select" aria-label="Default select example">
-              <option selected>Projects</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              onChange={handleProjectChange}
+            >
+              {projects.map((project) => {
+                return <option value={project.projectId}>{project.name}</option>;
+              })}
             </select>
           </li>
           <li>

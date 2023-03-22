@@ -9,6 +9,8 @@ function UserProvider({ children }) {
     login: false
   });
 
+  const [selectedProject, setSelectedProject] = useState();
+
   useEffect(() => {
     setUser({
       data: getCurrentUserDetail(),
@@ -16,7 +18,11 @@ function UserProvider({ children }) {
     });
   }, []);
 
-  return <userContext.Provider value={{ user, setUser }}>{children}</userContext.Provider>;
+  return (
+    <userContext.Provider value={{ user, setUser, selectedProject, setSelectedProject }}>
+      {children}
+    </userContext.Provider>
+  );
 }
 
 export default UserProvider;
