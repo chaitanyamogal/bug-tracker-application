@@ -36,3 +36,11 @@ export const getToken = () => {
     return null;
   }
 };
+
+export const getUserId = () => {
+  if (isLoggedIn()) {
+    return JSON.parse(localStorage.getItem("data")).user.userId;
+  } else {
+    return null;
+  }
+};

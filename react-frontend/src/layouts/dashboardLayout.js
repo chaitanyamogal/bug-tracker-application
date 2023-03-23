@@ -9,10 +9,12 @@ const DashboardLayout = () => {
   return (
     <>
       <Navbar />
-      <div class="">
+      <div>
         <div class="row">
           <Sidebar user={userContextData.user} />
-          <Outlet />
+          <div class="col-9">
+            <Outlet />
+          </div>
         </div>
       </div>
     </>

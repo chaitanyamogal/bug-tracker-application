@@ -7,9 +7,6 @@ const Navbar = () => {
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mb-2 mb-lg-0 ms-auto mx-5">
-            <button class="btn btn-outline-primary mx-3" type="">
-              New Issue
-            </button>
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"

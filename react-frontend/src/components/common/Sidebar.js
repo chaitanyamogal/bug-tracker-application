@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import userContext from "../../context/userContext";
 import { getToken } from "../../auth";
-import { Axios } from "../../services/helper/config";
+import { getAllProjects } from "../../services/getAllProjects";
 const Sidebar = (props) => {
   const selectProjectContext = useContext(userContext);
 
@@ -12,12 +12,10 @@ const Sidebar = (props) => {
     console.log(token);
     setUser(props.user.data);
     console.log(user);
-    Axios.get(`api/user/${user}/projects`, {
-      headers: { Authorization: `Bearer ${token}` }
-    }).then((data) => {
-      console.log(data.data);
-      setProjects(data.data);
-      selectProjectContext.setSelectedProject(data.data[0].projectId);
+    getAllProjects(user, token).then((data) => {
+      console.log(data);
+      setProjects(data);
+      selectProjectContext.setSelectedProject(data[0].projectId);
     });
   }, []);
 

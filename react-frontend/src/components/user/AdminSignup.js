@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { adminSignup } from "../../services/helper/userService/adminSignup";
+import { adminSignup } from "../../services/userService/adminSignup";
 import { Link, useNavigate } from "react-router-dom";
 import userContext from "../../context/userContext";
 import { doLogin } from "../../auth";
