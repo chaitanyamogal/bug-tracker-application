@@ -27,7 +27,9 @@ const TicketTable = (props) => {
                   <td>{ticket.createdByUserId.name}</td>
                   <td>{ticket.ticketStatus.status}</td>
                   <td>{ticket.ticketType.type}</td>
-                  <td>Action</td>
+                  <td>
+                    <Link to={`ticket/${ticket.ticketId}`}>Edit</Link>
+                  </td>
                 </tr>
               </>
             );

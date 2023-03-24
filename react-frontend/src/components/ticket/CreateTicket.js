@@ -1,9 +1,9 @@
 import { useEffect, useState, useContext } from "react";
-import { getToken, getUserId } from "../auth";
-import { getTicketStatus } from "../services/ticketService.js/getTicketStatus";
-import { getTicketTypes } from "../services/ticketService.js/getTicketType";
-import userContext from "../context/userContext";
-import { createTicket } from "../services/ticketService.js/createTicket";
+import { getToken, getUserId } from "../../auth";
+import { getTicketStatus } from "../../services/ticketService.js/getTicketStatus";
+import { getTicketTypes } from "../../services/ticketService.js/getTicketType";
+import userContext from "../../context/userContext";
+import { createTicket } from "../../services/ticketService.js/createTicket";
 
 const CreateTicket = () => {
   const userId = getUserId();

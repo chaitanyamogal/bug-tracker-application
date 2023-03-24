@@ -8,7 +8,8 @@ import SignupLayout from "./layouts/signupLayout";
 import UserProvider from "./context/UserProvider";
 import Home from "./components/Home";
 import DashboardLayout from "./layouts/dashboardLayout";
-import CreateTicket from "./components/CreateTicket";
+import CreateTicket from "./components/ticket/CreateTicket";
+import UpdateTicket from "./components/ticket/UpdateTicket";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/" element={<DashboardLayout />}>
               <Route path="home" element={<Home />}></Route>
               <Route path="new-ticket" element={<CreateTicket />}></Route>
+              <Route path="ticket/:ticketId" element={<UpdateTicket />}></Route>
             </Route>
           </Routes>
         </BrowserRouter>

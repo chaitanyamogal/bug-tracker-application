@@ -1,7 +1,7 @@
 import Sidebar from "./common/Sidebar";
 import { useContext, useEffect, useState } from "react";
 import userContext from "../context/userContext";
-import TicketTable from "./TicketTable";
+import TicketTable from "./ticket/TicketTable";
 import { getProjectDetails } from "../services/getProjectDetails";
 import { getToken } from "../auth";
 const Home = () => {
