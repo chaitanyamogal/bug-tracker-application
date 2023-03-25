@@ -35,7 +35,7 @@ const AdminSignup = () => {
                 data: data.user,
                 login: true
               });
-              navigate("/home");
+              navigate("/tickets");
             });
             resetForm();
           })

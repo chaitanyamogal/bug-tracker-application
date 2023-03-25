@@ -1,21 +1,19 @@
 import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import userContext from "../../context/userContext";
-import { getToken } from "../../auth";
+import { getToken, getUserId } from "../../auth";
 import { getAllProjects } from "../../services/getAllProjects";
 const Sidebar = (props) => {
   const selectProjectContext = useContext(userContext);
 
-  const [user, setUser] = useState(props.user.data.userId);
+  const userId = getUserId();
   const [projects, setProjects] = useState([]);
   const token = getToken();
   useEffect(() => {
-    console.log(token);
-    setUser(props.user.data);
-    console.log(user);
-    getAllProjects(user, token).then((data) => {
+    getAllProjects(userId, token).then((data) => {
       console.log(data);
       setProjects(data);
-      selectProjectContext.setSelectedProject(data[0].projectId);
+      //selectProjectContext.setSelectedProject(data[0].projectId);
     });
   }, []);
 
@@ -40,7 +38,7 @@ const Sidebar = (props) => {
             <a href="#">Dashbord</a>
           </li>
           <li>
-            <a href="#">Tickets</a>
+            <Link to="/tickets">Tickets</Link>
           </li>
           <li>
             <select

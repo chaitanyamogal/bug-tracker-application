@@ -3,13 +3,15 @@ import { getToken, getUserId } from "../../auth";
 import { getTicketStatus } from "../../services/ticketService.js/getTicketStatus";
 import { getTicketTypes } from "../../services/ticketService.js/getTicketType";
 import userContext from "../../context/userContext";
-import { createTicket } from "../../services/ticketService.js/createTicket";
 import { getTicketById } from "../../services/ticketService.js/getTicketById";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { updateTicket } from "../../services/ticketService.js/updateTicket";
 
 const UpdateTicket = () => {
   const userId = getUserId();
   const token = getToken();
+  const { ticketId } = useParams();
+
   const selectProjectContext = useContext(userContext);
   const [ticketTypes, setTicketTypes] = useState([]);
   const [ticketStatuss, setTicketStatuss] = useState([]);
@@ -21,14 +23,6 @@ const UpdateTicket = () => {
     resolutionSummary: ""
   });
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  //   const [ticketId, setTicketId] = useState();
-  //   setTicketId(searchParams.get("ticketId"));
-
-  //   useEffect(() => {
-  //     console.log(ticketId);
-  //   }, []);
-
   useEffect(() => {
     getTicketStatus(token).then((data) => {
       console.log(data);
@@ -38,6 +32,18 @@ const UpdateTicket = () => {
     getTicketTypes(token).then((data) => {
       console.log(data);
       setTicketTypes(data);
+    });
+
+    //console.log(ticketId);
+    getTicketById(ticketId, token).then((data) => {
+      setTicketDetails({
+        ticketType: data.ticketType.ticketTypeId,
+        ticketStatus: data.ticketStatus.ticketStatusId,
+        ticketTitle: data.ticketTitle,
+        ticketDescription: data.ticketDescription,
+        resolutionSummary: data.resolutionSummary
+      });
+      console.log(data);
     });
   }, []);
 
@@ -59,12 +65,10 @@ const UpdateTicket = () => {
 
   function handleSubmit(event) {
     event.preventDefault();
-    createTicket(userId, selectProjectContext.selectedProject, ticketDetails, token).then(
-      (data) => {
-        console.log(data);
-        resetForm();
-      }
-    );
+    updateTicket(ticketId, ticketDetails, token).then((data) => {
+      console.log(data);
+      resetForm();
+    });
   }
 
   return (
@@ -75,6 +79,7 @@ const UpdateTicket = () => {
           <input
             type="text"
             class="form-control"
+            value={ticketDetails.ticketTitle}
             onChange={(event) => {
               handleChange(event, "ticketTitle");
             }}
@@ -85,6 +90,7 @@ const UpdateTicket = () => {
           <textarea
             class="form-control"
             rows="5"
+            value={ticketDetails.ticketDescription}
             onChange={(event) => {
               handleChange(event, "ticketDescription");
             }}
@@ -95,6 +101,7 @@ const UpdateTicket = () => {
           <textarea
             class="form-control"
             rows="5"
+            value={ticketDetails.resolutionSummary}
             onChange={(event) => {
               handleChange(event, "resolutionSummary");
             }}
@@ -107,6 +114,7 @@ const UpdateTicket = () => {
           </option>
           <select
             class="form-control"
+            value={ticketDetails.ticketType}
             onChange={(event) => {
               handleChange(event, "ticketType");
             }}
@@ -120,6 +128,7 @@ const UpdateTicket = () => {
           <label>Ticket Status:</label>
           <select
             class="form-control"
+            value={ticketDetails.ticketStatus}
             onChange={(event) => {
               handleChange(event, "ticketStatus");
             }}

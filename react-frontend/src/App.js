@@ -6,10 +6,11 @@ import Login from "./components/user/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignupLayout from "./layouts/signupLayout";
 import UserProvider from "./context/UserProvider";
-import Home from "./components/Home";
+import Tickets from "./components/Tickets";
 import DashboardLayout from "./layouts/dashboardLayout";
 import CreateTicket from "./components/ticket/CreateTicket";
 import UpdateTicket from "./components/ticket/UpdateTicket";
+import TicketDetails from "./components/ticket/TicketDetails";
 
 function App() {
   return (
@@ -21,10 +22,11 @@ function App() {
               <Route path="/signup" element={<AdminSignup />}></Route>
               <Route path="/login" element={<Login />}></Route>
             </Route>
-            <Route path="/" element={<DashboardLayout />}>
-              <Route path="home" element={<Home />}></Route>
-              <Route path="new-ticket" element={<CreateTicket />}></Route>
-              <Route path="ticket/:ticketId" element={<UpdateTicket />}></Route>
+            <Route element={<DashboardLayout />}>
+              <Route path="/tickets" element={<Tickets />}></Route>
+              <Route path="/new-ticket" element={<CreateTicket />}></Route>
+              <Route path="/tickets/edit/:ticketId" element={<UpdateTicket />}></Route>
+              <Route path="/tickets/:ticketId" element={<TicketDetails />}></Route>
             </Route>
           </Routes>
         </BrowserRouter>

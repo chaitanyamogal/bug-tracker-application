@@ -28,7 +28,7 @@ const TicketTable = (props) => {
                   <td>{ticket.ticketStatus.status}</td>
                   <td>{ticket.ticketType.type}</td>
                   <td>
-                    <Link to={`ticket/${ticket.ticketId}`}>Edit</Link>
+                    <Link to={`edit/${ticket.ticketId}`}>Edit</Link>
                   </td>
                 </tr>
               </>
