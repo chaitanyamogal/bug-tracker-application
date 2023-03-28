@@ -18,9 +18,7 @@ const Tickets = () => {
 
   return (
     <>
-      <div>
-        <h1>HEllo world</h1>
-        <h2>{selectProjectContext.selectedProject}</h2>
+      <div className="ticket-table-container block-container">
         <TicketTable project={project} />
       </div>
     </>

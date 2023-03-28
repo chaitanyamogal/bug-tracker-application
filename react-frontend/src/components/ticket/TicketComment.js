@@ -1,20 +1,67 @@
+import { useEffect, useState } from "react";
+import { getToken, getUserId } from "../../auth";
+import { createComment } from "../../services/ticketService.js/createComment";
+import { getTicketById } from "../../services/ticketService.js/getTicketById";
+
 const TicketComment = (props) => {
+  const userId = getUserId();
+  const token = getToken();
+  const ticketId = props.ticketId;
+  const [comments, setComments] = useState({ comments: [] });
+  const [comment, setComment] = useState({ comment: "" });
+
+  useEffect(() => {
+    getTicketById(ticketId, token).then((data) => {
+      setComments({
+        comments: data.comments
+      });
+      //console.log(data);
+    });
+  }, []);
+
+  function handleChange(event) {
+    setComment({ comment: event.target.value });
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    createComment(userId, ticketId, comment, token).then((data) => {
+      //console.log(data);
+      setComments((prevComment) => {
+        console.log(prevComment.comments);
+        return { comments: [...prevComment.comments, data] };
+      });
+      setComment({ comment: "" });
+    });
+  }
+
   return (
     <div className="row d-flex ms-4 mt-3">
       <div className="col-md-8 col-lg-8">
         <div className="card shadow-0 border" style={{ backgroundColor: "#f0f2f5" }}>
           <div className="card-body p-4">
-            <div className="form-outline mb-4">
-              <input
-                type="text"
-                id="addANote"
-                className="form-control"
-                placeholder="Type comment..."
-              />
-              <label className="form-label">+ Add a note</label>
-            </div>
-
-            {props.comments.map((comment) => {
+            <form onSubmit={handleSubmit}>
+              <div class="form-group mt-3">
+                <label for="comment">Add comment</label>
+                <textarea
+                  class="form-control"
+                  rows="3"
+                  value={comment.comment}
+                  onChange={(event) => {
+                    handleChange(event);
+                  }}
+                ></textarea>
+              </div>
+              <div className="text-center pt-1 mb-5 pb-1 mt-3">
+                <button
+                  className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3 float-end"
+                  type="submit"
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+            {comments.comments.map((comment) => {
               return (
                 <div className="card mb-4">
                   <div className="card-body">

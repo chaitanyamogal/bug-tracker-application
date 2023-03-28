@@ -1,41 +1,40 @@
+import { useNavigate } from "react-router-dom";
+
 const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <nav className="navbar navbar-expand-lg" style={{ backgroundColor: "#e3f2fd" }}>
       <div class="container-fluid">
+        <button
+          class="btn"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasScrolling"
+          aria-controls="offcanvasScrolling"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
         <a class="navbar-brand" href="/">
           Navbar
         </a>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mb-2 mb-lg-0 ms-auto mx-5">
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Dropdown
-              </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a class="dropdown-item" href="/">
-                    Action
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/">
-                    Another action
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/">
-                    Something else here
-                  </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
+        <div class="ml-auto form-inline">
+          <button
+            class="btn-sm my-2 mx-1 gradient-custom-2 text-white"
+            type="button"
+            onClick={() => navigate("/signup")}
+          >
+            Sign up
+          </button>
+          <button
+            class="btn-sm my-2 mx-1 gradient-custom-2 text-white"
+            type="button"
+            onClick={() => navigate("/login")}
+          >
+            Login
+          </button>
+          <button class="btn-sm my-2 mx-1 gradient-custom-2 text-white" type="button">
+            Logout
+          </button>
         </div>
       </div>
     </nav>

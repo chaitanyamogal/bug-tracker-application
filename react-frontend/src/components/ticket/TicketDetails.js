@@ -40,7 +40,7 @@ const TicketDetails = () => {
   }, []);
 
   return (
-    <>
+    <div className="block-container">
       <div class="mt-5 ms-5" style={{ width: "600px" }}>
         <button class="btn btn-outline-primary float-end mb-3" type="">
           <Link to={`/tickets/edit/${ticketId}`}>Edit</Link>
@@ -71,8 +71,8 @@ const TicketDetails = () => {
           <p>Updated Date - {ticketDetails.updatedDate}</p>
         </div>
       </div>
-      <TicketComment comments={ticketDetails.comments} />
-    </>
+      <TicketComment ticketId={ticketId} />
+    </div>
   );
 };
 

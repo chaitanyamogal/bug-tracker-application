@@ -72,7 +72,7 @@ const UpdateTicket = () => {
   }
 
   return (
-    <div class="mt-5 ms-5" style={{ width: "600px" }}>
+    <div class="mt-5 ms-5 block-container" style={{ width: "600px" }}>
       <form onSubmit={handleSubmit}>
         <div class="form-group mt-3">
           <label for="usr">Ticket Title:</label>

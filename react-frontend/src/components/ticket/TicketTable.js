@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const TicketTable = (props) => {
+  const navigate = useNavigate();
   return (
     <div>
       <button class="btn btn-outline-primary float-end mb-3" type="">
@@ -21,14 +22,20 @@ const TicketTable = (props) => {
           {props.project.tickets.map((ticket) => {
             return (
               <>
-                <tr>
+                <tr onClick={() => navigate(`${ticket.ticketId}`)}>
                   <td>{ticket.ticketId}</td>
                   <td>{ticket.ticketTitle}</td>
                   <td>{ticket.createdByUserId.name}</td>
                   <td>{ticket.ticketStatus.status}</td>
                   <td>{ticket.ticketType.type}</td>
                   <td>
-                    <Link to={`edit/${ticket.ticketId}`}>Edit</Link>
+                    <span style={{ marginRight: "10px" }}>
+                      <Link to={`/tickets/edit/${ticket.ticketId}`}>Edit </Link>
+                      {/* <p onClick={() => navigate(`/tickets/edit/${ticket.ticketId}`)}>Edit</p> */}
+                    </span>
+                    <span>
+                      <Link to={`/tickets/${ticket.ticketId}`}> View</Link>
+                    </span>
                   </td>
                 </tr>
               </>
