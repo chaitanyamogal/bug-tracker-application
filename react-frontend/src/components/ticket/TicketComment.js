@@ -36,62 +36,58 @@ const TicketComment = (props) => {
   }
 
   return (
-    <div className="row d-flex ms-4 mt-3">
-      <div className="col-md-8 col-lg-8">
-        <div className="card shadow-0 border" style={{ backgroundColor: "#f0f2f5" }}>
-          <div className="card-body p-4">
-            <form onSubmit={handleSubmit}>
-              <div class="form-group mt-3">
-                <label for="comment">Add comment</label>
-                <textarea
-                  class="form-control"
-                  rows="3"
-                  value={comment.comment}
-                  onChange={(event) => {
-                    handleChange(event);
-                  }}
-                ></textarea>
-              </div>
-              <div className="text-center pt-1 mb-5 pb-1 mt-3">
-                <button
-                  className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3 float-end"
-                  type="submit"
-                >
-                  Submit
-                </button>
-              </div>
-            </form>
-            {comments.comments.map((comment) => {
-              return (
-                <div className="card mb-4">
-                  <div className="card-body">
-                    <p>{comment.comment}</p>
+    <div>
+      <div className="p-2">
+        <form onSubmit={handleSubmit}>
+          <div class="form-group mt-3">
+            <label for="comment">Add comment</label>
+            <textarea
+              class="form-control"
+              rows="3"
+              value={comment.comment}
+              onChange={(event) => {
+                handleChange(event);
+              }}
+            ></textarea>
+          </div>
+          <div className="text-center pt-1 mb-5 pb-1 mt-3">
+            <button
+              className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3 float-end"
+              type="submit"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+        {comments.comments.map((comment) => {
+          return (
+            <div className="card mb-4">
+              <div className="card-body">
+                <p>{comment.comment}</p>
 
-                    <div className="d-flex justify-content-between">
-                      <div className="d-flex flex-row align-items-center">
-                        <img
-                          src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp"
-                          alt="avatar"
-                          width="25"
-                          height="25"
-                        />
-                        <p className="small mb-0 ms-2">{comment.createdByUserId.name}</p>
-                      </div>
-                      <div className="d-flex flex-row align-items-center">
-                        <p className="small text-muted mb-0">{comment.createdDate}</p>
-                        <i
-                          className="far fa-thumbs-up mx-2 fa-xs text-black"
-                          style={{ marginTop: "-0.16rem" }}
-                        ></i>
-                        <p className="small text-muted mb-0">3</p>
-                      </div>
-                    </div>
+                <div className="d-flex justify-content-between">
+                  <div className="d-flex flex-row align-items-center">
+                    <img
+                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp"
+                      alt="avatar"
+                      width="25"
+                      height="25"
+                    />
+                    <p className="small mb-0 ms-2">{comment.createdByUserId.name}</p>
+                  </div>
+                  <div className="d-flex flex-row align-items-center">
+                    <p className="small text-muted mb-0">{comment.createdDate}</p>
+                    <i
+                      className="far fa-thumbs-up mx-2 fa-xs text-black"
+                      style={{ marginTop: "-0.16rem" }}
+                    ></i>
+                    <p className="small text-muted mb-0">3</p>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

@@ -40,39 +40,95 @@ const TicketDetails = () => {
   }, []);
 
   return (
-    <div className="block-container">
-      <div class="mt-5 ms-5" style={{ width: "600px" }}>
-        <button class="btn btn-outline-primary float-end mb-3" type="">
-          <Link to={`/tickets/edit/${ticketId}`}>Edit</Link>
-        </button>
-        <div className="ticket-title">
-          <p>Ticket title - {ticketDetails.ticketTitle}</p>
+    <>
+      {/* <div className="block-container">
+        <div class="mt-5 ms-5" style={{ width: "600px" }}>
+          <button class="btn btn-outline-primary float-end mb-3" type="">
+            <Link to={`/tickets/edit/${ticketId}`}>Edit</Link>
+          </button>
+          <div className="ticket-title">
+            <p>Ticket title - {ticketDetails.ticketTitle}</p>
+          </div>
+          <div className="ticket-description">
+            <p>Ticket Description - {ticketDetails.ticketDescription}</p>
+          </div>
+          <div className="resolution-summary">
+            <p>Ticket Resolution Summary - {ticketDetails.resolutionSummary}</p>
+          </div>
+          <div className="ticket-type-status">
+            <p>Ticket Type - {ticketDetails.ticketType}</p>
+            <br></br>
+            <p>Ticket Status - {ticketDetails.ticketStatus}</p>
+          </div>
+          <div className="created-user">
+            <p>
+              Created By - {ticketDetails.createdByName} Email - {ticketDetails.createdByEmail}
+            </p>
+          </div>
+          <div className="created-date">
+            <p>Created Date - {ticketDetails.createdDate}</p>
+          </div>
+          <div className="updated-date">
+            <p>Updated Date - {ticketDetails.updatedDate}</p>
+          </div>
         </div>
-        <div className="ticket-description">
-          <p>Ticket Description - {ticketDetails.ticketDescription}</p>
-        </div>
-        <div className="resolution-summary">
-          <p>Ticket Resolution Summary - {ticketDetails.resolutionSummary}</p>
-        </div>
-        <div className="ticket-type-status">
-          <p>Ticket Type - {ticketDetails.ticketType}</p>
-          <br></br>
-          <p>Ticket Status - {ticketDetails.ticketStatus}</p>
-        </div>
-        <div className="created-user">
-          <p>
-            Created By - {ticketDetails.createdByName} Email - {ticketDetails.createdByEmail}
-          </p>
-        </div>
-        <div className="created-date">
-          <p>Created Date - {ticketDetails.createdDate}</p>
-        </div>
-        <div className="updated-date">
-          <p>Updated Date - {ticketDetails.updatedDate}</p>
+        <TicketComment ticketId={ticketId} />
+      </div> */}
+
+      {/* Start */}
+      <div className="row">
+        <div class="col-xl-8 col-lg-7">
+          <div class="card shadow mb-4 shadow">
+            <div class="card-header d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Ticket details</h6>
+              <button class="btn btn-outline-primary float-end m-0" type="">
+                <Link to={`/tickets/edit/${ticketId}`}>Edit</Link>
+              </button>
+            </div>
+
+            <div class="card-body">
+              <div class="chart-area">
+                <div class="chartjs-size-monitor">
+                  <div class="chartjs-size-monitor-expand">
+                    <div class=""></div>
+                  </div>
+                  <div class="chartjs-size-monitor-shrink">
+                    <div class=""></div>
+                  </div>
+                </div>
+                <div className="ticket-title">
+                  <p>Ticket title - {ticketDetails.ticketTitle}</p>
+                </div>
+                <div className="ticket-description">
+                  <p>Ticket Description - {ticketDetails.ticketDescription}</p>
+                </div>
+                <div className="resolution-summary">
+                  <p>Ticket Resolution Summary - {ticketDetails.resolutionSummary}</p>
+                </div>
+                <div className="ticket-type-status">
+                  <p>Ticket Type - {ticketDetails.ticketType}</p>
+                  <br></br>
+                  <p>Ticket Status - {ticketDetails.ticketStatus}</p>
+                </div>
+                <div className="created-user">
+                  <p>
+                    Created By - {ticketDetails.createdByName} Email -{" "}
+                    {ticketDetails.createdByEmail}
+                  </p>
+                </div>
+                <div className="created-date">
+                  <p>Created Date - {ticketDetails.createdDate}</p>
+                </div>
+                <div className="updated-date">
+                  <p>Updated Date - {ticketDetails.updatedDate}</p>
+                </div>
+                <TicketComment ticketId={ticketId} />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <TicketComment ticketId={ticketId} />
-    </div>
+    </>
   );
 };
 

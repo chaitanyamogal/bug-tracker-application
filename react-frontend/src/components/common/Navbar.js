@@ -3,7 +3,10 @@ import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate();
   return (
-    <nav className="navbar navbar-expand-lg" style={{ backgroundColor: "#e3f2fd" }}>
+    <nav
+      className="navbar navbar-expand navbar-light bg-white topbar static-top shadow"
+      // style={{ backgroundColor: "#e3f2fd" }}
+    >
       <div class="container-fluid">
         <button
           class="btn"
