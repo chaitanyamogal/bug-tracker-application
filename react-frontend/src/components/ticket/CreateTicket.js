@@ -137,7 +137,7 @@ const CreateTicket = () => {
       {/* Start */}
 
       <div className="row">
-        <div class="col-xl-6 col-lg-7">
+        <div class="col-xl-9 col-lg-7">
           <div class="card shadow mb-4 shadow">
             <div class="card-header d-flex flex-row align-items-center justify-content-between">
               <h6 class="m-0 font-weight-bold text-primary">Create new ticket</h6>
@@ -167,59 +167,70 @@ const CreateTicket = () => {
                       }}
                     ></input>
                   </div>
-                  <div class="form-group mt-3">
-                    <label for="comment">Ticket Description:</label>
-                    <textarea
-                      class="form-control"
-                      rows="5"
-                      onChange={(event) => {
-                        handleChange(event, "ticketDescription");
-                      }}
-                    ></textarea>
-                  </div>
-                  <div class="form-group mt-3">
-                    <label for="comment">Ticket Resolution Summary:</label>
-                    <textarea
-                      class="form-control"
-                      rows="5"
-                      onChange={(event) => {
-                        handleChange(event, "resolutionSummary");
-                      }}
-                    ></textarea>
-                  </div>
-                  <div class="form-group mt-3">
-                    <label>Ticket type:</label>
-                    <option selected disabled hidden>
-                      Choose here
-                    </option>
-                    <select
-                      class="form-control"
-                      onChange={(event) => {
-                        handleChange(event, "ticketType");
-                      }}
-                    >
-                      {ticketTypes.map((ticketType) => {
-                        return <option value={ticketType.ticketTypeId}>{ticketType.type}</option>;
-                      })}
-                    </select>
-                  </div>
-                  <div class="form-group mt-3">
-                    <label>Ticket Status:</label>
-                    <select
-                      class="form-control"
-                      onChange={(event) => {
-                        handleChange(event, "ticketStatus");
-                      }}
-                    >
-                      <option selected disabled hidden>
-                        Choose here
-                      </option>
-                      {ticketStatuss.map((ticketStatus) => {
-                        return (
-                          <option value={ticketStatus.ticketStatusId}>{ticketStatus.status}</option>
-                        );
-                      })}
-                    </select>
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group mt-3">
+                        <label for="comment">Ticket Description:</label>
+                        <textarea
+                          class="form-control"
+                          rows="3"
+                          onChange={(event) => {
+                            handleChange(event, "ticketDescription");
+                          }}
+                        ></textarea>
+                      </div>
+                      <div class="form-group mt-3">
+                        <label for="comment">Ticket Resolution Summary:</label>
+                        <textarea
+                          class="form-control"
+                          rows="3"
+                          onChange={(event) => {
+                            handleChange(event, "resolutionSummary");
+                          }}
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group mt-3">
+                        <label>Ticket type:</label>
+
+                        <select
+                          class="form-select"
+                          onChange={(event) => {
+                            handleChange(event, "ticketType");
+                          }}
+                        >
+                          <option selected disabled hidden>
+                            Choose here
+                          </option>
+                          {ticketTypes.map((ticketType) => {
+                            return (
+                              <option value={ticketType.ticketTypeId}>{ticketType.type}</option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                      <div class="form-group mt-3">
+                        <label>Ticket Status:</label>
+                        <select
+                          class="form-select"
+                          onChange={(event) => {
+                            handleChange(event, "ticketStatus");
+                          }}
+                        >
+                          <option selected disabled hidden>
+                            Choose here
+                          </option>
+                          {ticketStatuss.map((ticketStatus) => {
+                            return (
+                              <option value={ticketStatus.ticketStatusId}>
+                                {ticketStatus.status}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                    </div>
                   </div>
                   <div className="text-center pt-1 mb-5 pb-1 mt-3">
                     <button

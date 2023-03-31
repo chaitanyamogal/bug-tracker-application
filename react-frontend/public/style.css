@@ -8,6 +8,10 @@ p {
 
 /* start sidebar styles */
 
+.user-role {
+  width: 110px;
+}
+
 .nav-item {
   cursor: pointer;
 }

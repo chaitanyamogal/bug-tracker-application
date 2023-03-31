@@ -49,6 +49,7 @@ const TicketTable = (props) => {
                             <td>{ticket.ticketType.type}</td>
                             <td>
                               <span style={{ marginRight: "10px" }}>
+                                <i class="bi-pencil-square"></i>
                                 <Link to={`/tickets/edit/${ticket.ticketId}`}>Edit </Link>
                                 {/* <p onClick={() => navigate(`/tickets/edit/${ticket.ticketId}`)}>Edit</p> */}
                               </span>

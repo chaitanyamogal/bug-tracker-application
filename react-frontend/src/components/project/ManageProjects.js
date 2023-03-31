@@ -45,9 +45,7 @@ const ManageProject = () => {
     event.preventDefault();
     createProject(companyId, projectDetails, token).then((data) => {
       console.log(data);
-      setProjects((prevProjects) => {
-        return [...prevProjects, data];
-      });
+
       resetForm();
     });
   }
@@ -56,8 +54,9 @@ const ManageProject = () => {
     event.preventDefault();
     updateProject(editProjectId, projectDetails, token).then((data) => {
       console.log(data);
-      setProjects((prevProjects) => {
-        return [prevProjects];
+      getProjectsByCompanyId(companyId, token).then((data) => {
+        console.log(data);
+        setProjects(data);
       });
       resetForm();
     });
