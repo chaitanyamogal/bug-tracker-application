@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { doLogout, isLoggedIn } from "../../auth";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -21,23 +22,36 @@ const Navbar = () => {
           Navbar
         </a>
         <div class="ml-auto form-inline">
-          <button
-            class="btn-sm my-2 mx-1 gradient-custom-2 text-white"
-            type="button"
-            onClick={() => navigate("/signup")}
-          >
-            Sign up
-          </button>
-          <button
-            class="btn-sm my-2 mx-1 gradient-custom-2 text-white"
-            type="button"
-            onClick={() => navigate("/login")}
-          >
-            Login
-          </button>
-          <button class="btn-sm my-2 mx-1 gradient-custom-2 text-white" type="button">
-            Logout
-          </button>
+          {!isLoggedIn() && (
+            <button
+              class="btn-sm my-2 mx-1 gradient-custom-2 text-white"
+              type="button"
+              onClick={() => navigate("/signup")}
+            >
+              Sign up
+            </button>
+          )}
+          {!isLoggedIn() && (
+            <button
+              class="btn-sm my-2 mx-1 gradient-custom-2 text-white"
+              type="button"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </button>
+          )}
+          {isLoggedIn() && (
+            <button
+              class="btn-sm my-2 mx-1 gradient-custom-2 text-white"
+              type="button"
+              onClick={() => {
+                navigate("/login");
+                doLogout();
+              }}
+            >
+              Logout
+            </button>
+          )}
         </div>
       </div>
     </nav>

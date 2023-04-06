@@ -12,6 +12,7 @@ import CreateTicket from "./components/ticket/CreateTicket";
 import UpdateTicket from "./components/ticket/UpdateTicket";
 import TicketDetails from "./components/ticket/TicketDetails";
 import ManageProject from "./components/project/ManageProjects";
+import PrivateRoute from "./auth/PrivateRoute";
 
 function App() {
   return (
@@ -23,12 +24,14 @@ function App() {
               <Route path="/signup" element={<AdminSignup />}></Route>
               <Route path="/login" element={<Login />}></Route>
             </Route>
-            <Route path="/" element={<DashboardLayout />}>
-              <Route path="tickets" element={<Tickets />}></Route>
-              <Route path="new-ticket" element={<CreateTicket />}></Route>
-              <Route path="tickets/:ticketId" element={<TicketDetails />}></Route>
-              <Route path="tickets/edit/:ticketId" element={<UpdateTicket />}></Route>
-              <Route path="dashboard" element={<ManageProject />}></Route>
+            <Route element={<PrivateRoute />}>
+              <Route path="/" element={<DashboardLayout />}>
+                <Route path="tickets" element={<Tickets />}></Route>
+                <Route path="new-ticket" element={<CreateTicket />}></Route>
+                <Route path="tickets/:ticketId" element={<TicketDetails />}></Route>
+                <Route path="tickets/edit/:ticketId" element={<UpdateTicket />}></Route>
+                <Route path="dashboard" element={<ManageProject />}></Route>
+              </Route>
             </Route>
           </Routes>
         </BrowserRouter>
