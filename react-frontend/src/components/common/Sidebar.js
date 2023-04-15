@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import userContext from "../../context/userContext";
 import { getToken, getUserId } from "../../auth";
 import { getAllProjects } from "../../services/getAllProjects";
-const Sidebar = (props) => {
+const Sidebar = () => {
   const userId = getUserId();
   const userDetails = JSON.parse(localStorage.getItem("data")).user;
   const token = getToken();

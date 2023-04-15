@@ -11,7 +11,7 @@ import DashboardLayout from "./layouts/dashboardLayout";
 import CreateTicket from "./components/ticket/CreateTicket";
 import UpdateTicket from "./components/ticket/UpdateTicket";
 import TicketDetails from "./components/ticket/TicketDetails";
-import ManageProject from "./components/project/ManageProjects";
+import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./auth/PrivateRoute";
 
 function App() {
@@ -30,7 +30,7 @@ function App() {
                 <Route path="new-ticket" element={<CreateTicket />}></Route>
                 <Route path="tickets/:ticketId" element={<TicketDetails />}></Route>
                 <Route path="tickets/edit/:ticketId" element={<UpdateTicket />}></Route>
-                <Route path="dashboard" element={<ManageProject />}></Route>
+                <Route path="dashboard" element={<Dashboard />}></Route>
               </Route>
             </Route>
           </Routes>
