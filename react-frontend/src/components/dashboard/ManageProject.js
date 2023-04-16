@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { getToken } from "../../auth";
 import { updateProject } from "../../services/project/updateProject";
 import { createProject } from "../../services/project/createProject";
-import { getProjectDetails } from "../../services/getProjectDetails";
+import { getProjectDetails } from "../../services/project/getProjectDetails";
 import { getProjectsByCompanyId } from "../../services/project/getProjectsByCompanyId";
 const ManageProject = () => {
   const token = getToken();

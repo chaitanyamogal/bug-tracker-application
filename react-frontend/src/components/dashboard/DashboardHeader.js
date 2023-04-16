@@ -1,4 +1,30 @@
+import { useState, useEffect, useContext } from "react";
+import { getToken, getUserId } from "../../auth";
+import userContext from "../../context/userContext";
+import { getProjectDetails } from "../../services/project/getProjectDetails";
+
 const DashboardHeader = () => {
+  const token = getToken();
+  const userId = getUserId();
+  const selectProjectContext = useContext(userContext);
+  const [project, setProject] = useState({ tickets: [] });
+  const [totalTickets, setTotalTickets] = useState(0);
+  const [yourTickets, setYourTickets] = useState(0);
+
+  useEffect(() => {
+    getProjectDetails(selectProjectContext.selectedProject, token).then((data) => {
+      console.log(data);
+      setProject(data);
+    });
+  }, [selectProjectContext]);
+
+  useEffect(() => {
+    setTotalTickets(project.tickets.length);
+    setYourTickets(
+      project.tickets.filter((ticket) => ticket.createdByUserId.userId == userId).length
+    );
+  }, [project]);
+
   return (
     <>
       {/* start Header */}
@@ -20,7 +46,7 @@ const DashboardHeader = () => {
                   <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">
                     TOTAL Tickets
                   </div>
-                  <div className="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                  <div className="h5 mb-0 font-weight-bold text-gray-800">{totalTickets}</div>
                 </div>
                 <div className="col-auto">
                   <i className="fas fa-calendar fa-2x text-gray-300"></i>
@@ -38,7 +64,7 @@ const DashboardHeader = () => {
                   <div className="text-xs font-weight-bold text-success text-uppercase mb-1">
                     YOUR TICKETS
                   </div>
-                  <div className="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                  <div className="h5 mb-0 font-weight-bold text-gray-800">{yourTickets}</div>
                 </div>
                 <div className="col-auto">
                   <i className="fas fa-dollar-sign fa-2x text-gray-300"></i>

@@ -46,7 +46,41 @@ const TicketTable = (props) => {
                             <td>{ticket.ticketTitle}</td>
                             <td>{ticket.createdByUserId.name}</td>
                             <td>{ticket.ticketStatus.status}</td>
-                            <td>{ticket.ticketType.type}</td>
+                            {ticket.ticketType.type === "Task" && (
+                              <td>
+                                <span class="ticket-badge badge text-bg-primary">
+                                  {ticket.ticketType.type}
+                                </span>
+                              </td>
+                            )}
+                            {ticket.ticketType.type === "Bug" && (
+                              <td>
+                                <span class="ticket-badge badge text-bg-danger">
+                                  {ticket.ticketType.type}
+                                </span>
+                              </td>
+                            )}
+                            {ticket.ticketType.type === "Issue" && (
+                              <td>
+                                <span class="ticket-badge badge text-bg-warning">
+                                  {ticket.ticketType.type}
+                                </span>
+                              </td>
+                            )}
+                            {ticket.ticketType.type === "Suggestion" && (
+                              <td>
+                                <span class="ticket-badge badge text-bg-info">
+                                  {ticket.ticketType.type}
+                                </span>
+                              </td>
+                            )}
+                            {ticket.ticketType.type === "Feature" && (
+                              <td>
+                                <span class="ticket-badge badge text-bg-success">
+                                  {ticket.ticketType.type}
+                                </span>
+                              </td>
+                            )}
                             <td>
                               <span style={{ marginRight: "10px" }}>
                                 <i class="bi-pencil-square"></i>

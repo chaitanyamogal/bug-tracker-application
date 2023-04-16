@@ -1,18 +1,16 @@
-import Navbar from "./components/common/Navbar";
-import Project from "./core/Project";
-import Sidebar from "./components/common/Sidebar";
 import AdminSignup from "./components/user/AdminSignup";
 import Login from "./components/user/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignupLayout from "./layouts/signupLayout";
 import UserProvider from "./context/UserProvider";
-import Tickets from "./components/Tickets";
+import Tickets from "./components/ticket/Tickets";
 import DashboardLayout from "./layouts/dashboardLayout";
 import CreateTicket from "./components/ticket/CreateTicket";
 import UpdateTicket from "./components/ticket/UpdateTicket";
 import TicketDetails from "./components/ticket/TicketDetails";
 import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./auth/PrivateRoute";
+import Signup from "./components/user/Signup";
 
 function App() {
   return (
@@ -21,7 +19,8 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route element={<SignupLayout />}>
-              <Route path="/signup" element={<AdminSignup />}></Route>
+              <Route path="/admin-signup" element={<AdminSignup />}></Route>
+              <Route path="/signup" element={<Signup />}></Route>
               <Route path="/login" element={<Login />}></Route>
             </Route>
             <Route element={<PrivateRoute />}>

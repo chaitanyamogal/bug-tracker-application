@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import Chart from "react-apexcharts";
 import { getToken } from "../../auth";
-import { getProjectDetails } from "../../services/getProjectDetails";
+import { getProjectDetails } from "../../services/project/getProjectDetails";
 import userContext from "../../context/userContext";
 
 const PieCharts = () => {

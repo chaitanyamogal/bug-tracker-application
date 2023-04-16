@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import userContext from "../../context/userContext";
 import { getToken, getUserId } from "../../auth";
-import { getAllProjects } from "../../services/getAllProjects";
+import { getAllProjects } from "../../services/project/getAllProjects";
 const Sidebar = () => {
   const userId = getUserId();
   const userDetails = JSON.parse(localStorage.getItem("data")).user;
@@ -60,12 +60,6 @@ const Sidebar = () => {
           </select>
         </li>
 
-        <li className="nav-item">
-          <a href="#" className="nav-link active" aria-current="page">
-            <svg className="bi me-2" width="16" height="16"></svg>
-            Home
-          </a>
-        </li>
         <li
           className="nav-item"
           onClick={() => {
@@ -87,12 +81,6 @@ const Sidebar = () => {
             <svg className="bi me-2" width="16" height="16"></svg>
             Tickets
           </span>
-        </li>
-        <li className="nav-item">
-          <a href="#" className="nav-link link-dark">
-            <svg className="bi me-2" width="16" height="16"></svg>
-            Products
-          </a>
         </li>
       </ul>
       <hr></hr>

@@ -1,4 +1,4 @@
-import { Axios } from "./helper/config";
+import { Axios } from "../helper/config";
 
 export const getProjectDetails = (projectId, token) => {
   return Axios.get(`api/company/projects/${projectId}`, {

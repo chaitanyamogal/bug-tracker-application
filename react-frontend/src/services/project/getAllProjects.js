@@ -1,4 +1,4 @@
-import { Axios } from "./helper/config";
+import { Axios } from "../helper/config";
 
 export const getAllProjects = (user, token) => {
   return Axios.get(`api/user/${user}/projects`, {
