@@ -28,8 +28,9 @@ const Sidebar = () => {
   return (
     <div
       id="offcanvasScrolling"
-      className="d-flex flex-column flex-shrink-0 p-3 "
-      style={{ width: "280px", height: "100vh", zIndex: "0", backgroundColor: "white" }}
+      className="d-flex flex-column flex-shrink-0 p-3 col-2"
+      // style={{ width: "280px", height: "100vh", zIndex: "0", backgroundColor: "white" }}
+      style={{ zIndex: "1", backgroundColor: "white" }}
       data-bs-scroll="true"
       data-bs-backdrop="false"
       tabindex="-1"
@@ -39,7 +40,7 @@ const Sidebar = () => {
         <span className="">Welcome,</span>
         <button
           type="button"
-          class="btn-close text-reset"
+          class="btn-close text-reset d-none"
           data-bs-dismiss="offcanvas"
           aria-label="Close"
         ></button>

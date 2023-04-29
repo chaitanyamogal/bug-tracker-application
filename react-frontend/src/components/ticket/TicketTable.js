@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const TicketTable = (props) => {
   const navigate = useNavigate();
@@ -8,11 +9,15 @@ const TicketTable = (props) => {
 
       <div className="row">
         <div class="col-xl-12 col-lg-10">
-          <div class="card shadow mb-4 shadow">
+          <div class="card shadow mb-4 shadow ticket-table">
             <div class="card-header d-flex flex-row align-items-center justify-content-between">
               <h6 class="m-0 font-weight-bold text-primary">All Tickets</h6>
-              <button className="btn btn-outline-primary float-end m-0" type="">
-                <Link to="/new-ticket">New Issue</Link>
+              <button
+                className="btn mx-2 gradient-custom-2 text-white float-end m-0"
+                type=""
+                onClick={() => navigate("/new-ticket")}
+              >
+                New Ticket
               </button>
             </div>
 
@@ -83,12 +88,14 @@ const TicketTable = (props) => {
                             )}
                             <td>
                               <span style={{ marginRight: "10px" }}>
-                                <i class="bi-pencil-square"></i>
-                                <Link to={`edit/${ticket.ticketId}`}>Edit </Link>
-                                {/* <p onClick={() => navigate(`/tickets/edit/${ticket.ticketId}`)}>Edit</p> */}
+                                <Link to={`edit/${ticket.ticketId}`}>
+                                  <i class="bi bi-pencil-square"></i>
+                                </Link>
                               </span>
                               <span>
-                                <Link to={`/tickets/${ticket.ticketId}`}> View</Link>
+                                <Link to={`/tickets/${ticket.ticketId}`}>
+                                  <i class="bi bi-eye-fill"></i>
+                                </Link>
                               </span>
                             </td>
                           </tr>

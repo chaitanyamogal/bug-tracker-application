@@ -61,10 +61,13 @@ const Team = (props) => {
         <div className="card shadow mb-4 shadow">
           <div className="card-header d-flex flex-row align-items-center justify-content-between">
             <h6 className="m-0 font-weight-bold text-primary">Team</h6>
-            <button className="btn btn-outline-primary float-end m-0" type="">
-              <Link class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Add New Member
-              </Link>
+            <button
+              className="btn mx-2 gradient-custom-2 text-white float-end m-0"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              type=""
+            >
+              New Ticket
             </button>
           </div>
 

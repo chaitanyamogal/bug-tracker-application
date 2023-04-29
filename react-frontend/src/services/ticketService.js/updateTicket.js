@@ -8,7 +8,7 @@ export const updateTicket = (ticketId, ticketDetails, token) => {
   };
 
   return Axios.put(
-    `api/ticket-type/${ticketDetails.ticketType}/ticket-status/${ticketDetails.ticketStatus}/ticket/${ticketId}`,
+    `api/ticket-type/${ticketDetails.ticketType}/ticket-status/${ticketDetails.ticketStatus}/tickets/${ticketId}`,
     ticketBody,
     {
       headers: { Authorization: `Bearer ${token}` }

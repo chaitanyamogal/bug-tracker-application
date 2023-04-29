@@ -4,8 +4,10 @@ import { getTicketStatus } from "../../services/ticketService.js/getTicketStatus
 import { getTicketTypes } from "../../services/ticketService.js/getTicketType";
 import userContext from "../../context/userContext";
 import { createTicket } from "../../services/ticketService.js/createTicket";
+import { useNavigate } from "react-router-dom";
 
 const CreateTicket = () => {
+  const navigate = useNavigate();
   const userId = getUserId();
   const token = getToken();
   const selectProjectContext = useContext(userContext);
@@ -53,6 +55,7 @@ const CreateTicket = () => {
       (data) => {
         console.log(data);
         resetForm();
+        navigate("/tickets");
       }
     );
   }
@@ -137,7 +140,7 @@ const CreateTicket = () => {
       {/* Start */}
 
       <div className="row">
-        <div class="col-xl-9 col-lg-7">
+        <div class="col-xl-9 col-lg-7 mt-4">
           <div class="card shadow mb-4 shadow">
             <div class="card-header d-flex flex-row align-items-center justify-content-between">
               <h6 class="m-0 font-weight-bold text-primary">Create new ticket</h6>

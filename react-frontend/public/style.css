@@ -30,15 +30,28 @@ p {
   background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
 }
 
-@media (min-width: 768px) {
+@media only screen and (max-width: 600px) {
   .gradient-form {
     height: 100vh !important;
   }
+
+  .content-container {
+    width: 100%;
+  }
+
+  .ticket-table {
+    overflow-y: scroll;
+  }
+
+  .btn-close .hamburger {
+    display: block !important;
+  }
 }
-@media (min-width: 769px) {
-  .gradient-custom-2 {
-    border-top-right-radius: 0.3rem;
-    border-bottom-right-radius: 0.3rem;
+@media only screen and (min-width: 600px) {
+  .navbar-brand {
+    margin-left: auto;
+    margin-right: auto;
+    width: 30px;
   }
 }
 /* end Signup page */

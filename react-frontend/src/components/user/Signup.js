@@ -1,10 +1,11 @@
 import { useState, useContext, useEffect } from "react";
-import { adminSignup } from "../../services/userService/adminSignup";
 import { Link, useNavigate } from "react-router-dom";
 import userContext from "../../context/userContext";
 import { doLogin } from "../../auth";
 import { getUserRoles } from "../../services/userService/getUserRoles";
 import { getCompanies } from "../../services/userService/getCompanies";
+import { userSignup } from "../../services/userService/userSignup";
+import { assignCompanyToUser } from "../../services/userService/assignCompanyToUser";
 
 const Signup = () => {
   const userContextData = useContext(userContext);
@@ -14,7 +15,9 @@ const Signup = () => {
     name: "",
     email: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    userRole: "",
+    userCompany: ""
   });
   const [error, setError] = useState();
   const [roles, setRoles] = useState([]);
@@ -40,15 +43,25 @@ const Signup = () => {
     //Validate data
     if (userDetails.password.length >= 4) {
       if (userDetails.password === userDetails.confirmPassword) {
-        adminSignup(userDetails)
+        userSignup(userDetails.userRole, {
+          name: userDetails.name,
+          email: userDetails.email,
+          password: userDetails.password
+        })
           .then((data) => {
             doLogin(data, () => {
-              console.log("login detail is saved to localstorage");
-              userContextData.setUser({
-                data: data.user,
-                login: true
-              });
-              navigate("/tickets");
+              assignCompanyToUser(data.user.userId, userDetails.userCompany, data.token).then(
+                (companyData) => {
+                  console.log("UserDetails", userDetails);
+                  console.log("Company assigned ", companyData);
+                  console.log("login detail is saved to localstorage", data);
+                  userContextData.setUser({
+                    data: data.user,
+                    login: true
+                  });
+                  navigate("/login");
+                }
+              );
             });
             resetForm();
           })
@@ -83,12 +96,9 @@ const Signup = () => {
                   <div className="col-lg-6">
                     <div className="card-body p-md-5 mx-md-4">
                       <div className="text-center">
-                        <img
-                          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
-                          style={{ width: "185px" }}
-                          alt="logo"
-                        />
-                        <h4 className="mt-1 mb-5 pb-1">We are The Lotus Team</h4>
+                        <img src={"./images/bugLogo.png"} style={{ width: "185px" }} alt="logo" />
+                        {/* <i class="bi bi-bug-fill display-1 text-danger"></i> */}
+                        <h4 className="mt-1 mb-5 pb-1">BugLog</h4>
                       </div>
 
                       <form onSubmit={handelSubmit}>
@@ -140,9 +150,9 @@ const Signup = () => {
                           <label className="form-label">Role</label>
                           <select
                             class="form-select"
-                            // value={ticketDetails.ticketType}
+                            value={userDetails.userRole}
                             onChange={(event) => {
-                              handleChange(event, "ticketType");
+                              handleChange(event, "userRole");
                             }}
                           >
                             <option selected disabled hidden>
@@ -157,10 +167,10 @@ const Signup = () => {
                           <label className="form-label">Company</label>
                           <select
                             class="form-select"
-                            // value={ticketDetails.ticketType}
-                            // onChange={(event) => {
-                            //   handleChange(event, "ticketType");
-                            // }}
+                            value={userDetails.userCompany}
+                            onChange={(event) => {
+                              handleChange(event, "userCompany");
+                            }}
                           >
                             <option selected disabled hidden>
                               Choose here
@@ -193,7 +203,7 @@ const Signup = () => {
                   </div>
                   <div className="col-lg-6 d-flex align-items-center gradient-custom-2">
                     <div className="text-white px-3 py-4 p-md-5 mx-md-4">
-                      <h4 className="mb-4">We are more than just a company</h4>
+                      <h4 className="mb-4">Track bugs in your project</h4>
                       <p className="small mb-0">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,

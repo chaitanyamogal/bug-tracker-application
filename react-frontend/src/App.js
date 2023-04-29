@@ -27,8 +27,8 @@ function App() {
               <Route path="/" element={<DashboardLayout />}>
                 <Route path="tickets" element={<Tickets />}></Route>
                 <Route path="new-ticket" element={<CreateTicket />}></Route>
-                <Route path="tickets/:ticketId" element={<TicketDetails />}></Route>
-                <Route path="tickets/edit/:ticketId" element={<UpdateTicket />}></Route>
+                <Route path="/tickets/edit/:ticketId" element={<UpdateTicket />}></Route>
+                <Route path="/tickets/:ticketId" element={<TicketDetails />}></Route>
                 <Route path="dashboard" element={<Dashboard />}></Route>
               </Route>
             </Route>

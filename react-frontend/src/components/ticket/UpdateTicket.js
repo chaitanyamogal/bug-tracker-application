@@ -156,7 +156,7 @@ const UpdateTicket = () => {
       {/* Start */}
 
       <div className="row">
-        <div class="col-xl-9 col-lg-7">
+        <div class="col-xl-9 col-lg-7 mt-4">
           <div class="card shadow mb-4 shadow">
             <div class="card-header d-flex flex-row align-items-center justify-content-between">
               <h6 class="m-0 font-weight-bold text-primary">Edit ticket</h6>

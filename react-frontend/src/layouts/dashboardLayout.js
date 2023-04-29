@@ -9,10 +9,10 @@ const DashboardLayout = () => {
   return (
     <>
       <Navbar />
-      <div>
-        <div className="row" style={{ margin: "0" }}>
+      <div style={{ height: "92vh" }}>
+        <div className="row" style={{ margin: "0", height: "100%" }}>
           <Sidebar user={userContextData.user} />
-          <div className="col-9">
+          <div className="col-10 content-container" style={{ height: "100%", overflow: "scroll" }}>
             <Outlet />
           </div>
         </div>

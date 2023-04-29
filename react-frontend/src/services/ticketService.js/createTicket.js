@@ -8,7 +8,7 @@ export const createTicket = (user, project, ticketDetails, token) => {
   };
 
   return Axios.post(
-    `api/user/${user}/project/${project}/ticket-type/${ticketDetails.ticketType}/ticket-status/${ticketDetails.ticketStatus}/ticket`,
+    `api/users/${user}/projects/${project}/ticket-type/${ticketDetails.ticketType}/ticket-status/${ticketDetails.ticketStatus}/tickets`,
     ticketBody,
     {
       headers: { Authorization: `Bearer ${token}` }

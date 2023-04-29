@@ -4,13 +4,10 @@ import { doLogout, isLoggedIn } from "../../auth";
 const Navbar = () => {
   const navigate = useNavigate();
   return (
-    <nav
-      className="navbar navbar-expand navbar-light bg-white topbar static-top shadow"
-      // style={{ backgroundColor: "#e3f2fd" }}
-    >
+    <nav className="navbar navbar-expand navbar-light bg-white topbar static-top shadow">
       <div class="container-fluid">
         <button
-          class="btn"
+          class="btn hamburger d-none"
           type="button"
           data-bs-toggle="offcanvas"
           data-bs-target="#offcanvasScrolling"
@@ -19,12 +16,14 @@ const Navbar = () => {
           <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="/">
-          Navbar
+          <strong>
+            <i>BugLog</i>
+          </strong>
         </a>
         <div class="ml-auto form-inline">
           {!isLoggedIn() && (
             <button
-              class="btn-sm my-2 mx-1 gradient-custom-2 text-white"
+              class="btn mx-2 gradient-custom-2 text-white"
               type="button"
               onClick={() => navigate("/signup")}
             >
@@ -33,7 +32,7 @@ const Navbar = () => {
           )}
           {!isLoggedIn() && (
             <button
-              class="btn-sm my-2 mx-1 gradient-custom-2 text-white"
+              class="btn mx-2 gradient-custom-2 text-white"
               type="button"
               onClick={() => navigate("/login")}
             >
@@ -42,7 +41,7 @@ const Navbar = () => {
           )}
           {isLoggedIn() && (
             <button
-              class="btn-sm my-2 mx-1 gradient-custom-2 text-white"
+              class="btn mx-2 gradient-custom-2 text-white"
               type="button"
               onClick={() => {
                 navigate("/login");
