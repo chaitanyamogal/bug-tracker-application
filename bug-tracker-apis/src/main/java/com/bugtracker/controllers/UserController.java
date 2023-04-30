@@ -34,31 +34,31 @@ public class UserController {
 		return new ResponseEntity<UserDto>(user, HttpStatus.OK);
 	}
 
-	@PostMapping("/company/users/user-role/{roleId}")
-	public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto,@PathVariable Integer roleId) {
-		UserDto user = this.userService.createUser(userDto,roleId);
+	@PostMapping("/user-role/{roleId}/users")
+	public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto, @PathVariable Integer roleId) {
+		UserDto user = this.userService.createUser(userDto, roleId);
 		return new ResponseEntity<UserDto>(user, HttpStatus.CREATED);
 	}
-	
-	@PostMapping("/users/project/{projectId}")
-	public ResponseEntity<List<UserDto>> findUsersByProject(@PathVariable Integer projectId){
+
+	@GetMapping("/users/projects/{projectId}")
+	public ResponseEntity<List<UserDto>> findUsersByProject(@PathVariable Integer projectId) {
 		List<UserDto> usersByProject = this.userService.findUsersByProject(projectId);
 		return new ResponseEntity<List<UserDto>>(usersByProject, HttpStatus.OK);
 	}
-	
-	@PostMapping("/users/company/{companyId}")
-	public ResponseEntity<List<UserDto>> findUsersByCompany(@PathVariable Integer companyId){
+
+	@GetMapping("/users/companies/{companyId}")
+	public ResponseEntity<List<UserDto>> findUsersByCompany(@PathVariable Integer companyId) {
 		List<UserDto> usersByCompany = this.userService.findUsersByCompany(companyId);
 		return new ResponseEntity<List<UserDto>>(usersByCompany, HttpStatus.OK);
 	}
 
-	@PostMapping("/users/{userId}/company/{companyId}")
+	@GetMapping("/users/{userId}/companies/{companyId}")
 	public ResponseEntity<UserDto> assignCompanyToUser(@PathVariable Integer userId, @PathVariable Integer companyId) {
 		UserDto user = this.userService.assignCompanyToUser(userId, companyId);
 		return new ResponseEntity<UserDto>(user, HttpStatus.OK);
 	}
 
-	@PostMapping("/users/{userId}/project/{projectId}")
+	@GetMapping("/users/{userId}/projects/{projectId}")
 	public ResponseEntity<UserDto> assignProjectToUser(@PathVariable Integer userId, @PathVariable Integer projectId) {
 		UserDto user = this.userService.assignProjectToUser(userId, projectId);
 		return new ResponseEntity<UserDto>(user, HttpStatus.OK);

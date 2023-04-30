@@ -31,7 +31,7 @@ public class Ticket {
 
 	@Column(name = "description")
 	private String ticketDescription;
-	
+
 	@Column(name = "resolution_summary")
 	private String resolutionSummary;
 
@@ -44,24 +44,22 @@ public class Ticket {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated_date")
 	private Date updateDate;
-	
+
 	@OneToMany(mappedBy = "ticketCommentId")
-	// @JsonManagedReference
 	private List<Comment> comments = new ArrayList<>();
-	
+
 	@ManyToOne
 	@JoinColumn(name = "ticket_project_id")
-	// @JsonBackReference
 	private Project ticketProjectId;
 
 	@ManyToOne
 	@JoinColumn(name = "ticket_type_id")
 	private TicketType ticketType;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "ticket_status_id")
 	private TicketStatus ticketStatus;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "created_by_user_id")
 	private User createdByUserId;
@@ -117,8 +115,7 @@ public class Ticket {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-	
-	
+
 	public Project getProjectId() {
 		return ticketProjectId;
 	}
@@ -139,11 +136,10 @@ public class Ticket {
 		return ticketProjectId;
 	}
 
-	
 	public void setTicketProjectId(Project ticketProjectId) {
 		this.ticketProjectId = ticketProjectId;
 	}
-	
+
 	public User getCreatedByUserId() {
 		return createdByUserId;
 	}
@@ -175,6 +171,5 @@ public class Ticket {
 	public void setTicketStatus(TicketStatus ticketStatus) {
 		this.ticketStatus = ticketStatus;
 	}
-	
 
 }

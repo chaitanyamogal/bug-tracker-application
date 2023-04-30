@@ -40,7 +40,7 @@ public class User implements UserDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userId;
 
-	@Column(name = "email")
+	@Column(name = "email", unique=true)
 	private String email;
 
 	@Column(name = "password")

@@ -24,34 +24,46 @@ public class ProjectController {
 	@Autowired
 	ProjectService projectService;
 	
-	@GetMapping("/company/projects")
+	@GetMapping("/projects")
 	public ResponseEntity<List<ProjectDto>> getAllProjects(){
 		List<ProjectDto> allProjects = this.projectService.getAllProjects();
 		return new ResponseEntity<List<ProjectDto>>(allProjects, HttpStatus.OK);
 	}
 	
-	@GetMapping("/company/projects/{projectId}")
+	@GetMapping("/projects/{projectId}")
 	public ResponseEntity<ProjectDto> getProjectById(@PathVariable Integer projectId){
 		ProjectDto project = this.projectService.getProjectById(projectId);
 		return new ResponseEntity<ProjectDto>(project, HttpStatus.OK);
 	}
 	
-	@PostMapping("/company/{companyId}/projects")
+	@PostMapping("/companies/{companyId}/projects")
 	public ResponseEntity<ProjectDto> createProject(@RequestBody ProjectDto projectDto, @PathVariable Integer companyId){
 				ProjectDto createdProject = this.projectService.createProject(projectDto, companyId);
 				return new ResponseEntity<ProjectDto>(createdProject, HttpStatus.CREATED);
 	}
 
-	@PutMapping("/company/projects/{projectId}")
+	@PutMapping("/projects/{projectId}")
 	public ResponseEntity<ProjectDto> updateProject(@RequestBody ProjectDto projectDto, @PathVariable Integer projectId){
 		ProjectDto updatedProject = this.projectService.updateProject(projectDto, projectId);
 		return new ResponseEntity<ProjectDto>(updatedProject, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/company/projects/{projectId}")
+	@DeleteMapping("/projects/{projectId}")
 	public ResponseEntity<String> deleteProject(@PathVariable Integer projectId){
 		 this.projectService.deleteProject(projectId);
 		 return new ResponseEntity<String>("Project Deleted Successfully",HttpStatus.OK);
 		
 	}
+	
+	@GetMapping("/users/{userId}/projects")
+	public ResponseEntity<List<ProjectDto>> findProjectsByUserId(@PathVariable Integer userId){
+		List<ProjectDto> projects = this.projectService.findProjectByUser(userId);
+		return new ResponseEntity<List<ProjectDto>>(projects, HttpStatus.CREATED);
+} 
+	
+	@GetMapping("/companies/{companyId}/projects")
+	public ResponseEntity<List<ProjectDto>> findProjectsByCompany(@PathVariable Integer companyId){
+		List<ProjectDto> projects = this.projectService.getProjectsByCompany(companyId);
+		return new ResponseEntity<List<ProjectDto>>(projects, HttpStatus.CREATED);
+}
 }

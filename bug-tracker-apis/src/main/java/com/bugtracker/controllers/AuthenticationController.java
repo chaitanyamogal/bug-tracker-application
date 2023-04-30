@@ -3,8 +3,8 @@ package com.bugtracker.controllers;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +17,7 @@ import com.bugtracker.payloads.RegisterRequest;
 import com.bugtracker.services.impl.AuthenticationService;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
@@ -31,6 +31,7 @@ public class AuthenticationController {
 
 	@PostMapping("/authenticate")
 	public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
-		return ResponseEntity.ok(service.authenticate(request));
+		AuthenticationResponse returnResponse = service.authenticate(request);
+		return new ResponseEntity<AuthenticationResponse>(returnResponse, HttpStatus.OK);
 	}
 }

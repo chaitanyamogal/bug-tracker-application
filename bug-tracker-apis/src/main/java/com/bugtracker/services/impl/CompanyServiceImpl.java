@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.bugtracker.entities.Company;
 import com.bugtracker.payloads.CompanyDto;
-import com.bugtracker.payloads.UserDto;
 import com.bugtracker.repositories.CompanyRepo;
 import com.bugtracker.services.CompanyService;
 import com.bugtracker.exceptions.*;
@@ -18,10 +17,26 @@ import com.bugtracker.exceptions.*;
 public class CompanyServiceImpl implements CompanyService {
 
 	@Autowired
-	ModelMapper  modelMapper;
-	
+	ModelMapper modelMapper;
+
 	@Autowired
 	CompanyRepo companyRepo;
+
+	@Override
+	public List<CompanyDto> getAllCompanies() {
+		List<Company> companies = this.companyRepo.findAll();
+		List<CompanyDto> companiesDto = companies.stream()
+				.map((company) -> this.modelMapper.map(company, CompanyDto.class)).collect(Collectors.toList());
+		return companiesDto;
+	}
+
+	@Override
+	public CompanyDto getCompanyById(Integer companyId) {
+		Company company = this.companyRepo.findById(companyId)
+				.orElseThrow(() -> new ResourceNotFoundException("Company not found"));
+
+		return this.modelMapper.map(company, CompanyDto.class);
+	}
 
 	@Override
 	public CompanyDto createCompany(CompanyDto companyDto) {
@@ -42,22 +57,6 @@ public class CompanyServiceImpl implements CompanyService {
 		Company updatedCompany = this.companyRepo.save(company);
 		CompanyDto updatedCompanyDto = this.modelMapper.map(updatedCompany, CompanyDto.class);
 		return updatedCompanyDto;
-	}
-
-	@Override
-	public CompanyDto getCompanyById(Integer companyId) {
-		Company company = this.companyRepo.findById(companyId)
-				.orElseThrow(() -> new ResourceNotFoundException("Company not found"));
-
-		return this.modelMapper.map(company, CompanyDto.class);
-	}
-
-	@Override
-	public List<CompanyDto> getAllCompanies() {
-		List<Company> companies = this.companyRepo.findAll();
-		List<CompanyDto> companiesDto = companies.stream().map((company) -> this.modelMapper.map(company, CompanyDto.class))
-				.collect(Collectors.toList());
-		return companiesDto;
 	}
 
 	@Override

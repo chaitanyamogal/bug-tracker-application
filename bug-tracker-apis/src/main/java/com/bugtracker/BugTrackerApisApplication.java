@@ -7,7 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+
 @SpringBootApplication
+@OpenAPIDefinition
 public class BugTrackerApisApplication {
 
 	public static void main(String[] args) {
@@ -24,7 +27,7 @@ public class BugTrackerApisApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry reg) {
-				reg.addMapping("/**").allowedOrigins("*");
+				reg.addMapping("/**").allowedOrigins("http://localhost:3000");
 			}
 		};
 	}

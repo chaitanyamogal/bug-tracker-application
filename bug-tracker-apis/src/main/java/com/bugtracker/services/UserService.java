@@ -2,7 +2,6 @@ package com.bugtracker.services;
 
 import java.util.List;
 
-import com.bugtracker.entities.Company;
 import com.bugtracker.payloads.UserDto;
 
 public interface UserService {

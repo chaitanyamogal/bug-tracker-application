@@ -26,11 +26,11 @@ public class TicketStatus {
 	@OneToMany(mappedBy = "ticketStatus")
 	private List<Ticket> tickets = new ArrayList<>();
 
-	public Integer getTicketTypeId() {
+	public Integer getTicketStatusId() {
 		return ticketStatusId;
 	}
 
-	public void setTicketTypeId(Integer ticketTypeId) {
+	public void setTicketStatusId(Integer ticketStatusId) {
 		this.ticketStatusId = ticketStatusId;
 	}
 

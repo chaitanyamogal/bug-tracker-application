@@ -3,25 +3,26 @@ package com.bugtracker.payloads;
 import java.util.Date;
 import java.util.List;
 
-
 public class ProjectDto {
-	
+
 	private int projectId;
-	
+
 	private String name;
-	
+
 	private String description;
-	
+
 	private Date createdDate;
 
 	private Date updateDate;
-	
+
+	private List<UserDto> user;
+
 	private CompanyDto company;
-	
+
 	private List<TicketDto> tickets;
-	
-	ProjectDto(){
-		
+
+	ProjectDto() {
+
 	}
 
 	public int getProjectId() {
@@ -62,6 +63,14 @@ public class ProjectDto {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	public List<UserDto> getUser() {
+		return user;
+	}
+
+	public void setUser(List<UserDto> user) {
+		this.user = user;
 	}
 
 	public CompanyDto getCompany() {

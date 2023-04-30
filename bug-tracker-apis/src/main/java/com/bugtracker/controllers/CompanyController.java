@@ -1,7 +1,6 @@
 package com.bugtracker.controllers;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,37 +18,40 @@ import com.bugtracker.payloads.CompanyDto;
 import com.bugtracker.services.CompanyService;
 
 @RestController
-@RequestMapping("/api/companies")
+@RequestMapping("/api")
 public class CompanyController {
 
 	@Autowired
 	CompanyService companyService;
 
-	@PostMapping("/")
+	@GetMapping("/companies")
+	public ResponseEntity<List<CompanyDto>> getAllCompanies() {
+		List<CompanyDto> companyDto = this.companyService.getAllCompanies();
+		return new ResponseEntity<List<CompanyDto>>(companyDto, HttpStatus.CREATED);
+	}
+
+	@GetMapping("/companies/{companyId}")
+	public ResponseEntity<CompanyDto> getCompanyById(@PathVariable Integer companyId) {
+		return ResponseEntity.ok(this.companyService.getCompanyById(companyId));
+	}
+
+	@PostMapping("/companies")
 	public ResponseEntity<CompanyDto> createCompany(@RequestBody CompanyDto companyDto) {
 		CompanyDto createCompanyDto = this.companyService.createCompany(companyDto);
 		return new ResponseEntity<>(createCompanyDto, HttpStatus.CREATED);
 	}
 
-	@PutMapping("/{userId}")
-	public ResponseEntity<CompanyDto> updateCompany(@RequestBody CompanyDto companyDto, @PathVariable Integer userId) {
-		CompanyDto updateCompanyDto = this.companyService.updateCompany(companyDto, userId);
+	@PutMapping("/companies/{companyId}")
+	public ResponseEntity<CompanyDto> updateCompany(@RequestBody CompanyDto companyDto,
+			@PathVariable Integer companyId) {
+		CompanyDto updateCompanyDto = this.companyService.updateCompany(companyDto, companyId);
 		return ResponseEntity.ok(updateCompanyDto);
 	}
 
-	@DeleteMapping("/{userId}")
-	public ResponseEntity<?> deleteCompany(@PathVariable Integer userId) {
-		this.deleteCompany(userId);
-		return new ResponseEntity(Map.of("message", "User Deleted Successfully"), HttpStatus.OK);
+	@DeleteMapping("/companies/{companyId}")
+	public ResponseEntity<String> deleteCompany(@PathVariable Integer companyId) {
+		this.companyService.deleteCompany(companyId);
+		return new ResponseEntity<String>("Company Deleted Successfully", HttpStatus.OK);
 	}
 
-	@GetMapping("/")
-	public ResponseEntity<List<CompanyDto>> getAllCompanies() {
-		return ResponseEntity.ok(this.companyService.getAllCompanies());
-	}
-
-	@GetMapping("/{userId}")
-	public ResponseEntity<CompanyDto> getCompanyById(@PathVariable Integer userId) {
-		return ResponseEntity.ok(this.companyService.getCompanyById(userId));
-	}
 }

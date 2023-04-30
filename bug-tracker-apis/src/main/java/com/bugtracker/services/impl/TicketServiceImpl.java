@@ -24,35 +24,37 @@ import com.bugtracker.services.TicketService;
 
 @Service
 public class TicketServiceImpl implements TicketService {
-	
+
 	@Autowired
 	ModelMapper modelMapper;
-	
+
 	@Autowired
 	TicketRepo ticketRepo;
-	
+
 	@Autowired
 	UserRepo userRepo;
-	
+
 	@Autowired
 	ProjectRepo projectRepo;
-	
+
 	@Autowired
 	TicketTypeRepo ticketTypeRepo;
-	
+
 	@Autowired
 	TicketStatusRepo ticketStatusRepo;
-	
+
 	@Override
 	public List<TicketDto> getAllTickets() {
 		List<Ticket> allTickets = this.ticketRepo.findAll();
-		List<TicketDto> allTicketsDto = allTickets.stream().map((ticket) -> this.modelMapper.map(ticket, TicketDto.class)).collect(Collectors.toList());
+		List<TicketDto> allTicketsDto = allTickets.stream()
+				.map((ticket) -> this.modelMapper.map(ticket, TicketDto.class)).collect(Collectors.toList());
 		return allTicketsDto;
 	}
 
 	@Override
 	public TicketDto getTicketById(Integer ticketId) {
-		Ticket ticket = this.ticketRepo.findById(ticketId).orElseThrow(() -> new ResourceNotFoundException("Ticket not found"));
+		Ticket ticket = this.ticketRepo.findById(ticketId)
+				.orElseThrow(() -> new ResourceNotFoundException("Ticket not found"));
 		TicketDto ticketDto = this.modelMapper.map(ticket, TicketDto.class);
 		return ticketDto;
 	}
@@ -70,12 +72,16 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Override
-	public TicketDto createTicket(TicketDto ticketDto, Integer userId, Integer projectId, Integer ticketTypeId, Integer ticketStatusId) {
+	public TicketDto createTicket(TicketDto ticketDto, Integer userId, Integer projectId, Integer ticketTypeId,
+			Integer ticketStatusId) {
 		List<Ticket> ticketList = new ArrayList<>();
 		User user = this.userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
-		Project project = this.projectRepo.findById(projectId).orElseThrow(() -> new ResourceNotFoundException("Project not found"));
-		TicketType ticketType = this.ticketTypeRepo.findById(ticketTypeId).orElseThrow(() -> new ResourceNotFoundException("Ticket type not found"));
-		TicketStatus ticketStatus = this.ticketStatusRepo.findById(ticketStatusId).orElseThrow(() -> new ResourceNotFoundException("Ticket status not found"));
+		Project project = this.projectRepo.findById(projectId)
+				.orElseThrow(() -> new ResourceNotFoundException("Project not found"));
+		TicketType ticketType = this.ticketTypeRepo.findById(ticketTypeId)
+				.orElseThrow(() -> new ResourceNotFoundException("Ticket type not found"));
+		TicketStatus ticketStatus = this.ticketStatusRepo.findById(ticketStatusId)
+				.orElseThrow(() -> new ResourceNotFoundException("Ticket status not found"));
 		Ticket ticket = this.modelMapper.map(ticketDto, Ticket.class);
 		ticket.setCreatedByUserId(user);
 		ticket.setProjectId(project);
@@ -90,10 +96,13 @@ public class TicketServiceImpl implements TicketService {
 
 	@Override
 	public TicketDto updateTicket(TicketDto ticketDto, Integer ticketId, Integer ticketTypeId, Integer ticketStatusId) {
-		Ticket foundTicket = this.ticketRepo.findById(ticketId).orElseThrow(() -> new ResourceNotFoundException("Ticket not found"));
+		Ticket foundTicket = this.ticketRepo.findById(ticketId)
+				.orElseThrow(() -> new ResourceNotFoundException("Ticket not found"));
 		Ticket ticket = this.modelMapper.map(ticketDto, Ticket.class);
-		TicketType ticketType = this.ticketTypeRepo.findById(ticketTypeId).orElseThrow(() -> new ResourceNotFoundException("Ticket type not found"));
-		TicketStatus ticketStatus = this.ticketStatusRepo.findById(ticketStatusId).orElseThrow(() -> new ResourceNotFoundException("Ticket status not found"));
+		TicketType ticketType = this.ticketTypeRepo.findById(ticketTypeId)
+				.orElseThrow(() -> new ResourceNotFoundException("Ticket type not found"));
+		TicketStatus ticketStatus = this.ticketStatusRepo.findById(ticketStatusId)
+				.orElseThrow(() -> new ResourceNotFoundException("Ticket status not found"));
 		foundTicket.setTicketTitle(ticket.getTicketTitle());
 		foundTicket.setTicketDescription(ticket.getTicketDescription());
 		foundTicket.setResolutionSummary(ticket.getResolutionSummary());
@@ -102,10 +111,11 @@ public class TicketServiceImpl implements TicketService {
 		Ticket savedTicket = this.ticketRepo.save(foundTicket);
 		return this.modelMapper.map(savedTicket, TicketDto.class);
 	}
-	
+
 	@Override
 	public void deleteTicket(Integer ticketId) {
-		Ticket foundTicket = this.ticketRepo.findById(ticketId).orElseThrow(() -> new ResourceNotFoundException("Ticket not found"));
+		Ticket foundTicket = this.ticketRepo.findById(ticketId)
+				.orElseThrow(() -> new ResourceNotFoundException("Ticket not found"));
 		this.ticketRepo.delete(foundTicket);
 	}
 }

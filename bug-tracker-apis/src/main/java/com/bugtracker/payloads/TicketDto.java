@@ -3,6 +3,8 @@ package com.bugtracker.payloads;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class TicketDto {
 
 	private int ticketId;
@@ -21,8 +23,10 @@ public class TicketDto {
 
 	private TicketStatusDto ticketStatus;
 
+	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date createdDate;
 
+	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date updateDate;
 
 	public int getTicketId() {

@@ -15,20 +15,20 @@ import com.bugtracker.payloads.TicketTypeDto;
 import com.bugtracker.services.TicketTypeService;
 
 @RestController
-@RequestMapping("/api/ticket-type")
+@RequestMapping("/api")
 public class TicketTypeController {
 	
 	@Autowired
 	TicketTypeService tickerTypeService;
 	
-	@GetMapping("/")
+	@GetMapping("/ticket-type")
 	public ResponseEntity<List<TicketTypeDto>> getAllTicketType(){
 		List<TicketTypeDto> ticketTypeDtos = this.tickerTypeService.getAllTicketType();
 		return new ResponseEntity<List<TicketTypeDto>>(ticketTypeDtos, HttpStatus.CREATED);
 	}
 	
 	
-	@PostMapping("/")
+	@PostMapping("/ticket-type")
 	public ResponseEntity<TicketTypeDto> createTicketType(@RequestBody TicketTypeDto ticketType){
 		TicketTypeDto ticketTypeDto = this.tickerTypeService.createTicketType(ticketType);
 		return new ResponseEntity<TicketTypeDto>(ticketTypeDto, HttpStatus.CREATED);

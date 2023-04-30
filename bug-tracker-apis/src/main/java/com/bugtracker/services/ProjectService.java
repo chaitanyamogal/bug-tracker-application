@@ -20,4 +20,5 @@ public interface ProjectService {
 	
 	List<ProjectDto> searchProjects(String keyword);
 	
+	List<ProjectDto> findProjectByUser(Integer userId);
 }

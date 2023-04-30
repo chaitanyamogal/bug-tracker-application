@@ -7,9 +7,6 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -49,15 +46,12 @@ public class Project {
 
 	@ManyToOne
 	@JoinColumn(name = "company_id")
-	// @JsonBackReference
 	private Company company;
 
 	@OneToMany(mappedBy = "ticketProjectId")
-	// @JsonManagedReference
 	private List<Ticket> tickets = new ArrayList<>();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "project")
-	// @JsonBackReference
 	private List<User> user = new ArrayList<>();
 
 	public Project() {

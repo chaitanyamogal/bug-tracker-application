@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class UserDto {
 
 	private int userId;
-
+	
 	private String email;
 
 	private String password;
@@ -15,6 +15,8 @@ public class UserDto {
 	private String name;
 
 	private CompanyDto company;
+	
+	private UserRoleDto userRole;
 
 	@JsonIgnore
 	private List<ProjectDto> project;
@@ -66,4 +68,14 @@ public class UserDto {
 	public void setCompany(CompanyDto company) {
 		this.company = company;
 	}
+
+	public UserRoleDto getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(UserRoleDto userRole) {
+		this.userRole = userRole;
+	}
+
+	
 }

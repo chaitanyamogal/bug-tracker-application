@@ -30,25 +30,25 @@ public class CommentController {
 		return new ResponseEntity<List<CommentDto>>(comments, HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/comment/{commentId}")
+	@GetMapping("/comments/{commentId}")
 	public ResponseEntity<CommentDto> getCommentById(@PathVariable Integer commentId){
 		CommentDto comment = this.commentService.getCommentById(commentId);
 		return new ResponseEntity<CommentDto>(comment, HttpStatus.CREATED);
 	}
 	
-	@PostMapping("user/{userId}/ticket/{ticketId}/comments")
+	@PostMapping("users/{userId}/tickets/{ticketId}/comments")
 	public ResponseEntity<CommentDto> createComment(@RequestBody CommentDto commentDto,@PathVariable Integer userId, @PathVariable Integer ticketId){
 		CommentDto comment = this.commentService.createComment(commentDto, userId, ticketId );
 		return new ResponseEntity<CommentDto>(comment, HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/comment/{commentId}")
+	@PutMapping("/comments/{commentId}")
 	public ResponseEntity<CommentDto> updateComment(@RequestBody CommentDto commentDto, @PathVariable Integer commentId){
 		CommentDto comment = this.commentService.updateComment(commentDto, commentId );
 		return new ResponseEntity<CommentDto>(comment, HttpStatus.CREATED);
 	}
 	
-	@DeleteMapping("/comment/{commentId}")
+	@DeleteMapping("/comments/{commentId}")
 	public ResponseEntity<String> deleteComment(@PathVariable Integer commentId){
 		this.commentService.deleteComment(commentId);
 		return new ResponseEntity<String>("Comment Deleted Successfully",HttpStatus.OK);

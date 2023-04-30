@@ -2,19 +2,22 @@ package com.bugtracker.payloads;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class CommentDto {
-	
+
 	private int commentId;
 
 	private String comment;
-
-	private Date createdDate;
-
-	private Date updateDate;
-
-	private UserDto createdByUserId;
 	
+	@JsonFormat(pattern="dd-MM-yyyy")
+	private Date createdDate;
+	
+	@JsonFormat(pattern = "dd-MM-yyyy")
+	private Date updateDate;
+	
+	private UserDto createdByUserId;
+
 	public int getCommentId() {
 		return commentId;
 	}
@@ -54,6 +57,5 @@ public class CommentDto {
 	public void setCreatedByUserId(UserDto createdByUserId) {
 		this.createdByUserId = createdByUserId;
 	}
-	
-	
+
 }

@@ -17,6 +17,10 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.bugtracker.exceptions.ResourceNotFoundException;
+
+import io.jsonwebtoken.ExpiredJwtException;
+
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -36,7 +40,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			return;
 		}
 		jwt = authHeader.substring(7);
-		userEmail = jwtService.extractUsername(jwt);
+		try {
+			userEmail = jwtService.extractUsername(jwt);
+		}catch(ExpiredJwtException e){
+			throw new ResourceNotFoundException("Jwt token expire");
+		}
 		if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 			UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 			if (jwtService.isTokenValid(jwt, userDetails)) {
@@ -45,6 +53,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				SecurityContextHolder.getContext().setAuthentication(authToken);
 			}
+//			else {
+//				throw new ResourceNotFoundException("Jwt token expire");
+//			}
 		}
 		filterChain.doFilter(request, response);
 	}

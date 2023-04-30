@@ -15,21 +15,22 @@ import com.bugtracker.payloads.UserRoleDto;
 import com.bugtracker.services.UserRoleService;
 
 @RestController
-@RequestMapping("/api/user-role")
+@RequestMapping("/api")
 public class UserRoleController {
-	
+
 	@Autowired
 	UserRoleService userRoleService;
-	
-	@PostMapping("/")
-	public ResponseEntity<UserRoleDto> createUserRole(@RequestBody UserRoleDto userRole){
-		UserRoleDto userRoleDto = this.userRoleService.createUserRole(userRole);
-		return new ResponseEntity<UserRoleDto>(userRoleDto, HttpStatus.CREATED);
-	}
-	
-	@GetMapping("/")
-	public ResponseEntity<List<UserRoleDto>> getAllRoles(){
+
+	@GetMapping("/user-role")
+	public ResponseEntity<List<UserRoleDto>> getAllRoles() {
 		List<UserRoleDto> userRoleDto = this.userRoleService.getAllRoles();
 		return new ResponseEntity<List<UserRoleDto>>(userRoleDto, HttpStatus.CREATED);
 	}
+
+	@PostMapping("/user-role")
+	public ResponseEntity<UserRoleDto> createUserRole(@RequestBody UserRoleDto userRole) {
+		UserRoleDto userRoleDto = this.userRoleService.createUserRole(userRole);
+		return new ResponseEntity<UserRoleDto>(userRoleDto, HttpStatus.CREATED);
+	}
+
 }
