@@ -7,13 +7,3 @@ export const getAllProjects = (user, token) => {
     return response.data;
   });
 };
-
-// .catch((error) => {
-//       return error;
-//     })
-//     .then((response) => {
-//       if(response.response.status){
-//         return response.response
-//       }
-//       return response.data;
-//     });

@@ -1,19 +1,19 @@
 import { useState, useEffect, useContext } from "react";
-import { getToken, getUserId } from "../../auth";
 import userContext from "../../context/userContext";
+import { getToken, getUserId } from "../../auth";
 import { getProjectDetails } from "../../services/project/getProjectDetails";
 
 const DashboardHeader = () => {
   const token = getToken();
   const userId = getUserId();
   const selectProjectContext = useContext(userContext);
+
   const [project, setProject] = useState({ tickets: [] });
   const [totalTickets, setTotalTickets] = useState(0);
   const [yourTickets, setYourTickets] = useState(0);
 
   useEffect(() => {
     getProjectDetails(selectProjectContext.selectedProject, token).then((data) => {
-      console.log(data);
       setProject(data);
     });
   }, [selectProjectContext]);

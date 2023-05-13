@@ -1,8 +1,8 @@
+import { useContext } from "react";
 import { Outlet } from "react-router-dom";
+import userContext from "../context/userContext";
 import Navbar from "../components/common/Navbar";
 import Sidebar from "../components/common/Sidebar";
-import userContext from "../context/userContext";
-import { useContext } from "react";
 
 const DashboardLayout = () => {
   const userContextData = useContext(userContext);

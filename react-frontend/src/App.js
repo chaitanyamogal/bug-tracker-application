@@ -1,6 +1,6 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AdminSignup from "./components/user/AdminSignup";
 import Login from "./components/user/Login";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignupLayout from "./layouts/signupLayout";
 import UserProvider from "./context/UserProvider";
 import Tickets from "./components/ticket/Tickets";
@@ -11,6 +11,7 @@ import TicketDetails from "./components/ticket/TicketDetails";
 import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./auth/PrivateRoute";
 import Signup from "./components/user/Signup";
+import PieCharts from "./components/stats/PieCharts";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
                 <Route path="/tickets/edit/:ticketId" element={<UpdateTicket />}></Route>
                 <Route path="/tickets/:ticketId" element={<TicketDetails />}></Route>
                 <Route path="dashboard" element={<Dashboard />}></Route>
+                <Route path="stats" element={<PieCharts />}></Route>
               </Route>
             </Route>
           </Routes>

@@ -1,15 +1,16 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { getCurrentUserDetail, isLoggedIn } from "../auth";
+import { React, useState, useEffect } from "react";
 import userContext from "./userContext";
+import { getCurrentUserDetail, isLoggedIn } from "../auth";
+
 function UserProvider({ children }) {
   const [user, setUser] = useState({
     data: {},
     login: false
   });
-
   const [selectedProject, setSelectedProject] = useState();
+  const [company, setCompany] = useState(
+    JSON.parse(localStorage.getItem("data")).user.company.companyName
+  );
 
   useEffect(() => {
     setUser({
@@ -19,7 +20,9 @@ function UserProvider({ children }) {
   }, []);
 
   return (
-    <userContext.Provider value={{ user, setUser, selectedProject, setSelectedProject }}>
+    <userContext.Provider
+      value={{ user, setUser, selectedProject, setSelectedProject, company, setCompany }}
+    >
       {children}
     </userContext.Provider>
   );

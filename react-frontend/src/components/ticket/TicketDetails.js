@@ -8,6 +8,7 @@ const TicketDetails = () => {
   const navigate = useNavigate();
   const token = getToken();
   const { ticketId } = useParams();
+
   const [ticketDetails, setTicketDetails] = useState({
     ticketType: "",
     ticketStatus: "",
@@ -35,52 +36,17 @@ const TicketDetails = () => {
         updatedDate: data.updateDate,
         comments: data.comments
       });
-      console.log(data);
     });
   }, []);
 
   return (
     <>
-      {/* <div className="block-container">
-        <div class="mt-5 ms-5" style={{ width: "600px" }}>
-          <button class="btn btn-outline-primary float-end mb-3" type="">
-            <Link to={`/tickets/edit/${ticketId}`}>Edit</Link>
-          </button>
-          <div className="ticket-title">
-            <p>Ticket title - {ticketDetails.ticketTitle}</p>
-          </div>
-          <div className="ticket-description">
-            <p>Ticket Description - {ticketDetails.ticketDescription}</p>
-          </div>
-          <div className="resolution-summary">
-            <p>Ticket Resolution Summary - {ticketDetails.resolutionSummary}</p>
-          </div>
-          <div className="ticket-type-status">
-            <p>Ticket Type - {ticketDetails.ticketType}</p>
-            <br></br>
-            <p>Ticket Status - {ticketDetails.ticketStatus}</p>
-          </div>
-          <div className="created-user">
-            <p>
-              Created By - {ticketDetails.createdByName} Email - {ticketDetails.createdByEmail}
-            </p>
-          </div>
-          <div className="created-date">
-            <p>Created Date - {ticketDetails.createdDate}</p>
-          </div>
-          <div className="updated-date">
-            <p>Updated Date - {ticketDetails.updatedDate}</p>
-          </div>
-        </div>
-        <TicketComment ticketId={ticketId} />
-      </div> */}
-
       {/* Start */}
       <div className="row">
-        <div class="col-xl-9 col-lg-7 mt-4">
-          <div class="card shadow mb-4 shadow">
-            <div class="card-header d-flex flex-row align-items-center justify-content-between">
-              <h6 class="m-0 font-weight-bold text-primary">Ticket details</h6>
+        <div className="col-xl-9 col-lg-7 mt-4">
+          <div className="card shadow mb-4 shadow">
+            <div className="card-header d-flex flex-row align-items-center justify-content-between">
+              <h6 className="m-0 font-weight-bold text-primary">Ticket details</h6>
               <button
                 className="btn mx-2 gradient-custom-2 text-white float-end m-0"
                 type=""
@@ -90,31 +56,31 @@ const TicketDetails = () => {
               </button>
             </div>
 
-            <div class="card-body">
-              <div class="chart-area">
-                <div class="chartjs-size-monitor">
-                  <div class="chartjs-size-monitor-expand">
-                    <div class=""></div>
+            <div className="card-body">
+              <div className="chart-area">
+                <div className="chartjs-size-monitor">
+                  <div className="chartjs-size-monitor-expand">
+                    <div className=""></div>
                   </div>
-                  <div class="chartjs-size-monitor-shrink">
-                    <div class=""></div>
+                  <div className="chartjs-size-monitor-shrink">
+                    <div className=""></div>
                   </div>
                 </div>
 
-                <div class="form-group mt-3">
-                  <label for="usr">
+                <div className="form-group mt-3">
+                  <label>
                     <b>Ticket Title : </b>
                   </label>
                   <p>{ticketDetails.ticketTitle}</p>
                 </div>
-                <div class="row">
-                  <div class="col">
-                    <div class="form-group mt-3">
-                      <label for="comment">
+                <div className="row">
+                  <div className="col">
+                    <div className="form-group mt-3">
+                      <label>
                         <b>Ticket Description : </b>
                       </label>
                       <textarea
-                        class="form-control"
+                        className="form-control"
                         rows="5"
                         value={ticketDetails.ticketDescription}
                         disabled
@@ -122,12 +88,12 @@ const TicketDetails = () => {
                         {ticketDetails.ticketDescription}
                       </textarea>
                     </div>
-                    <div class="form-group mt-3">
-                      <label for="comment">
+                    <div className="form-group mt-3">
+                      <label>
                         <b>Ticket Resolution Summary : </b>
                       </label>
                       <textarea
-                        class="form-control"
+                        className="form-control"
                         value={ticketDetails.resolutionSummary}
                         rows="5"
                         disabled
@@ -136,46 +102,46 @@ const TicketDetails = () => {
                       </textarea>
                     </div>
                   </div>
-                  <div class="col">
-                    <div class="form-group mt-4 mb-5">
-                      <div class="form-group mt-3">
+                  <div className="col">
+                    <div className="form-group mt-4 mb-5">
+                      <div className="form-group mt-3">
                         <label>
                           <b>Ticket type : </b>
                           {ticketDetails.ticketType === "Task" && (
-                            <span class="ticket-badge badge text-bg-primary">
+                            <span className="ticket-badge badge text-bg-primary">
                               {ticketDetails.ticketType}
                             </span>
                           )}
                           {ticketDetails.ticketType === "Bug" && (
-                            <span class="ticket-badge badge text-bg-danger">
+                            <span className="ticket-badge badge text-bg-danger">
                               {ticketDetails.ticketType}
                             </span>
                           )}
                           {ticketDetails.ticketType === "Issue" && (
-                            <span class="ticket-badge badge text-bg-warning">
+                            <span className="ticket-badge badge text-bg-warning">
                               {ticketDetails.ticketType}
                             </span>
                           )}
                           {ticketDetails.ticketType === "Suggestion" && (
-                            <span class="ticket-badge badge text-bg-info">
+                            <span className="ticket-badge badge text-bg-info">
                               {ticketDetails.ticketType}
                             </span>
                           )}
                           {ticketDetails.ticketType === "Feature" && (
-                            <span class="ticket-badge badge text-bg-success">
+                            <span className="ticket-badge badge text-bg-success">
                               {ticketDetails.ticketType}
                             </span>
                           )}
                         </label>
                       </div>
-                      <div class="form-group mt-3">
+                      <div className="form-group mt-3">
                         <label>
                           <b>Ticket Status : </b>
                           {ticketDetails.ticketStatus}
                         </label>
                       </div>
                     </div>
-                    <div class="form-group mt-5 pt-5">
+                    <div className="form-group mt-5 pt-5">
                       <div className="created-user mt-3">
                         <p>
                           <b>Created By - </b>

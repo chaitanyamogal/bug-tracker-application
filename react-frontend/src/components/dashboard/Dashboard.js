@@ -1,16 +1,15 @@
 import DashboardHeader from "./DashboardHeader";
+import ManageCompany from "./ManageCompany";
 import ManageProject from "./ManageProject";
-import PieCharts from "./PieCharts";
 
 const Dashboard = () => {
   return (
     <>
       <DashboardHeader />
-      {/* Start */}
       <div className="row">
+        <ManageCompany />
         <ManageProject />
       </div>
-      <PieCharts />
     </>
   );
 };

@@ -1,8 +1,8 @@
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../../services/userService/login";
 import userContext from "../../context/userContext";
 import { doLogin } from "../../auth";
+import { login } from "../../services/userService/login";
 import { getAllProjects } from "../../services/project/getAllProjects";
 
 const Login = () => {
@@ -29,9 +29,8 @@ const Login = () => {
       login(userDetails)
         .then((data) => {
           doLogin(data, () => {
-            console.log("login detail is saved to localstorage", data);
             getAllProjects(data.user.userId, data.token).then((projectData) => {
-              if (projectData.length == 0) {
+              if (projectData.length === 0) {
                 setNoProjectAssignAlert(true);
               } else {
                 userContextData.setUser({
@@ -45,15 +44,11 @@ const Login = () => {
           resetForm();
         })
         .catch((err) => {
-          console.log(err.response);
           setError(err.response.data.message);
         });
     } else {
-      console.log("Password should be atlist 4 char");
       setError("Password should be atlest 4 char");
     }
-
-    console.log(userDetails);
   }
 
   function resetForm() {
@@ -66,13 +61,13 @@ const Login = () => {
   return (
     <>
       {noProjectAssignAlert && (
-        <div class="alert alert-primary d-flex alert-dismissible fade show" role="alert">
+        <div className="alert alert-primary d-flex alert-dismissible fade show" role="alert">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
             fill="currentColor"
-            class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2"
+            className="bi bi-exclamation-triangle-fill flex-shrink-0 me-2"
             viewBox="0 0 16 16"
             role="img"
             aria-label="Warning:"
@@ -84,7 +79,7 @@ const Login = () => {
           </div>
           <button
             type="button"
-            class="btn-close"
+            className="btn-close"
             data-bs-dismiss="alert"
             aria-label="Close"
             onClick={() => {
@@ -103,7 +98,6 @@ const Login = () => {
                     <div className="card-body p-md-5 mx-md-4">
                       <div className="text-center">
                         <img src={"./images/bugLogo.png"} style={{ width: "185px" }} alt="logo" />
-                        {/* <i class="bi bi-bug-fill display-1 text-danger"></i> */}
                         <h4 className="mt-1 mb-5 pb-1">BugLog</h4>
                       </div>
 
@@ -130,7 +124,7 @@ const Login = () => {
                             required
                           />
                         </div>
-                        <p class="text-danger">{error}</p>
+                        <p className="text-danger">{error}</p>
                         <div className="text-center pt-1 mb-5 pb-1">
                           <button
                             className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"

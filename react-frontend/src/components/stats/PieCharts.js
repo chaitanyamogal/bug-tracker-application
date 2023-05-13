@@ -1,12 +1,13 @@
-import { useState, useEffect, useContext } from "react";
 import Chart from "react-apexcharts";
+import { useState, useEffect, useContext } from "react";
+import userContext from "../../context/userContext";
 import { getToken } from "../../auth";
 import { getProjectDetails } from "../../services/project/getProjectDetails";
-import userContext from "../../context/userContext";
 
 const PieCharts = () => {
   const token = getToken();
   const selectProjectContext = useContext(userContext);
+
   const [project, setProject] = useState({ tickets: [] });
   const [ticketTypesCount, setTicketTypesCount] = useState([]);
   const [ticketTypeKeys, setTicketTypesKeys] = useState([]);
@@ -15,7 +16,6 @@ const PieCharts = () => {
 
   useEffect(() => {
     getProjectDetails(selectProjectContext.selectedProject, token).then(async (data) => {
-      console.log(data);
       await setProject(data);
     });
   }, [selectProjectContext]);
@@ -36,7 +36,6 @@ const PieCharts = () => {
         }),
       {}
     );
-    console.log(ticketTypesCount);
     setTicketTypesCount(Object.values(ticketTypesCount));
     setTicketTypesKeys(Object.keys(ticketTypesCount));
     setTicketStatusCount(Object.values(ticketStatusCount));
@@ -45,14 +44,21 @@ const PieCharts = () => {
 
   return (
     <>
-      <div className="row">
-        <div className="col-xl-4 col-lg-5">
+      <div className="mt-4 ms-1">
+        <h1 className="h3 mb-2 text-gray-800">Ticket Tables</h1>
+        <p className="mb-4">
+          All tickets for this project are listed below. To change project select project from
+          sidebar.
+        </p>
+      </div>
+      <div className="row mt-5">
+        <div className=" col-lg-5">
           <div className="card shadow mb-4">
             <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
               <h6 className="m-0 font-weight-bold text-primary">Ticket Types</h6>
             </div>
 
-            <div class="card-body">
+            <div className="card-body">
               <Chart
                 type="pie"
                 //series={[25, 25, 25, 25]}
@@ -70,13 +76,13 @@ const PieCharts = () => {
         </div>
 
         {/* Second Chart */}
-        <div className="col-xl-4 col-lg-5">
+        <div className=" col-lg-5">
           <div className="card shadow mb-4">
             <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
               <h6 className="m-0 font-weight-bold text-primary">Ticket Status</h6>
             </div>
 
-            <div class="card-body">
+            <div className="card-body">
               <Chart
                 type="pie"
                 series={tickeStatusCount}

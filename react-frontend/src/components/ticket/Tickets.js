@@ -1,29 +1,31 @@
 import { useContext, useEffect, useState } from "react";
 import userContext from "../../context/userContext";
+import { getToken } from "../../auth";
 import TicketTable from "./TicketTable";
 import { getProjectDetails } from "../../services/project/getProjectDetails";
-import { getToken } from "../../auth";
 import Team from "./Team";
 
 const Tickets = () => {
   const token = getToken();
   const selectProjectContext = useContext(userContext);
+
   const [project, setProject] = useState({ tickets: [] });
 
   useEffect(() => {
     getProjectDetails(selectProjectContext.selectedProject, token).then((data) => {
-      console.log(data);
       setProject(data);
     });
   }, [selectProjectContext]);
 
   return (
     <>
-      <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-      <p class="mb-4">
-        DataTables is a third party plugin that is used to generate the demo table below. For more
-        information about DataTables, please visit the
-      </p>
+      <div className="mt-4 ms-1">
+        <h1 className="h3 mb-2 text-gray-800">Ticket Tables</h1>
+        <p className="mb-4">
+          All tickets for this project are listed below. To change project select project from
+          sidebar.
+        </p>
+      </div>
       <TicketTable project={project} />
       <Team />
     </>

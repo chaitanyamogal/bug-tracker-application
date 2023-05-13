@@ -8,8 +8,8 @@ import { userSignup } from "../../services/userService/userSignup";
 import { assignCompanyToUser } from "../../services/userService/assignCompanyToUser";
 
 const Signup = () => {
-  const userContextData = useContext(userContext);
   const navigate = useNavigate();
+  const userContextData = useContext(userContext);
 
   const [userDetails, setUserDetails] = useState({
     name: "",
@@ -52,9 +52,6 @@ const Signup = () => {
             doLogin(data, () => {
               assignCompanyToUser(data.user.userId, userDetails.userCompany, data.token).then(
                 (companyData) => {
-                  console.log("UserDetails", userDetails);
-                  console.log("Company assigned ", companyData);
-                  console.log("login detail is saved to localstorage", data);
                   userContextData.setUser({
                     data: data.user,
                     login: true
@@ -97,7 +94,6 @@ const Signup = () => {
                     <div className="card-body p-md-5 mx-md-4">
                       <div className="text-center">
                         <img src={"./images/bugLogo.png"} style={{ width: "185px" }} alt="logo" />
-                        {/* <i class="bi bi-bug-fill display-1 text-danger"></i> */}
                         <h4 className="mt-1 mb-5 pb-1">BugLog</h4>
                       </div>
 
@@ -149,8 +145,8 @@ const Signup = () => {
                         <div className="form-outline mb-2">
                           <label className="form-label">Role</label>
                           <select
-                            class="form-select"
-                            value={userDetails.userRole}
+                            className="form-select"
+                            // value={userDetails.userRole}
                             onChange={(event) => {
                               handleChange(event, "userRole");
                             }}
@@ -166,8 +162,8 @@ const Signup = () => {
                         <div className="form-outline mb-2">
                           <label className="form-label">Company</label>
                           <select
-                            class="form-select"
-                            value={userDetails.userCompany}
+                            className="form-select"
+                            // value={userDetails.userCompany}
                             onChange={(event) => {
                               handleChange(event, "userCompany");
                             }}
@@ -182,7 +178,7 @@ const Signup = () => {
                             })}
                           </select>
                         </div>
-                        <p class="text-danger">{error}</p>
+                        <p className="text-danger">{error}</p>
                         <div className="text-center pt-1 mb-5 pb-1">
                           <button
                             className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"

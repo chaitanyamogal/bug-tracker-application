@@ -1,33 +1,29 @@
 import { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
-import { getToken } from "../../auth";
 import userContext from "../../context/userContext";
+import { getCurrentUserDetail, getToken } from "../../auth";
 import { getUsersByProject } from "../../services/userService/getUsersByProject";
 import { getUsersByCompany } from "../../services/userService/getUsersByCompany";
-import { hasFormSubmit } from "@testing-library/user-event/dist/utils";
 import { assignProjectToUser } from "../../services/userService/assignProjectToUser";
 
 const Team = (props) => {
   const token = getToken();
-  const companyId = JSON.parse(localStorage.getItem("data")).user.company.companyId;
+  const user = getCurrentUserDetail();
   const selectProjectContext = useContext(userContext);
+  const companyId = JSON.parse(localStorage.getItem("data")).user.company.companyId;
+
   const [teamMembers, setTeamMembers] = useState([]);
   const [allCompanyMembers, setAllCompanyMembers] = useState([]);
   const [userDetails, setUserDetails] = useState();
 
   useEffect(() => {
-    console.log(selectProjectContext.selectedProject, "TEST");
     getUsersByProject(selectProjectContext.selectedProject, token).then((data) => {
       setTeamMembers(data);
-      console.log("TEAM", data);
     });
   }, [selectProjectContext]);
 
   useEffect(() => {
     getUsersByCompany(companyId, token).then((data) => {
-      console.log(data);
       setAllCompanyMembers(data);
-      console.log(allCompanyMembers);
     });
   }, [companyId, teamMembers]);
 
@@ -48,7 +44,6 @@ const Team = (props) => {
     event.preventDefault();
     assignProjectToUser(userDetails.userId, selectProjectContext.selectedProject, token).then(
       (data) => {
-        console.log("ASSIGN TO --> ", data);
         setTeamMembers((prevTeamMembers) => {
           return [...prevTeamMembers, data];
         });
@@ -61,14 +56,16 @@ const Team = (props) => {
         <div className="card shadow mb-4 shadow">
           <div className="card-header d-flex flex-row align-items-center justify-content-between">
             <h6 className="m-0 font-weight-bold text-primary">Team</h6>
-            <button
-              className="btn mx-2 gradient-custom-2 text-white float-end m-0"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-              type=""
-            >
-              New Ticket
-            </button>
+            {(user.userRole.roleId === 1 || user.userRole.roleId === 2) && (
+              <button
+                className="btn mx-2 gradient-custom-2 text-white float-end m-0"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                type=""
+              >
+                Add member
+              </button>
+            )}
           </div>
 
           <div className="card-body">
@@ -97,7 +94,9 @@ const Team = (props) => {
                           <td>{teamMember.name}</td>
                           <td>{teamMember.email}</td>
                           <td>
-                            <span class="badge text-bg-secondary">{teamMember.userRole.role}</span>
+                            <span className="badge text-bg-secondary">
+                              {teamMember.userRole.role}
+                            </span>
                           </td>
                         </tr>
                       </>
@@ -110,7 +109,7 @@ const Team = (props) => {
         </div>
       </div>
 
-      {/* Create project modal */}
+      {/* Team modal */}
       <div
         class="modal fade"
         id="exampleModal"

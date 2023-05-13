@@ -1,20 +1,20 @@
 import { useState, useContext } from "react";
-import { adminSignup } from "../../services/userService/adminSignup";
 import { Link, useNavigate } from "react-router-dom";
 import userContext from "../../context/userContext";
 import { doLogin } from "../../auth";
+import { adminSignup } from "../../services/userService/adminSignup";
 
 const AdminSignup = () => {
+  const navigate = useNavigate();
+  const userContextData = useContext(userContext);
+
   const [userDetails, setUserDetails] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: ""
   });
-
   const [error, setError] = useState();
-  const userContextData = useContext(userContext);
-  const navigate = useNavigate();
 
   async function handleChange(event, fieldName) {
     await setUserDetails((data) => {
@@ -30,7 +30,6 @@ const AdminSignup = () => {
         adminSignup(userDetails)
           .then((data) => {
             doLogin(data, () => {
-              console.log("login detail is saved to localstorage");
               userContextData.setUser({
                 data: data.user,
                 login: true
@@ -123,7 +122,7 @@ const AdminSignup = () => {
                           />
                           <label className="form-label">Confirm Password</label>
                         </div>
-                        <p class="text-danger">{error}</p>
+                        <p className="text-danger">{error}</p>
                         <div className="text-center pt-1 mb-5 pb-1">
                           <button
                             className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"

@@ -7,6 +7,7 @@ const TicketComment = (props) => {
   const userId = getUserId();
   const token = getToken();
   const ticketId = props.ticketId;
+
   const [comments, setComments] = useState({ comments: [] });
   const [comment, setComment] = useState({ comment: "" });
 
@@ -15,7 +16,6 @@ const TicketComment = (props) => {
       setComments({
         comments: data.comments
       });
-      //console.log(data);
     });
   }, []);
 
@@ -26,9 +26,7 @@ const TicketComment = (props) => {
   function handleSubmit(event) {
     event.preventDefault();
     createComment(userId, ticketId, comment, token).then((data) => {
-      //console.log(data);
       setComments((prevComment) => {
-        console.log(prevComment.comments);
         return { comments: [...prevComment.comments, data] };
       });
       setComment({ comment: "" });
@@ -39,10 +37,10 @@ const TicketComment = (props) => {
     <div>
       <div className="p-2">
         <form onSubmit={handleSubmit}>
-          <div class="form-group mt-3">
+          <div className="form-group mt-3">
             <label for="comment">Add comment</label>
             <textarea
-              class="form-control"
+              className="form-control"
               rows="3"
               value={comment.comment}
               onChange={(event) => {
@@ -67,7 +65,7 @@ const TicketComment = (props) => {
 
                 <div className="d-flex justify-content-between">
                   <div className="d-flex flex-row align-items-center">
-                    <i class="bi bi-person h4 mb-0"></i>
+                    <i className="bi bi-person h4 mb-0"></i>
                     <i>
                       <p className="small mb-0 ms-2">{comment.createdByUserId.name}</p>
                     </i>

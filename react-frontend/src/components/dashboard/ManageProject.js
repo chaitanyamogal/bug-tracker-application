@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getToken } from "../../auth";
+import { getCurrentUserDetail, getToken } from "../../auth";
 import { updateProject } from "../../services/project/updateProject";
 import { createProject } from "../../services/project/createProject";
 import { getProjectDetails } from "../../services/project/getProjectDetails";
 import { getProjectsByCompanyId } from "../../services/project/getProjectsByCompanyId";
 import { getUsersByCompany } from "../../services/userService/getUsersByCompany";
 import { assignProjectToUser } from "../../services/userService/assignProjectToUser";
+
 const ManageProject = () => {
   const token = getToken();
+  const user = getCurrentUserDetail();
   const companyId = JSON.parse(localStorage.getItem("data")).user.company.companyId;
+
   const [projects, setProjects] = useState([]);
   const [editProjectId, setEditProjectId] = useState();
   const [projectDetails, setProjectDetails] = useState({});
@@ -18,14 +21,12 @@ const ManageProject = () => {
 
   useEffect(() => {
     getProjectDetails(editProjectId, token).then((data) => {
-      console.log(data);
       setProjectDetails(data);
     });
   }, [editProjectId]);
 
   useEffect(() => {
     getProjectsByCompanyId(companyId, token).then((data) => {
-      console.log(data);
       setProjects(data);
     });
   }, []);
@@ -38,17 +39,12 @@ const ManageProject = () => {
 
   function assignUserToProject() {
     getUsersByCompany(companyId, token).then((data) => {
-      console.log(companyId);
-      console.log(data);
       setCompanyUsers(data);
     });
   }
 
   function handleSubmitAssignUser() {
-    assignProjectToUser(assignUser.userId, assignUser.assignToProjectId, token).then((data) => {
-      console.log("Project ID ", assignUser.assignToProjectId);
-      console.log("User assign successfully", data);
-    });
+    assignProjectToUser(assignUser.userId, assignUser.assignToProjectId, token).then((data) => {});
   }
 
   function resetForm() {
@@ -61,9 +57,7 @@ const ManageProject = () => {
   function handleSubmit(event) {
     event.preventDefault();
     createProject(companyId, projectDetails, token).then((data) => {
-      console.log(data);
       getProjectsByCompanyId(companyId, token).then((data) => {
-        console.log(data);
         setProjects(data);
       });
       resetForm();
@@ -73,9 +67,7 @@ const ManageProject = () => {
   function handleSubmitEdit(event) {
     event.preventDefault();
     updateProject(editProjectId, projectDetails, token).then((data) => {
-      console.log(data);
       getProjectsByCompanyId(companyId, token).then((data) => {
-        console.log(data);
         setProjects(data);
       });
       resetForm();
@@ -87,14 +79,16 @@ const ManageProject = () => {
         <div className="card shadow mb-4 shadow">
           <div className="card-header d-flex flex-row align-items-center justify-content-between">
             <h6 className="m-0 font-weight-bold text-primary">Manage Project</h6>
-            <button
-              className="btn mx-2 gradient-custom-2 text-white float-end m-0"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-              type=""
-            >
-              New Project
-            </button>
+            {(user.userRole.roleId === 1 || user.userRole.roleId === 2) && (
+              <button
+                className="btn mx-2 gradient-custom-2 text-white float-end m-0"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                type=""
+              >
+                New Project
+              </button>
+            )}
           </div>
 
           <div className="card-body">
@@ -131,7 +125,7 @@ const ManageProject = () => {
                               data-bs-toggle="modal"
                               data-bs-target="#editModal"
                             >
-                              <i class="bi bi-pencil-square"></i>
+                              <i className="bi bi-pencil-square"></i>
                             </Link>
 
                             <button
@@ -164,41 +158,41 @@ const ManageProject = () => {
 
       {/* Create project modal */}
       <div
-        class="modal fade"
+        className="modal fade"
         id="exampleModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">
                 Add New Project
               </h5>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               <form onSubmit={handleSubmit}>
-                <div class="form-group mt-3">
-                  <label for="usr">Project Title:</label>
+                <div className="form-group mt-3">
+                  <label>Project Title:</label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     onChange={(event) => {
                       handleChange(event, "name");
                     }}
                   ></input>
                 </div>
-                <div class="form-group mt-3">
-                  <label for="comment">Project Description:</label>
+                <div className="form-group mt-3">
+                  <label>Project Description:</label>
                   <textarea
-                    class="form-control"
+                    className="form-control"
                     rows="5"
                     onChange={(event) => {
                       handleChange(event, "description");
@@ -223,42 +217,42 @@ const ManageProject = () => {
 
       {/* Edit project modal */}
       <div
-        class="modal fade"
+        className="modal fade"
         id="editModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">
                 Add New Project
               </h5>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               <form onSubmit={handleSubmitEdit}>
-                <div class="form-group mt-3">
-                  <label for="usr">Project Title:</label>
+                <div className="form-group mt-3">
+                  <label>Project Title:</label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     value={projectDetails.name}
                     onChange={(event) => {
                       handleChange(event, "name");
                     }}
                   ></input>
                 </div>
-                <div class="form-group mt-3">
-                  <label for="comment">Project Description:</label>
+                <div className="form-group mt-3">
+                  <label>Project Description:</label>
                   <textarea
-                    class="form-control"
+                    className="form-control"
                     rows="5"
                     value={projectDetails.description}
                     onChange={(event) => {
@@ -284,32 +278,32 @@ const ManageProject = () => {
 
       {/* Assign user to project modal */}
       <div
-        class="modal fade"
+        className="modal fade"
         id="assignUserModal"
         tabindex="-1"
         aria-labelledby="assignUserModal"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="assignUserModal">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="assignUserModal">
                 Assign user to project
               </h5>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               <form onSubmit={handleSubmitAssignUser}>
-                <div class="form-group mt-3">
+                <div className="form-group mt-3">
                   <label>Selct user to add</label>
 
                   <select
-                    class="form-select"
+                    className="form-select"
                     onChange={(event) => {
                       setAssignUser((prevAssignUser) => {
                         return {
