@@ -28,8 +28,9 @@ const DashboardHeader = () => {
   return (
     <>
       {/* start Header */}
-      <div className="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 className="h3 mb-0 text-gray-800 mt-4">Dashboard</h1>
+      <div className="mb-4">
+        <h1 className="h3 mb-2 text-gray-800 mt-4">Dashboard</h1>
+        <p className="mb-4">Manage company and projects.</p>
       </div>
 
       {/* end Header */}
@@ -113,7 +114,7 @@ const DashboardHeader = () => {
                   <div className="text-xs font-weight-bold text-warning text-uppercase mb-1">
                     Pending Requests
                   </div>
-                  <div className="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                  <div className="h5 mb-0 font-weight-bold text-gray-800">0</div>
                 </div>
                 <div className="col-auto">
                   <i className="fas fa-comments fa-2x text-gray-300"></i>

@@ -3,18 +3,24 @@ import { Link, useNavigate } from "react-router-dom";
 import userContext from "../../context/userContext";
 import { doLogin } from "../../auth";
 import { adminSignup } from "../../services/userService/adminSignup";
+import { createCompany } from "../../services/companyService/createCompany";
+import { assignCompanyToUser } from "../../services/userService/assignCompanyToUser";
 
 const AdminSignup = () => {
   const navigate = useNavigate();
   const userContextData = useContext(userContext);
 
+  const [error, setError] = useState();
   const [userDetails, setUserDetails] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: ""
   });
-  const [error, setError] = useState();
+  const [companyDetails, setCompanyDetails] = useState({
+    companyName: "",
+    companyDescription: ""
+  });
 
   async function handleChange(event, fieldName) {
     await setUserDetails((data) => {
@@ -27,16 +33,26 @@ const AdminSignup = () => {
     //Validate data
     if (userDetails.password.length >= 4) {
       if (userDetails.password === userDetails.confirmPassword) {
-        adminSignup(userDetails)
-          .then((data) => {
-            doLogin(data, () => {
-              userContextData.setUser({
-                data: data.user,
-                login: true
+        adminSignup({
+          name: userDetails.name,
+          email: userDetails.email,
+          password: userDetails.password
+        })
+          .then(async (data) => {
+            await createCompany(companyDetails).then((companyData) => {
+              doLogin(data, () => {
+                assignCompanyToUser(data.user.userId, companyData.companyId, data.token).then(
+                  () => {
+                    userContextData.setUser({
+                      data: data.user,
+                      login: true
+                    });
+                    navigate("/login");
+                  }
+                );
               });
-              navigate("/tickets");
+              resetForm();
             });
-            resetForm();
           })
           .catch((err) => {
             setError(err.response.data.message);
@@ -69,16 +85,13 @@ const AdminSignup = () => {
                   <div className="col-lg-6">
                     <div className="card-body p-md-5 mx-md-4">
                       <div className="text-center">
-                        <img
-                          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
-                          style={{ width: "185px" }}
-                          alt="logo"
-                        />
+                        <img src={"./images/bugLogo.png"} style={{ width: "185px" }} alt="logo" />
                         <h4 className="mt-1 mb-5 pb-1">We are The Lotus Team</h4>
                       </div>
 
                       <form onSubmit={handelSubmit}>
                         <div className="form-outline mb-2">
+                          <label className="form-label">Name</label>
                           <input
                             type="text"
                             className="form-control"
@@ -87,9 +100,9 @@ const AdminSignup = () => {
                             onChange={(e) => handleChange(e, "name")}
                             required
                           />
-                          <label className="form-label">Name</label>
                         </div>
                         <div className="form-outline mb-2">
+                          <label className="form-label">Email</label>
                           <input
                             type="email"
                             className="form-control"
@@ -98,9 +111,9 @@ const AdminSignup = () => {
                             onChange={(e) => handleChange(e, "email")}
                             required
                           />
-                          <label className="form-label">Email</label>
                         </div>
                         <div className="form-outline mb-2">
+                          <label className="form-label">Password</label>
                           <input
                             type="password"
                             className="form-control"
@@ -109,9 +122,9 @@ const AdminSignup = () => {
                             onChange={(e) => handleChange(e, "password")}
                             required
                           />
-                          <label className="form-label">Password</label>
                         </div>
                         <div className="form-outline mb-2">
+                          <label className="form-label">Confirm Password</label>
                           <input
                             type="password"
                             className="form-control"
@@ -120,7 +133,36 @@ const AdminSignup = () => {
                             onChange={(e) => handleChange(e, "confirmPassword")}
                             required
                           />
-                          <label className="form-label">Confirm Password</label>
+                        </div>
+                        <div className="form-outline mb-2">
+                          <label className="form-label">Company Name</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Name"
+                            value={companyDetails.companyName}
+                            onChange={(e) =>
+                              setCompanyDetails((prevDetails) => {
+                                return { ...prevDetails, companyName: e.target.value };
+                              })
+                            }
+                            required
+                          />
+                        </div>
+                        <div className="form-outline mb-2">
+                          <label className="form-label">Company Description</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Name"
+                            value={companyDetails.companyDescription}
+                            onChange={(e) =>
+                              setCompanyDetails((prevDetails) => {
+                                return { ...prevDetails, companyDescription: e.target.value };
+                              })
+                            }
+                            required
+                          />
                         </div>
                         <p className="text-danger">{error}</p>
                         <div className="text-center pt-1 mb-5 pb-1">
@@ -145,10 +187,17 @@ const AdminSignup = () => {
                     <div className="text-white px-3 py-4 p-md-5 mx-md-4">
                       <h4 className="mb-4">We are more than just a company</h4>
                       <p className="small mb-0">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat.
+                        BugLog is a web-based bug tracking system designed to help software
+                        development teams streamline their bug management process. With BugLog,
+                        developers can easily report, track, and prioritize bugs, assign them to
+                        team members, and monitor their progress until they are resolved. BugLog
+                        provides a centralized platform for communication among team members,
+                        enabling them to collaborate effectively and work towards a common goal. The
+                        system also offers advanced reporting and analytics features to help teams
+                        identify trends, track performance, and improve their development process
+                        over time. Overall, BugLog is a powerful and user-friendly tool that can
+                        help software development teams improve their productivity and streamline
+                        their bug tracking process.
                       </p>
                     </div>
                   </div>

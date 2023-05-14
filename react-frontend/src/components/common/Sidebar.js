@@ -28,9 +28,13 @@ const Sidebar = () => {
   });
 
   useEffect(() => {
-    getAllProjects(userId, token).then((data) => {
-      setProjects(data);
-      selectProjectContext.setSelectedProject(data[0].projectId);
+    getAllProjects(userId, token).then((response) => {
+      if (response.status === 201 || response.status === 200) {
+        setProjects(response.data);
+        selectProjectContext.setSelectedProject(response.data[0].projectId);
+      } else {
+        navigate("/login");
+      }
     });
     getUserById(userId, token).then((data) => {
       setUserDetails(data);

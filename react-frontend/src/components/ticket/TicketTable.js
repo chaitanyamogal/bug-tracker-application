@@ -34,7 +34,7 @@ const TicketTable = (props) => {
                 <table className="table">
                   <thead>
                     <tr>
-                      <th scope="col">#</th>
+                      <th scope="col">Ticket Id</th>
                       <th scope="col">Title</th>
                       <th scope="col">Ticket Author</th>
                       <th scope="col">Status</th>

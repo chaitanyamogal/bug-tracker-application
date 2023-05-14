@@ -46,10 +46,7 @@ const PieCharts = () => {
     <>
       <div className="mt-4 ms-1">
         <h1 className="h3 mb-2 text-gray-800">Ticket Tables</h1>
-        <p className="mb-4">
-          All tickets for this project are listed below. To change project select project from
-          sidebar.
-        </p>
+        <p className="mb-4">Analytics and Trends</p>
       </div>
       <div className="row mt-5">
         <div className=" col-lg-5">

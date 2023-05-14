@@ -6,8 +6,9 @@ import { login } from "../../services/userService/login";
 import { getAllProjects } from "../../services/project/getAllProjects";
 
 const Login = () => {
-  const userContextData = useContext(userContext);
   const navigate = useNavigate();
+  const userContextData = useContext(userContext);
+  const companyContext = useContext(userContext);
 
   const [userDetails, setUserDetails] = useState({
     email: "",
@@ -37,6 +38,7 @@ const Login = () => {
                   data: data.user,
                   login: true
                 });
+                companyContext.setCompany(data.user.company.companyName);
                 navigate("/tickets");
               }
             });
@@ -125,20 +127,69 @@ const Login = () => {
                           />
                         </div>
                         <p className="text-danger">{error}</p>
-                        <div className="text-center pt-1 mb-5 pb-1">
+                        <div className="text-center pt-1 mb-1 pb-1">
                           <button
-                            className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
+                            className="btn btn-primary btn-block fa-lg gradient-custom-2"
                             type="submit"
                           >
                             Login
                           </button>
                         </div>
-
+                        <div className="d-flex align-items-center justify-content-center pb-4">
+                          <button
+                            type="button"
+                            class="btn btn-primary btn-block fa-lg gradient-custom-2"
+                            data-bs-toggle="modal"
+                            data-bs-target="#loginAsDemo"
+                          >
+                            Login As Demo User
+                          </button>
+                          <div
+                            className="modal fade"
+                            id="loginAsDemo"
+                            tabindex="-1"
+                            aria-labelledby="loginAsDemo"
+                            aria-hidden="true"
+                          >
+                            <div className="modal-dialog">
+                              <div className="modal-content">
+                                <div className="modal-header">
+                                  <h5 className="modal-title" id="loginAsDemo">
+                                    Demo users Details
+                                  </h5>
+                                  <button
+                                    type="button"
+                                    className="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                  ></button>
+                                </div>
+                                <div className="modal-body">
+                                  <div>
+                                    <h6>Role - Company Admin</h6>
+                                    <p>Email - demo@gmail.com</p>
+                                    <p>Password - demo123</p>
+                                  </div>
+                                  <div className="mt-3">
+                                    <h6>Role - Project Manager</h6>
+                                    <p>Email - demo1@gmail.com</p>
+                                    <p>Password - demo123</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                         <div className="d-flex align-items-center justify-content-center pb-4">
                           <p className="mb-0 me-2">Don't have an account?</p>
                           <button type="button" className="btn btn-outline-danger">
                             <Link to="/signup">Signup</Link>
                           </button>
+                        </div>
+                        <div className="d-flex align-items-center justify-content-center">
+                          <p className="">
+                            <Link to="/admin-signup">Get BugLog for you'r company</Link>
+                          </p>
                         </div>
                       </form>
                     </div>
@@ -147,10 +198,17 @@ const Login = () => {
                     <div className="text-white px-3 py-4 p-md-5 mx-md-4">
                       <h4 className="mb-4">Track bugs in your project</h4>
                       <p className="small mb-0">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat.
+                        BugLog is a web-based bug tracking system designed to help software
+                        development teams streamline their bug management process. With BugLog,
+                        developers can easily report, track, and prioritize bugs, assign them to
+                        team members, and monitor their progress until they are resolved. BugLog
+                        provides a centralized platform for communication among team members,
+                        enabling them to collaborate effectively and work towards a common goal. The
+                        system also offers advanced reporting and analytics features to help teams
+                        identify trends, track performance, and improve their development process
+                        over time. Overall, BugLog is a powerful and user-friendly tool that can
+                        help software development teams improve their productivity and streamline
+                        their bug tracking process.
                       </p>
                     </div>
                   </div>

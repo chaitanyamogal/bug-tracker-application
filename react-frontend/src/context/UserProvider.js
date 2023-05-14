@@ -8,9 +8,7 @@ function UserProvider({ children }) {
     login: false
   });
   const [selectedProject, setSelectedProject] = useState();
-  const [company, setCompany] = useState(
-    JSON.parse(localStorage.getItem("data")).user.company.companyName
-  );
+  const [company, setCompany] = useState("");
 
   useEffect(() => {
     setUser({

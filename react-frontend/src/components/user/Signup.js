@@ -201,10 +201,17 @@ const Signup = () => {
                     <div className="text-white px-3 py-4 p-md-5 mx-md-4">
                       <h4 className="mb-4">Track bugs in your project</h4>
                       <p className="small mb-0">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat.
+                        BugLog is a web-based bug tracking system designed to help software
+                        development teams streamline their bug management process. With BugLog,
+                        developers can easily report, track, and prioritize bugs, assign them to
+                        team members, and monitor their progress until they are resolved. BugLog
+                        provides a centralized platform for communication among team members,
+                        enabling them to collaborate effectively and work towards a common goal. The
+                        system also offers advanced reporting and analytics features to help teams
+                        identify trends, track performance, and improve their development process
+                        over time. Overall, BugLog is a powerful and user-friendly tool that can
+                        help software development teams improve their productivity and streamline
+                        their bug tracking process.
                       </p>
                     </div>
                   </div>
