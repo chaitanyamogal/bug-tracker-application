@@ -40,11 +40,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			return;
 		}
 		jwt = authHeader.substring(7);
-		try {
-			userEmail = jwtService.extractUsername(jwt);
-		}catch(ExpiredJwtException e){
-			throw new ResourceNotFoundException("Jwt token expire");
-		}
+//		try {
+//		}catch(ExpiredJwtException e){
+//			System.out.println("Invalid token");
+//			throw new ResourceNotFoundException("Jwt token expire");
+//		}
+		userEmail = jwtService.extractUsername(jwt);
 		if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 			UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 			if (jwtService.isTokenValid(jwt, userDetails)) {

@@ -21,7 +21,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebSecurity
 @EnableWebMvc
 @RequiredArgsConstructor
-public class SecurityConfig{
+public class SecurityConfig {
 
 	@Autowired
 	JwtAuthenticationFilter jwtAuthFilter;
@@ -76,4 +76,5 @@ public class SecurityConfig{
 
 	        return bean;
 	    }
+	 
 }
