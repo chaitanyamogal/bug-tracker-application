@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import AdminSignup from "./components/user/AdminSignup";
 import Login from "./components/user/Login";
 import SignupLayout from "./layouts/signupLayout";
@@ -19,7 +19,8 @@ function App() {
       <UserProvider>
         <BrowserRouter>
           <Routes>
-            <Route element={<SignupLayout />}>
+            <Route path="/" element={<SignupLayout />}>
+              <Route index element={<Navigate to="/login" />} />
               <Route path="/admin-signup" element={<AdminSignup />}></Route>
               <Route path="/signup" element={<Signup />}></Route>
               <Route path="/login" element={<Login />}></Route>

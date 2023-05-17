@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getToken } from "../../auth";
 import { getTicketStatus } from "../../services/ticketService.js/getTicketStatus";
 import { getTicketTypes } from "../../services/ticketService.js/getTicketType";
@@ -7,6 +7,7 @@ import { getTicketById } from "../../services/ticketService.js/getTicketById";
 import { updateTicket } from "../../services/ticketService.js/updateTicket";
 
 const UpdateTicket = () => {
+  const navigate = useNavigate();
   const token = getToken();
   const { ticketId } = useParams();
 
@@ -60,6 +61,7 @@ const UpdateTicket = () => {
     event.preventDefault();
     updateTicket(ticketId, ticketDetails, token).then((data) => {
       resetForm();
+      navigate("/tickets");
     });
   }
 

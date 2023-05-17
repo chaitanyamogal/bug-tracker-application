@@ -46,6 +46,7 @@ const TicketComment = (props) => {
               onChange={(event) => {
                 handleChange(event);
               }}
+              required
             ></textarea>
           </div>
           <div className="text-center pt-1 mb-5 pb-1 mt-3">

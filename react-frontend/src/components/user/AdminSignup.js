@@ -55,6 +55,7 @@ const AdminSignup = () => {
             });
           })
           .catch((err) => {
+            console.log("ADMIN.js 58 --> ", err);
             setError(err.response.data.message);
           });
       } else {
@@ -86,7 +87,7 @@ const AdminSignup = () => {
                     <div className="card-body p-md-5 mx-md-4">
                       <div className="text-center">
                         <img src={"./images/bugLogo.png"} style={{ width: "185px" }} alt="logo" />
-                        <h4 className="mt-1 mb-5 pb-1">We are The Lotus Team</h4>
+                        <h4 className="mt-1 mb-5 pb-1">BugLog</h4>
                       </div>
 
                       <form onSubmit={handelSubmit}>

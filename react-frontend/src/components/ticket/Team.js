@@ -53,14 +53,14 @@ const Team = (props) => {
   return (
     <>
       <div className="col-xl-8 col-lg-7">
-        <div className="card shadow mb-4 shadow">
+        <div className="card shadow mb-4 shadow team-table">
           <div className="card-header d-flex flex-row align-items-center justify-content-between">
             <h6 className="m-0 font-weight-bold text-primary">Team</h6>
             {(user.userRole.roleId === 1 || user.userRole.roleId === 2) && (
               <button
                 className="btn mx-2 gradient-custom-2 text-white float-end m-0"
                 data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
+                data-bs-target="#addTeamMember"
                 type=""
               >
                 Add member
@@ -112,16 +112,16 @@ const Team = (props) => {
       {/* Team modal */}
       <div
         class="modal fade"
-        id="exampleModal"
+        id="addTeamMember"
         tabindex="-1"
-        aria-labelledby="exampleModalLabel"
+        aria-labelledby="addTeamMember"
         aria-hidden="true"
       >
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
-                Add New Project
+              <h5 class="modal-title" id="addTeamMember">
+                Add New Team Member
               </h5>
               <button
                 type="button"

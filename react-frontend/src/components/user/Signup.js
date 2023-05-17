@@ -25,7 +25,8 @@ const Signup = () => {
 
   useEffect(() => {
     getUserRoles().then((data) => {
-      setRoles(data);
+      let filteredRoles = data.filter((role) => role.role !== "Company Admin");
+      setRoles(filteredRoles);
     });
     getCompanies().then((data) => {
       setCompanies(data);
@@ -193,6 +194,11 @@ const Signup = () => {
                           <button type="button" className="btn btn-outline-danger">
                             <Link to="/login">Login</Link>
                           </button>
+                        </div>
+                        <div className="d-flex align-items-center justify-content-center">
+                          <p className="">
+                            <Link to="/admin-signup">Get BugLog for you'r company</Link>
+                          </p>
                         </div>
                       </form>
                     </div>

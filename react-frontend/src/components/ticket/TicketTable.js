@@ -34,8 +34,10 @@ const TicketTable = (props) => {
                 <table className="table">
                   <thead>
                     <tr>
-                      <th scope="col">Ticket Id</th>
-                      <th scope="col">Title</th>
+                      {/* <th scope="col">Ticket Id</th> */}
+                      <th colspan="2" scope="col">
+                        Title
+                      </th>
                       <th scope="col">Ticket Author</th>
                       <th scope="col">Status</th>
                       <th scope="col">Type</th>
@@ -47,8 +49,8 @@ const TicketTable = (props) => {
                       return (
                         <>
                           <tr onClick={() => navigate(`${ticket.ticketId}`)}>
-                            <td>{ticket.ticketId}</td>
-                            <td>{ticket.ticketTitle}</td>
+                            {/* <td>{ticket.ticketId}</td> */}
+                            <td colspan="2">{ticket.ticketTitle}</td>
                             <td>{ticket.createdByUserId.name}</td>
                             <td>{ticket.ticketStatus.status}</td>
                             {ticket.ticketType.type === "Task" && (

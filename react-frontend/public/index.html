@@ -21,32 +21,24 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>BugLog</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="./style.css" />
+    <link href="assets/css/css/bootstrap.min.css" media="all" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <script>
-      window.addEventListener("resize", function () {
-        if (window.innerWidth <= 1000) {
-          document.querySelector("#offcanvasScrolling").classList.add("offcanvas");
-          document.querySelector("#offcanvasScrolling").classList.add("offcanvas-start");
-        } else {
-          document.querySelector("#offcanvasScrolling").classList.remove("offcanvas");
-          document.querySelector("#offcanvasScrolling").classList.remove("offcanvas-start");
-        }
-      });
-    </script>
   </body>
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-    crossorigin="anonymous"
-  ></script>
+  <script src="./assets/js/js/bootstrap.min.js"></script>
+  <script src="./assets/js/script.js"></script>
+  <script>
+    // const winResize = () => {
+    //   if (window.innerWidth <= 700) {
+    //     document.querySelector("#offcanvasScrolling").classList.add("offcanvas");
+    //     document.querySelector("#offcanvasScrolling").classList.add("offcanvas-start");
+    //   } else {
+    //     document.querySelector("#offcanvasScrolling").classList.remove("offcanvas");
+    //     document.querySelector("#offcanvasScrolling").classList.remove("offcanvas-start");
+    //   }
+    // };
+  </script>
 </html>
