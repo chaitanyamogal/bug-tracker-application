@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 
-@SpringBootApplication
+@SpringBootApplication()
 @OpenAPIDefinition
 public class BugTrackerApisApplication {
 
@@ -27,7 +27,8 @@ public class BugTrackerApisApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry reg) {
-				reg.addMapping("/**").allowedOrigins("http://localhost:3000");
+				//reg.addMapping("/**").allowedOrigins("http://localhost:3000");
+				reg.addMapping("/**").allowedOrigins("https://buglog.tech");
 			}
 		};
 	}
